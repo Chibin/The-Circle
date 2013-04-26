@@ -1,3 +1,4 @@
 The-Circle
 ==========
-Make sure to add opengl32.lib for the linker
+Dependencies:
+http://www.libsdl.org/release/SDL-devel-1.2.15-VC.zip

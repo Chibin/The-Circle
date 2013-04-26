@@ -1,6 +1,6 @@
 #ifndef GAMEMANAGER_H_
 #define GAMEMANAGER_H_
-#include <glfw.h>
+#include <SDL.h>
 class GameManager{
 	private:
 
@@ -8,5 +8,6 @@ class GameManager{
 		GameManager();
 		void GameLoop();
 		void GameDisplay();
+		int onExecute();
 };
 #endif
