@@ -3,11 +3,18 @@
 #include <SDL.h>
 class GameManager{
 	private:
+		int gameOver;
+		int updateFrequency;
+	   	int gameState;
+		SDL_Event events;
 
 	public:
+		//variables
+		enum gameState{NORMAL,MENU,BATTLE};
+		//functions
 		GameManager();
 		void GameLoop();
 		void GameDisplay();
-		int onExecute();
+		void eventHandler(SDL_Event& event);
 };
 #endif
