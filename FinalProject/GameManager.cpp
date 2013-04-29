@@ -4,12 +4,14 @@ using namespace std;
 
 GameManager::GameManager(){
 	gameOver = 0;
+	gameState = OPENINGMENU;
 	updateFrequency = 30;
 	SDL_Init(SDL_INIT_VIDEO);	
-	if(!SDL_SetVideoMode(800,600,0,0)){
+	if(!(screen = SDL_SetVideoMode(800,600,32,SDL_DOUBLEBUF|SDL_HWSURFACE|SDL_ANYFORMAT))){
 		SDL_Quit();
 		exit(-1);
 	}
+	sManager = new SceneManager(screen,&gameOver);
 }
 
 //Game loop: stuff that runs the whole game.
@@ -34,40 +36,9 @@ void GameManager::GameLoop(){
 
 //will handle all the drawing
 void GameManager::GameDisplay(){
-	
+	sManager->sceneHandler(gameState);
 }
 
 void GameManager::eventHandler(SDL_Event& event){
-	Uint8* keystate =SDL_GetKeyState(NULL);
-	if( keystate[SDLK_UP])
-		cout << "UP" << endl;
-	if( keystate[SDLK_DOWN])
-		cout << "DOWN" << endl;
-	if( keystate[SDLK_LEFT])
-		cout << "LEFT" << endl;
-	if( keystate[SDLK_RIGHT])
-		cout << "RIGHT" << endl;
-
-	//Runs through all the queued events
-	//Note: we can create our own events
-	while(SDL_PollEvent(&event)){
-		switch(event.type){
-			case SDL_KEYDOWN:
-				switch(event.key.keysym.sym){
-					case SDLK_RETURN:
-						cout << "STOP PRESSING ENTER" << endl;
-						break;
-					case SDLK_ESCAPE:
-						gameOver = 1;
-						SDL_Quit();
-						break;
-					default:
-					break;
-				}
-				break;
-			default:
-				break;
-		}
-	}
-
+	sManager->eventHandler(event,gameState);
 }

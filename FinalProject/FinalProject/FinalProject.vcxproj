@@ -79,9 +79,18 @@
   <ItemGroup>
     <ClCompile Include="..\GameManager.cpp" />
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\BattleScene.h" />
     <ClInclude Include="..\GameManager.h" />
+    <ClInclude Include="..\NormalScene.h" />
+    <ClInclude Include="..\OpeningScene.h" />
+    <ClInclude Include="..\Scene.h" />
+    <ClInclude Include="..\SceneManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Images\start.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
