@@ -16,6 +16,9 @@
     <Filter Include="Resource Files\Images">
       <UniqueIdentifier>{01f290c0-abfc-4fe0-a650-f1077dce0102}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Fonts">
+      <UniqueIdentifier>{db964fa9-9030-4066-9df8-fd6b5c4cdd9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp">
@@ -25,6 +28,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\NormalScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OpeningScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\BattleScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -51,6 +63,12 @@
   <ItemGroup>
     <None Include="..\Images\start.bmp">
       <Filter>Resource Files\Images</Filter>
+    </None>
+    <None Include="..\Fonts\Viner Hand Itc.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </None>
+    <None Include="..\Fonts\Manga Temple.ttf">
+      <Filter>Resource Files\Fonts</Filter>
     </None>
   </ItemGroup>
 </Project>

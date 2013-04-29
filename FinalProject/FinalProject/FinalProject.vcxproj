@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Libraries\SDL-devel-1.2.15-VC\SDL-1.2.15\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Libraries\SDL-devel-1.2.15-VC\SDL-1.2.15\include;C:\Libraries\SDL_ttf-devel-2.0.11-VC\SDL_ttf-2.0.11\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -55,8 +55,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Libraries\SDL-devel-1.2.15-VC\SDL-1.2.15\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL.lib;SDLmain.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Libraries\SDL-devel-1.2.15-VC\SDL-1.2.15\lib\x86;C:\Libraries\SDL_ttf-devel-2.0.11-VC\SDL_ttf-2.0.11\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -77,8 +77,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\BattleScene.cpp" />
     <ClCompile Include="..\GameManager.cpp" />
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\NormalScene.cpp" />
+    <ClCompile Include="..\OpeningScene.cpp" />
     <ClCompile Include="..\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +93,8 @@
     <ClInclude Include="..\SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Fonts\Manga Temple.ttf" />
+    <None Include="..\Fonts\Viner Hand Itc.ttf" />
     <None Include="..\Images\start.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

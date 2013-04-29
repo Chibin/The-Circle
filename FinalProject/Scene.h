@@ -2,7 +2,7 @@
 #define SCENE_H_
 #include <iostream>
 #include <SDL.h>
-
+#include <SDL_ttf.h>
 using namespace std;
 class Scene{
 	private:
