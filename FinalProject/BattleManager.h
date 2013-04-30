@@ -13,7 +13,7 @@ static bool compareEntity_SPD(Entity* first, Entity* second){
 
 class BattleManager{
 	private:
-		enum battleSelect{FIGHT,ITEM,RUN, isFight,isItem,isRun};
+		enum battleSelect{FIGHT,ITEM,RUN, isFight,isItem,isRun,battleEnd};
 		int mobSelected;
 		Player* player;
 		std::vector<Mob*>* mobs;
@@ -42,10 +42,12 @@ class BattleManager{
 	//	SDL_Flip(screen);
 		//cout << endl;
 	}
+	//when item is selected
 	void items(){}
 	void run(){
 		cout << "RAN AWAY" << endl;
 	}
+	//redraws during display()
 	void battleUpdate(int& battleMenu, SDL_Surface* screen){
 		monsterSelect(screen,battleMenu);
 	}
@@ -62,19 +64,41 @@ class BattleManager{
 				cout << "I WANT TO RUN" << endl;
 				break;
 			case isFight:
-				startFight();
+				if(!startFight()){
+					//call EXP EVENT?
+					battleMenu = battleEnd;
+					cout << "BATTLE SHOULD END" << endl;
+				}
 				break;
 			default:
 				cout << "STOP PRESSING ENTER" << endl;
 				break;
 		}
 	}
-	void startFight(){
+	bool startFight(){
+		if(mobs->size()  == 0)
+			return false;
+		if(mobSelected > mobs->size()-1)
+			mobSelected = mobs->size()-1;
 		cout << "Calculate damage here " << endl;
 		cout << "Attacking mob Number " << mobSelected+1 << endl;
+		string mobAttacked = (*mobs)[mobSelected]->getName();
 		std::vector<Entity*>* inOrder = new std::vector<Entity*>();
 		turnOrder(inOrder);
-		cout << "IN ORDER " << inOrder->size() << endl;
+		for(int i = 0; i < inOrder->size(); i++){
+			if(player->getName() == (*inOrder)[i]->getName()){
+				cout << "Before battle, HP of mob is: " << (*mobs)[mobSelected]->getHP() << endl;
+				cout << player->getName() << " attacked " << mobAttacked << " for " << player->getATK() << " damage" << endl;
+				(*mobs)[mobSelected]->setHP((*mobs)[mobSelected]->getHP()-player->getATK());
+				cout << "After battle, HP of mob is: " << (*mobs)[mobSelected]->getHP() << endl;
+				if((*mobs)[mobSelected]->getHP() <= 0){
+					mobs->erase(mobs->begin()+mobSelected);
+					//add to exp gained this fight
+				}
+				//attack the selected mob here
+			}
+		}
+		return true;
 	}
 
 	void turnOrder(std::vector<Entity*>* inOrder){
@@ -82,20 +106,18 @@ class BattleManager{
 		for(int i = 0; i < mobs->size(); i++)
 			inOrder->push_back((Entity*)(*mobs)[i]);
 		std::sort(inOrder->begin(),inOrder->end(),compareEntity_SPD);
-		for(int i = 0; i < inOrder->size(); i++)
-			cout << (*inOrder)[i]->getName() << " " << (*inOrder)[i]->getSPD() << endl;
 	}
 
 	void moveLeft(){
 		if(mobSelected > 0)
 			mobSelected--;	 
-		cout <<"MOVING LEFT" << mobSelected << endl;
+		cout <<"MOVING LEFT" << mobSelected+1 << endl;
 	}
 
 	void moveRight(){
 		if(mobSelected < mobs->size()-1)
 			mobSelected++;
-		cout << "MOVING RIGHT" << mobSelected << endl;
+		cout << "MOVING RIGHT" << mobSelected+1 << endl;
 	}
 };
 

@@ -43,6 +43,7 @@ void BattleScene::loadMobs(){
 	bManager->loadMobs(mobs);
 }
 
+//change the gameState to transition to a different Scene
 void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 	Uint8* keystate =SDL_GetKeyState(NULL);
 	if( keystate[SDLK_UP]){
@@ -81,9 +82,13 @@ void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 						break;
 					case SDLK_RETURN:
 						bManager->battleHandler(battleMenu,screen);
+						if(battleMenu == battleEnd)
+							gameState = OPENINGMENU; //temporary
 						break;
 					case SDLK_z:
-							bManager->battleHandler(battleMenu,screen);
+						bManager->battleHandler(battleMenu,screen);
+						if(battleMenu == battleEnd)
+							gameState = OPENINGMENU; //temporary
 						break;
 					case SDLK_x:
 						if(battleMenu == isFight)
