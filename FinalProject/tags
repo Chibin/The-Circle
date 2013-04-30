@@ -1,0 +1,78 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BATTLE	.\GameManager.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:GameManager::gameState
+BATTLE	.\Scene.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:Scene::gameState
+BATTLE	.\SceneManager.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:SceneManager::gameState
+BATTLESCENE_H_	.\BattleScene.h	2;"	d
+BattleScene	.\BattleScene.cpp	/^BattleScene::BattleScene(int* _gameOver){$/;"	f	class:BattleScene
+BattleScene	.\BattleScene.h	/^class BattleScene : public Scene{$/;"	c
+GAMEMANAGER_H_	.\GameManager.h	2;"	d
+GameDisplay	.\GameManager.cpp	/^void GameManager::GameDisplay(){$/;"	f	class:GameManager
+GameLoop	.\GameManager.cpp	/^void GameManager::GameLoop(){$/;"	f	class:GameManager
+GameManager	.\GameManager.cpp	/^GameManager::GameManager(){$/;"	f	class:GameManager
+GameManager	.\GameManager.h	/^class GameManager{$/;"	c
+MENU	.\GameManager.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:GameManager::gameState
+MENU	.\Scene.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:Scene::gameState
+MENU	.\SceneManager.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:SceneManager::gameState
+NORMAL	.\GameManager.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:GameManager::gameState
+NORMAL	.\Scene.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:Scene::gameState
+NORMAL	.\SceneManager.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:SceneManager::gameState
+NORMALSCENE_H_	.\NormalScene.h	2;"	d
+NormalScene	.\NormalScene.cpp	/^NormalScene::NormalScene(int* _gameOver, SDL_Surface* _screen){$/;"	f	class:NormalScene
+NormalScene	.\NormalScene.h	/^class NormalScene : public Scene{$/;"	c
+OPENINGMENU	.\GameManager.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:GameManager::gameState
+OPENINGMENU	.\Scene.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:Scene::gameState
+OPENINGMENU	.\SceneManager.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	e	enum:SceneManager::gameState
+OPENINGSCENE_H_	.\OpeningScene.h	2;"	d
+OpeningScene	.\OpeningScene.cpp	/^OpeningScene::OpeningScene(int* _gameOver,SDL_Surface* screen){$/;"	f	class:OpeningScene
+OpeningScene	.\OpeningScene.h	/^class OpeningScene: public Scene{$/;"	c
+SCENEMANAGER_H_	.\SceneManager.h	2;"	d
+SCENE_H_	.\Scene.h	2;"	d
+Scene	.\Scene.h	/^		Scene(){}$/;"	f	class:Scene
+Scene	.\Scene.h	/^class Scene{$/;"	c
+SceneManager	.\SceneManager.cpp	/^SceneManager::SceneManager(SDL_Surface* _screen,int* _gameOver){$/;"	f	class:SceneManager
+SceneManager	.\SceneManager.h	/^class SceneManager{$/;"	c
+battle	.\SceneManager.h	/^		BattleScene* battle;$/;"	m	class:SceneManager
+display	.\BattleScene.cpp	/^void BattleScene::display(SDL_Surface* screen){$/;"	f	class:BattleScene
+display	.\NormalScene.cpp	/^void NormalScene::display(SDL_Surface* screen){$/;"	f	class:NormalScene
+display	.\OpeningScene.cpp	/^void OpeningScene::display(SDL_Surface* screen){$/;"	f	class:OpeningScene
+eventHandler	.\BattleScene.cpp	/^void BattleScene::eventHandler(SDL_Event& event, int& gameState){$/;"	f	class:BattleScene
+eventHandler	.\GameManager.cpp	/^void GameManager::eventHandler(SDL_Event& event){$/;"	f	class:GameManager
+eventHandler	.\NormalScene.cpp	/^void NormalScene::eventHandler(SDL_Event& event, int& gameState){$/;"	f	class:NormalScene
+eventHandler	.\OpeningScene.cpp	/^void OpeningScene::eventHandler(SDL_Event& event, int& gameState){$/;"	f	class:OpeningScene
+eventHandler	.\SceneManager.cpp	/^void SceneManager::eventHandler(SDL_Event& event,int& gameState){$/;"	f	class:SceneManager
+events	.\GameManager.h	/^		SDL_Event events;$/;"	m	class:GameManager
+fightLoc	.\BattleScene.h	/^		SDL_Rect fightLoc, runLoc;$/;"	m	class:BattleScene
+fightVal	.\BattleScene.h	/^		int fightVal, runVal;$/;"	m	class:BattleScene
+font	.\BattleScene.h	/^		TTF_Font* font;$/;"	m	class:BattleScene
+gameOver	.\GameManager.h	/^		int gameOver;$/;"	m	class:GameManager
+gameOver	.\Scene.h	/^		int* gameOver;$/;"	m	class:Scene
+gameOver	.\SceneManager.h	/^		int* gameOver;$/;"	m	class:SceneManager
+gameState	.\GameManager.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	g	class:GameManager
+gameState	.\GameManager.h	/^	   	int gameState;$/;"	m	class:GameManager
+gameState	.\Scene.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	g	class:Scene
+gameState	.\SceneManager.h	/^		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};$/;"	g	class:SceneManager
+main	.\main.cpp	/^int main(int argc, char *argv[]){$/;"	f
+normal	.\SceneManager.h	/^		NormalScene* normal;$/;"	m	class:SceneManager
+opening	.\SceneManager.h	/^		OpeningScene* opening;$/;"	m	class:SceneManager
+quit	.\OpeningScene.h	/^		SDL_Surface *start[2], *quit[2];$/;"	m	class:OpeningScene
+quitRect	.\OpeningScene.h	/^		SDL_Rect startRect, quitRect;$/;"	m	class:OpeningScene
+quitValue	.\OpeningScene.h	/^		int startValue, quitValue;$/;"	m	class:OpeningScene
+runLoc	.\BattleScene.h	/^		SDL_Rect fightLoc, runLoc;$/;"	m	class:BattleScene
+runVal	.\BattleScene.h	/^		int fightVal, runVal;$/;"	m	class:BattleScene
+sManager	.\GameManager.h	/^		SceneManager* sManager;$/;"	m	class:GameManager
+sceneHandler	.\SceneManager.cpp	/^void SceneManager::sceneHandler(int gameState){$/;"	f	class:SceneManager
+screen	.\GameManager.h	/^		SDL_Surface* screen;$/;"	m	class:GameManager
+screen	.\Scene.h	/^		SDL_Surface* screen;$/;"	m	class:Scene
+screen	.\SceneManager.h	/^		SDL_Surface* screen;$/;"	m	class:SceneManager
+start	.\OpeningScene.h	/^		SDL_Surface *start[2], *quit[2];$/;"	m	class:OpeningScene
+startRect	.\OpeningScene.h	/^		SDL_Rect startRect, quitRect;$/;"	m	class:OpeningScene
+startValue	.\OpeningScene.h	/^		int startValue, quitValue;$/;"	m	class:OpeningScene
+textFight	.\BattleScene.h	/^		SDL_Surface* textFight[2],* textRun[2];$/;"	m	class:BattleScene
+textRun	.\BattleScene.h	/^		SDL_Surface* textFight[2],* textRun[2];$/;"	m	class:BattleScene
+updateFrequency	.\GameManager.h	/^		int updateFrequency;$/;"	m	class:GameManager
+~BattleScene	.\BattleScene.cpp	/^BattleScene::~BattleScene(){$/;"	f	class:BattleScene

@@ -1,39 +1,69 @@
+#include <sstream>
 #include "BattleScene.h"
-BattleScene::BattleScene(int* _gameOver){
+BattleScene::BattleScene(int* _gameOver,SDL_Surface* _screen){
 	TTF_Init();
+	screen = _screen;
 	gameOver = _gameOver;
+	battleMenu = FIGHT;
 	fightVal = 0; runVal = 1;
 	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",45);
 	SDL_Color fgColor = {0,0,0};
 	SDL_Color bgColor = {255,255,255};
-	textFight[0] = TTF_RenderText_Shaded(font, "Fight",fgColor,bgColor);
-	textRun[0] = TTF_RenderText_Shaded(font, " Run ",fgColor,bgColor);
+	textFight[0] = TTF_RenderText_Blended(font, "Fight",bgColor);
+	string test = "test";
+	std::ostringstream oss;
+	//a way to add integers for the text
+	oss << test << 4;
+	textRun[0] = TTF_RenderText_Shaded(font,oss.str().c_str(),fgColor,bgColor);
 	bgColor.r = bgColor.g = bgColor.b = 150;
 	textFight[1] = TTF_RenderText_Shaded(font, "Fight",fgColor,bgColor);
 	textRun[1] = TTF_RenderText_Shaded(font, " Run ",fgColor,bgColor);
-	fightLoc.x = fightLoc.y = 0;
+	fightLoc.x = 0; fightLoc.y = 450;
 	runLoc.x = 0;
-	runLoc.y = 54;
-	
+	runLoc.y = 550;
+	player = new Player(); //just added this to test the battle sequence
+	bManager = new BattleManager(player);
+	loadMobs();
+}
+
+void BattleScene::loadMobs(){
+	std::vector<Mob*>* mobs;
+	mobs = new std::vector<Mob*>();
+	Mob* temp = new Mob();
+	temp->setName("Mob1");
+	temp->setSPD(5);
+	Mob* temp2 = new Mob();
+	temp2->setName("Mob2");
+	Mob* temp3 = new Mob();
+	temp2->setSPD(7);
+	mobs->push_back(temp);
+	temp3->setName("Mob3");
+	mobs->push_back(temp2);
+	mobs->push_back(temp3);
+	bManager->loadMobs(mobs);
 }
 
 void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 	Uint8* keystate =SDL_GetKeyState(NULL);
 	if( keystate[SDLK_UP]){
 		cout << "UP" << endl;
-		runVal = 1;
-		fightVal = 0;
+		if(battleMenu == isFight)
+			cout << " I FIGHT" << endl;
+		else
+			battleMenu = FIGHT;
 	}
 	if( keystate[SDLK_DOWN]){
-		runVal = 0;
-		fightVal = 1;
+		if(battleMenu == isFight)
+			cout << " I FIGHT" << endl;
+		else
+			battleMenu = RUN;
 		cout << "DOWN" << endl;
 	}
 	if( keystate[SDLK_LEFT]){
-		cout << "LEFT" << endl;
+			//cout << "LEFT" << endl;
 	}
 	if( keystate[SDLK_RIGHT]){
-		cout << "RIGHT" << endl;
+		//cout << "RIGHT" << endl;
 	}
 	//Runs through all the queued events
 	//Note: we can create our own events
@@ -41,8 +71,23 @@ void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 		switch(event.type){
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym){
+					case SDLK_LEFT:
+						if(battleMenu == isFight)
+							bManager->moveLeft();
+						break;
+					case SDLK_RIGHT:
+						if(battleMenu == isFight)
+							bManager->moveRight();
+						break;
 					case SDLK_RETURN:
-						cout << "STOP PRESSING ENTER" << endl;
+						bManager->battleHandler(battleMenu,screen);
+						break;
+					case SDLK_z:
+							bManager->battleHandler(battleMenu,screen);
+						break;
+					case SDLK_x:
+						if(battleMenu == isFight)
+							battleMenu = FIGHT;
 						break;
 					case SDLK_ESCAPE:
 						*gameOver = 1;
@@ -59,6 +104,21 @@ void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 
 void BattleScene::display(SDL_Surface* screen){
 	SDL_FillRect(screen,NULL,0x554455);
+	if(battleMenu == isFight)
+		bManager->battleUpdate(battleMenu,screen);
+	fightVal = runVal = 1;
+	switch(battleMenu){
+		case FIGHT:
+			fightVal = 0;
+			break;
+		case ITEM:
+			break;
+		case RUN:
+			runVal = 0;
+			break;
+		default:
+			break;
+	}
 	SDL_BlitSurface(textFight[fightVal],NULL,screen,&fightLoc);
 	SDL_BlitSurface(textRun[runVal],NULL,screen,&runLoc);
 	SDL_Flip(screen);
