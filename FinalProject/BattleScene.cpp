@@ -45,27 +45,6 @@ void BattleScene::loadMobs(){
 
 //change the gameState to transition to a different Scene
 void BattleScene::eventHandler(SDL_Event& event, int& gameState){
-	Uint8* keystate =SDL_GetKeyState(NULL);
-	if( keystate[SDLK_UP]){
-		cout << "UP" << endl;
-		if(battleMenu == isFight)
-			cout << " I FIGHT" << endl;
-		else
-			battleMenu = FIGHT;
-	}
-	if( keystate[SDLK_DOWN]){
-		if(battleMenu == isFight)
-			cout << " I FIGHT" << endl;
-		else
-			battleMenu = RUN;
-		cout << "DOWN" << endl;
-	}
-	if( keystate[SDLK_LEFT]){
-			//cout << "LEFT" << endl;
-	}
-	if( keystate[SDLK_RIGHT]){
-		//cout << "RIGHT" << endl;
-	}
 	//Runs through all the queued events
 	//Note: we can create our own events
 	while(SDL_PollEvent(&event)){
@@ -84,11 +63,17 @@ void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 						bManager->battleHandler(battleMenu,screen);
 						if(battleMenu == battleEnd)
 							gameState = OPENINGMENU; //temporary
+						else if(battleMenu == battlePhase)
+							bManager->battlePhaseUpdate(battleMenu,screen);
 						break;
 					case SDLK_z:
 						bManager->battleHandler(battleMenu,screen);
-						if(battleMenu == battleEnd)
+						if(battleMenu == battleEnd){
 							gameState = OPENINGMENU; //temporary
+							battleMenu = isFight;
+						}
+						else if(battleMenu == battlePhase)
+							bManager->battlePhaseUpdate(battleMenu,screen);
 						break;
 					case SDLK_x:
 						if(battleMenu == isFight)
@@ -109,8 +94,11 @@ void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 
 void BattleScene::display(SDL_Surface* screen){
 	SDL_FillRect(screen,NULL,0x554455);
-	if(battleMenu == isFight)
+	if(battleMenu == isFight || battleMenu == battlePhase)
 		bManager->battleUpdate(battleMenu,screen);
+	if(battleMenu == battlePhase){
+		bManager->battlePhaseLoop(battleMenu,screen);	
+	}
 	fightVal = runVal = 1;
 	switch(battleMenu){
 		case FIGHT:

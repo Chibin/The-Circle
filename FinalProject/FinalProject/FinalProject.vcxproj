@@ -85,7 +85,9 @@
     <ClCompile Include="..\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\BattleManager.h" />
     <ClInclude Include="..\BattleScene.h" />
+    <ClInclude Include="..\Entity.h" />
     <ClInclude Include="..\GameManager.h" />
     <ClInclude Include="..\NormalScene.h" />
     <ClInclude Include="..\OpeningScene.h" />

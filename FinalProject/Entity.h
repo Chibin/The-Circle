@@ -38,7 +38,7 @@ class Mob : public Entity{
 	public:
 		Mob(){
 			setHP(20);
-			setATK(2);
+			setATK(1);
 			setDEF(1);
 			setSPD(9);
 			setMATK(1);
