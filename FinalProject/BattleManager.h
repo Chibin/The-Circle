@@ -126,6 +126,10 @@ class BattleManager{
 						temp = TTF_RenderText_Blended(font,gameover.str().c_str(),fgColor);
 						battleText.push_back(temp);
 						playerDead = true;
+						//remove player;
+						for(int i = 0; i < inOrder->size();i++)
+							if(player == (*inOrder)[i])
+								inOrder->erase(inOrder->begin()+i);
 						break;
 						//battleLost 
 						//teleport back to rest point, change Player Position.
@@ -138,8 +142,6 @@ class BattleManager{
 				return false;
 			if(mobSelected > mobs->size()-1)
 				mobSelected = mobs->size()-1;
-			cout << "Calculate damage here " << endl;
-			cout << "Attacking mob Number " << mobSelected+1 << endl;
 			string mobAttacked = (*mobs)[mobSelected]->getName();
 			std::vector<Entity*>* inOrder = new std::vector<Entity*>();
 			turnOrder(inOrder);
@@ -167,15 +169,14 @@ class BattleManager{
 					player->setHP(10);
 					playerDead = false;
 				}
-				else
-					battleMenu = FIGHT;
+				battleMenu = FIGHT;
 				bpLoopCheck = 0;
 				battleText.clear();
 			}
 		}
 		void turnOrder(std::vector<Entity*>* inOrder){
 			inOrder->push_back((Entity*)player);
-			cout << bpLoopCheck << endl;
+			//cout << bpLoopCheck << endl;
 			for(int i = 0; i < mobs->size(); i++)
 				inOrder->push_back((Entity*)(*mobs)[i]);
 			std::sort(inOrder->begin(),inOrder->end(),compareEntity_SPD);

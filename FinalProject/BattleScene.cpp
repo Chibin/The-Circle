@@ -51,6 +51,14 @@ void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 		switch(event.type){
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym){
+					case SDLK_UP:
+						if(battleMenu == RUN)
+							battleMenu = FIGHT;
+						break;
+					case SDLK_DOWN:
+						if(battleMenu == FIGHT)
+							battleMenu = RUN;
+						break;
 					case SDLK_LEFT:
 						if(battleMenu == isFight)
 							bManager->moveLeft();
@@ -70,7 +78,6 @@ void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 						bManager->battleHandler(battleMenu,screen);
 						if(battleMenu == battleEnd){
 							gameState = OPENINGMENU; //temporary
-							battleMenu = isFight;
 						}
 						else if(battleMenu == battlePhase)
 							bManager->battlePhaseUpdate(battleMenu,screen);
