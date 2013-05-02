@@ -7,7 +7,7 @@ GameManager::GameManager(){
 	gameState = OPENINGMENU;
 	updateFrequency = 30;
 	TTF_Init();
-	SDL_Init(SDL_INIT_VIDEO);	
+	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_AUDIO);	
 	if(!(screen = SDL_SetVideoMode(800,600,32,SDL_DOUBLEBUF|SDL_HWSURFACE|SDL_ANYFORMAT))){
 		SDL_Quit();
 		exit(-1);
