@@ -3,6 +3,15 @@ OpeningScene::OpeningScene(int* _gameOver,SDL_Surface* screen){
 	gameOver = _gameOver;
 	startValue = 0;
 	quitValue = 1;
+	bg = SDL_LoadBMP("../Images/bg1.bmp");
+	bgRectSrc.h = 600;
+	bgRectSrc.w = 800;
+	bgRectSrc.x = 0;
+	bgRectSrc.y = 0;
+	bgRectDest.h = 600;
+	bgRectDest.w = 800;
+	bgRectDest.x = 0;
+	bgRectDest.y = 0;
 	start[0] = SDL_LoadBMP("../Images/start.bmp");
 	start[1] = SDL_LoadBMP("../Images/start1.bmp");
 	startRect.x = 0;
@@ -13,6 +22,7 @@ OpeningScene::OpeningScene(int* _gameOver,SDL_Surface* screen){
 	quitRect.y = 50;	
 	SDL_BlitSurface(start[startValue],NULL,screen,&startRect);
 	SDL_BlitSurface(quit[quitValue],NULL,screen,&quitRect);
+	SDL_BlitSurface(bg,&bgRectSrc,screen, &bgRectDest);
 	SDL_Flip(screen);
 }
 
@@ -54,7 +64,9 @@ void OpeningScene::eventHandler(SDL_Event& event, int& gameState){
 }
 
 void OpeningScene::display(SDL_Surface* screen){
-	SDL_FillRect(screen,NULL,0x221122);
+	//std::cout << "test" << std::endl;
+	//SDL_FillRect(screen,NULL,0x221122);
+	SDL_BlitSurface(bg,&bgRectSrc,screen, &bgRectDest);
 	SDL_BlitSurface(start[startValue],NULL,screen,&startRect);
 	SDL_BlitSurface(quit[quitValue],NULL,screen,&quitRect);
 	SDL_Flip(screen);

@@ -7,6 +7,7 @@ class GameManager{
 		int gameOver;
 		int updateFrequency;
 	   	int gameState;
+		float winHeight, winWidth;
 		SDL_Event events;
 		SDL_Surface* screen;
 		SceneManager* sManager;
