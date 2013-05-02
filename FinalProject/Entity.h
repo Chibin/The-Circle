@@ -44,16 +44,16 @@ class Mob : public Entity{
 			setMATK(1);
 			Name = "The Game";
 			TTF_Font* font;
-			SDL_Color fgColor = {255,255,255};
-			SDL_Color fgColor1 = {255,255,0};
+			SDL_Color fgColor = {255,255,0};
+			SDL_Color fgColor1 = {255,255,255};
 			font = TTF_OpenFont("../Fonts/Manga Temple.ttf",25);
 			enemyText[0] = TTF_RenderText_Blended(font,getName().c_str(),fgColor);
 			enemyText[1] = TTF_RenderText_Blended(font,getName().c_str(),fgColor1);
 		}
 		void setName(string _Name){
 			Name = _Name;
-			SDL_Color fgColor = {255,255,255};
-			SDL_Color fgColor1 = {255,255,0};
+			SDL_Color fgColor = {255,255,0};
+			SDL_Color fgColor1 = {255,255,255};
 			font = TTF_OpenFont("../Fonts/Manga Temple.ttf",25);
 			SDL_FreeSurface(enemyText[0]);
 			SDL_FreeSurface(enemyText[1]);
@@ -74,8 +74,8 @@ class Player: public Entity{
 		SDL_Surface* playerText[2];
 	public:
 		Player(){
-			//HP, ATK, DEF, SPD, MATK
-			setStats(10,10,10,10,10);
+				//HP, ATK, DEF, SPD, MATK
+			setStats(10,10,10,7,10);
 			Name = "Player";
 			SDL_Color fgColor = {255,255,255};
 			SDL_Color fgColor1 = {255,255,0};

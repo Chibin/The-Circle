@@ -7,10 +7,10 @@
 class BattleScene : public Scene{
 	private:
 		TTF_Font* font;
-		SDL_Surface* textFight[2],* textRun[2],* screen;
-		SDL_Rect fightLoc, runLoc;
-		int fightVal, runVal;
-		enum battleSelect{FIGHT,ITEM,RUN, isFight,isItem,isRun, battleEnd,battlePhase};
+		SDL_Surface* textFight[2],* textRun[2],* textItem[2],* textDefend[2],* textMagic[2],* screen;
+		SDL_Rect fightLoc, runLoc, itemLoc, magicLoc;
+		int fightVal, runVal,itemVal,magicVal;
+		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isItem,isRun, battleEnd,battlePhase,endPhase};
 		BattleManager* bManager;
 		Player* player;
 		int battleMenu;

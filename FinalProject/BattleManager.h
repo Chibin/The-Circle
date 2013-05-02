@@ -5,6 +5,8 @@
 #include <vector>
 #include <SDL_ttf.h>
 #include <sstream>
+#include <stdlib.h>
+#include <cmath>
 static bool compare_SPD(Mob* first, Mob* second){
 	return (first->getSPD() > second->getSPD());
 }
@@ -14,13 +16,14 @@ static bool compareEntity_SPD(Entity* first, Entity* second){
 
 class BattleManager{
 	private:
-		enum battleSelect{FIGHT,ITEM,RUN, isFight,isItem,isRun, battleEnd,battlePhase};
+		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isItem,isRun, battleEnd,battlePhase,endPhase};
 		int mobSelected;
 		int bpLoopCheck;
 		Player* player;
 		bool playerDead;
 		TTF_Font* font;
 		std::vector<SDL_Surface*> battleText;
+		std::vector<SDL_Surface*> endBattleText;
 		std::vector<Mob*>* mobs;
 	public:
 		BattleManager(Player* _player){
@@ -47,8 +50,52 @@ class BattleManager{
 		}
 		//when item is selected
 		void displayItems(){}
-		void run(){
-			cout << "RAN AWAY" << endl;
+
+		void endPhaseLoop(int& battleMenu, SDL_Surface* screen){
+			SDL_Rect bText;
+			bText.x = 50;
+			bText.y = 400;
+			if(bpLoopCheck < endBattleText.size())
+				SDL_BlitSurface(endBattleText[bpLoopCheck],NULL,screen,&bText);
+			else{
+				cout << "I GET HERE" << endl;
+				for(int i = 0; i < endBattleText.size(); i++)
+					SDL_FreeSurface(endBattleText[i]);
+				battleMenu = battleEnd;
+				endBattleText.clear();
+			}
+		}
+		void run(int& battleMenu, SDL_Surface* screen){
+			int fasterMonsters = 1;
+			SDL_Surface* temp;
+			SDL_Color fgColor = {255,255,255};
+			font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
+			for(int i = 0; i < mobs->size();i++){
+				if(player->getSPD() < (*mobs)[i]->getSPD())
+					fasterMonsters++;
+			}
+			if(fasterMonsters == 0){
+				temp = TTF_RenderText_Blended(font,"Player got away!",fgColor);
+				endBattleText.push_back(temp);
+				battleMenu = endPhase;
+			}
+			else{
+				double chanceToRun = (1.0/(double)fasterMonsters)*100;
+				double runAway = rand()%100+1;
+				if(runAway <= chanceToRun){
+					temp = TTF_RenderText_Blended(font,"Player got away!",fgColor);
+					endBattleText.push_back(temp);
+					battleMenu = endPhase;
+				}
+				else{
+					fgColor.g = 100; fgColor.b = 0;
+					temp = TTF_RenderText_Blended(font,"Player is flanked!",fgColor);
+					battleText.push_back(temp);
+					battleMenu = battlePhase;
+					//commence attack of mob here
+				}
+			}
+			bpLoopCheck = -1;
 		}
 		//redraws during display()
 		void battleUpdate(int& battleMenu, SDL_Surface* screen){
@@ -57,24 +104,31 @@ class BattleManager{
 		void battleHandler(int& battleMenu,SDL_Surface* screen){
 			switch(battleMenu){
 				case FIGHT:
-					cout << "I WANT TO FIGHT" << endl;
 					battleMenu = isFight;
 					monsterSelect(screen, battleMenu);
 					break;
+				case MAGIC:
+					cout << "NO ABILITIES LEARNED" << endl;
+					break;
 				case ITEM:
+					cout << "ITEMS WHERE R U" << endl;
 					break;
 				case RUN:
-					cout << "I WANT TO RUN" << endl;
+						run(battleMenu,screen);
 					break;
 				case isFight:
 					if(!startFight(battleMenu,screen)){
 						//call EXP EVENT?
-						battleMenu = battleEnd;
+						battleMenu = battlePhase;
 						cout << "BATTLE SHOULD END" << endl;
 					}
 					break;
 				case battlePhase:
 					battlePhaseLoop(battleMenu,screen);
+					break;
+				case endPhase:
+					endPhaseLoop(battleMenu,screen);
+					cout <<" END OF BATTLE" << endl;
 					break;
 				default:
 					cout << "STOP PRESSING ENTER" << endl;
@@ -84,7 +138,8 @@ class BattleManager{
 		void battleLog(std::vector<Entity*>* inOrder, string mobAttacked){
 			SDL_Surface* temp;
 			font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
-			SDL_Color fgColor = {255,255,255};
+			SDL_Color fgColor = {255,200,0};
+			SDL_Color deadColor = {255,50,0};
 			for(int i = 0; i < inOrder->size(); i++){
 				std::ostringstream oss;
 				if(player->getName() == (*inOrder)[i]->getName()){
@@ -98,7 +153,7 @@ class BattleManager{
 					if((*mobs)[mobSelected]->getHP() <= 0){
 						std::ostringstream dead;
 						dead << (*mobs)[mobSelected]->getName() << " has been slain.";
-						temp = TTF_RenderText_Blended(font,dead.str().c_str(),fgColor);
+						temp = TTF_RenderText_Blended(font,dead.str().c_str(),deadColor);
 						battleText.push_back(temp);
 						//removes from the inOrder vector
 						for(int i = 0; i < inOrder->size();i++)
@@ -120,13 +175,14 @@ class BattleManager{
 					if(player->getHP() <= 0){
 						std::ostringstream dead, gameover;
 						dead << player->getName() << " has been slain.";
-						temp = TTF_RenderText_Blended(font,dead.str().c_str(),fgColor);
+						temp = TTF_RenderText_Blended(font,dead.str().c_str(),deadColor);
 						battleText.push_back(temp);
-						gameover << "GAME OVER!! ";
-						temp = TTF_RenderText_Blended(font,gameover.str().c_str(),fgColor);
+						gameover << "GAME OVER!!";
+						temp = TTF_RenderText_Blended(font,gameover.str().c_str(),deadColor);
 						battleText.push_back(temp);
 						playerDead = true;
-						//remove player;
+						//remove player: Implemented this way so
+						//if there are more than 1 player, they can still fight
 						for(int i = 0; i < inOrder->size();i++)
 							if(player == (*inOrder)[i])
 								inOrder->erase(inOrder->begin()+i);
@@ -163,20 +219,20 @@ class BattleManager{
 			else{
 				for(int i = 0; i < battleText.size(); i++)
 					SDL_FreeSurface(battleText[i]);
+				battleMenu = FIGHT;
 				if(playerDead){
 					battleMenu = battleEnd;
 					cout << "Revived with 10 HP" << endl;
 					player->setHP(10);
 					playerDead = false;
+					battleMenu = endPhase;
 				}
-				battleMenu = FIGHT;
 				bpLoopCheck = 0;
 				battleText.clear();
 			}
 		}
 		void turnOrder(std::vector<Entity*>* inOrder){
 			inOrder->push_back((Entity*)player);
-			//cout << bpLoopCheck << endl;
 			for(int i = 0; i < mobs->size(); i++)
 				inOrder->push_back((Entity*)(*mobs)[i]);
 			std::sort(inOrder->begin(),inOrder->end(),compareEntity_SPD);
