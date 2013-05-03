@@ -4,7 +4,7 @@
 class Entity{
 	protected:
 		struct status{
-			int HP, ATK, DEF, SPD, MATK;
+			int HP, MP, ATK, DEF, SPD, MATK, MAXHP, MAXMP;
 		};
 		status stats;
 		string Name;
@@ -12,12 +12,14 @@ class Entity{
 	public:
 		Entity(){}
 		void setHP(int _HP){ stats.HP = _HP;}
+		void setMP(int _MP){stats.MP = _MP;}
 		void setATK(int _ATK){ stats.ATK = _ATK;}
 		void setDEF(int _DEF){ stats.DEF = _DEF;}
 		void setSPD(int _SPD){ stats.SPD = _SPD;}
 		void setMATK(int _MATK){ stats.MATK = _MATK;}
-		void setStats(int _HP, int _ATK, int _DEF, int _SPD, int _MATK){
+		void setStats(int _HP, int _MP, int _ATK, int _DEF, int _SPD, int _MATK){
 			stats.HP = _HP;
+			stats.MP = _MP;
 			stats.ATK = _ATK;
 			stats.DEF = _DEF;
 			stats.SPD = _SPD;
@@ -28,6 +30,7 @@ class Entity{
 		int getHP(){return stats.HP;}
 		int getATK(){return stats.ATK;}
 		int getSPD(){return stats.SPD;}
+		int getMP(){return stats.MP;}
 		status getStats(){return stats;}
 };
 
@@ -74,8 +77,8 @@ class Player: public Entity{
 		SDL_Surface* playerText[2];
 	public:
 		Player(){
-				//HP, ATK, DEF, SPD, MATK
-			setStats(10,10,10,7,10);
+				//HP, MP, ATK, DEF, SPD, MATK
+			setStats(10,10,10,10,7,10);
 			Name = "Player";
 			SDL_Color fgColor = {255,255,255};
 			SDL_Color fgColor1 = {255,255,0};

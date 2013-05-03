@@ -9,6 +9,9 @@ BattleScene::BattleScene(SDL_Surface* _screen){
 	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",40);
 	SDL_Color fgColor = {255,255,0};
 	SDL_Color bgColor = {255,255,255};
+	bgBattleMenu = SDL_LoadBMP("../Images/Battle menu.bmp");
+	//takes out white pixles from the BMP
+	SDL_SetColorKey(bgBattleMenu, SDL_SRCCOLORKEY, SDL_MapRGB(bgBattleMenu->format, 255, 255, 255) );
 	textFight[0] = TTF_RenderText_Blended(font, "Fight",fgColor);
 	textRun[0] = TTF_RenderText_Blended(font,"Run",fgColor);
 	textItem[0] = TTF_RenderText_Blended(font,"Item",fgColor);
@@ -17,10 +20,11 @@ BattleScene::BattleScene(SDL_Surface* _screen){
 	textRun[1] = TTF_RenderText_Blended(font, "Run",bgColor);
 	textItem[1] = TTF_RenderText_Blended(font,"Item",bgColor);
 	textMagic[1] = TTF_RenderText_Blended(font,"Magic",bgColor);
-	fightLoc.x = 10; fightLoc.y = 500;
-	magicLoc.x = 10; magicLoc.y = 550;
-	itemLoc.x = 150; itemLoc.y = 500;
-	runLoc.x = 150; runLoc.y = 550;
+	bgBattleMenuLoc.x = 10; bgBattleMenuLoc.y = 473; //473 = height(600) - 117(height of picture) + 10
+	fightLoc.x = 25; fightLoc.y = 485;
+	magicLoc.x = 25; magicLoc.y = 535;
+	itemLoc.x = 165; itemLoc.y = 485;
+	runLoc.x = 165; runLoc.y = 535;
 	player = new Player(); //just added this to test the battle sequence
 	bManager = new BattleManager(player);
 	loadMobs();
@@ -81,8 +85,15 @@ void BattleScene::eventHandler(SDL_Event& event){
 						break;
 					case SDLK_RETURN:
 						bManager->battleHandler(battleMenu,screen);
+<<<<<<< HEAD
 						if(battleMenu == battleEnd)
 							GameManager::getInstance().setGameState(GameManager::OPENINGMENU); //temporary
+=======
+						if(battleMenu == battleEnd){
+							battleMenu = FIGHT;	
+							gameState = OPENINGMENU; //temporary
+						}
+>>>>>>> origin/Chibin's
 						else if(battleMenu == battlePhase)
 							bManager->battlePhaseUpdate(battleMenu,screen);
 						break;
@@ -141,6 +152,7 @@ void BattleScene::display(SDL_Surface* screen){
 		default:
 			break;
 	}
+	SDL_BlitSurface(bgBattleMenu,NULL,screen,&bgBattleMenuLoc);
 	SDL_BlitSurface(textFight[fightVal],NULL,screen,&fightLoc);
 	SDL_BlitSurface(textMagic[magicVal],NULL,screen,&magicLoc);
 	SDL_BlitSurface(textItem[itemVal],NULL,screen,&itemLoc);

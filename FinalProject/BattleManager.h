@@ -17,6 +17,7 @@ static bool compareEntity_SPD(Entity* first, Entity* second){
 class BattleManager{
 	private:
 		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isItem,isRun, battleEnd,battlePhase,endPhase};
+		enum battleCondition{MUTAL,PREEMPTIVE,FLANKED};
 		int mobSelected;
 		int bpLoopCheck;
 		Player* player;
@@ -93,6 +94,8 @@ class BattleManager{
 					battleText.push_back(temp);
 					battleMenu = battlePhase;
 					//commence attack of mob here
+					startFight(battleMenu,screen,FLANKED);
+
 				}
 			}
 			bpLoopCheck = -1;
@@ -114,12 +117,12 @@ class BattleManager{
 					cout << "ITEMS WHERE R U" << endl;
 					break;
 				case RUN:
-						run(battleMenu,screen);
+					run(battleMenu,screen);
 					break;
 				case isFight:
-					if(!startFight(battleMenu,screen)){
+					if(!startFight(battleMenu,screen,MUTAL)){
 						//call EXP EVENT?
-						battleMenu = battlePhase;
+						battleMenu = endPhase;
 						cout << "BATTLE SHOULD END" << endl;
 					}
 					break;
@@ -130,12 +133,14 @@ class BattleManager{
 					endPhaseLoop(battleMenu,screen);
 					cout <<" END OF BATTLE" << endl;
 					break;
+				case battleEnd:
+					break;
 				default:
 					cout << "STOP PRESSING ENTER" << endl;
 					break;
 			}
 		}
-		void battleLog(std::vector<Entity*>* inOrder, string mobAttacked){
+		void battleLog(std::vector<Entity*>* inOrder, string mobAttacked, enum battleCondition condition){
 			SDL_Surface* temp;
 			font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
 			SDL_Color fgColor = {255,200,0};
@@ -143,57 +148,61 @@ class BattleManager{
 			for(int i = 0; i < inOrder->size(); i++){
 				std::ostringstream oss;
 				if(player->getName() == (*inOrder)[i]->getName()){
-					//Attacking selected mob
-					//cout << "Before battle, HP of mob is: " << (*mobs)[mobSelected]->getHP() << endl;
-					oss << player->getName() << " attacked " << mobAttacked << " for " << player->getATK() << " damage!";
-					temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
-					battleText.push_back(temp);
-					(*mobs)[mobSelected]->setHP((*mobs)[mobSelected]->getHP()-player->getATK());
-					//cout << "After battle, HP of mob is: " << (*mobs)[mobSelected]->getHP() << endl;
-					if((*mobs)[mobSelected]->getHP() <= 0){
-						std::ostringstream dead;
-						dead << (*mobs)[mobSelected]->getName() << " has been slain.";
-						temp = TTF_RenderText_Blended(font,dead.str().c_str(),deadColor);
+					if(condition != FLANKED){
+						//Attacking selected mob
+						oss << player->getName() << " attacked " << mobAttacked << " for " << player->getATK() << " damage!";
+						temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
 						battleText.push_back(temp);
-						//removes from the inOrder vector
-						for(int i = 0; i < inOrder->size();i++)
-							if((*mobs)[mobSelected] == (*inOrder)[i])
-								inOrder->erase(inOrder->begin()+i);
-						mobs->erase(mobs->begin()+mobSelected);
-						//add to exp gained this fight
+						(*mobs)[mobSelected]->setHP((*mobs)[mobSelected]->getHP()-player->getATK());
+						if((*mobs)[mobSelected]->getHP() <= 0){
+							std::ostringstream dead;
+							dead << (*mobs)[mobSelected]->getName() << " has been slain.";
+							temp = TTF_RenderText_Blended(font,dead.str().c_str(),deadColor);
+							battleText.push_back(temp);
+							for(int i = 0; i < inOrder->size();i++)
+								if((*mobs)[mobSelected] == (*inOrder)[i])
+									inOrder->erase(inOrder->begin()+i);
+							mobs->erase(mobs->begin()+mobSelected);
+							//add to exp gained this fight
+						}
 					}
 				}
 				else{
 					//Mob attacks selected player
 					//Make an AI, may be...?
-					//cout << "Current HP of Player: " << player->getHP() << endl;
-					oss << (*inOrder)[i]->getName() << " attacks Player with " << (*inOrder)[i]->getATK() << " damage!";
-					temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
-					battleText.push_back(temp);
-					player->setHP(player->getHP()-(*inOrder)[i]->getATK());
-					//cout << "After Battle HP: " << player->getHP() << endl;
-					if(player->getHP() <= 0){
-						std::ostringstream dead, gameover;
-						dead << player->getName() << " has been slain.";
-						temp = TTF_RenderText_Blended(font,dead.str().c_str(),deadColor);
+					//checks if player has a free attack
+					if(condition != PREEMPTIVE){
+						oss << (*inOrder)[i]->getName() << " attacks Player with " << (*inOrder)[i]->getATK() << " damage!";
+						temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
 						battleText.push_back(temp);
-						gameover << "GAME OVER!!";
-						temp = TTF_RenderText_Blended(font,gameover.str().c_str(),deadColor);
-						battleText.push_back(temp);
-						playerDead = true;
-						//remove player: Implemented this way so
-						//if there are more than 1 player, they can still fight
-						for(int i = 0; i < inOrder->size();i++)
-							if(player == (*inOrder)[i])
-								inOrder->erase(inOrder->begin()+i);
-						break;
-						//battleLost 
-						//teleport back to rest point, change Player Position.
+						player->setHP(player->getHP()-(*inOrder)[i]->getATK());
+						if(player->getHP() <= 0){
+							std::ostringstream dead, gameover;
+							dead << player->getName() << " has been slain.";
+							temp = TTF_RenderText_Blended(font,dead.str().c_str(),deadColor);
+							battleText.push_back(temp);
+							gameover << "GAME OVER!!";
+							temp = TTF_RenderText_Blended(font,gameover.str().c_str(),deadColor);
+							battleText.push_back(temp);
+							playerDead = true;
+							//remove player: Implemented this way so
+							//if there are more than 1 player, they can still fight
+							for(int i = 0; i < inOrder->size();i++)
+								if(player == (*inOrder)[i])
+									inOrder->erase(inOrder->begin()+i);
+							break;
+							//battleLost 
+							//teleport back to rest point, aka change Player Position.
+						}
 					}
 				}
 			}
+			if(mobs->size() == 0){
+				temp = TTF_RenderText_Blended(font,"YOU WON!!!", fgColor);
+				endBattleText.push_back(temp);
+			}
 		}
-		bool startFight(int& battleMenu, SDL_Surface* screen){
+		bool startFight(int& battleMenu, SDL_Surface* screen,enum battleCondition condition){
 			if(mobs->size()  == 0)
 				return false;
 			if(mobSelected > mobs->size()-1)
@@ -201,9 +210,12 @@ class BattleManager{
 			string mobAttacked = (*mobs)[mobSelected]->getName();
 			std::vector<Entity*>* inOrder = new std::vector<Entity*>();
 			turnOrder(inOrder);
-			battleLog(inOrder,mobAttacked);
-			bpLoopCheck = 0;
-			battleMenu = battlePhase;
+			battleLog(inOrder,mobAttacked,condition);
+			if(mobs->size() == 0)
+				battleMenu = endPhase;
+			 else
+				battleMenu = battlePhase;
+
 			bpLoopCheck = -1;
 			return true;
 		}

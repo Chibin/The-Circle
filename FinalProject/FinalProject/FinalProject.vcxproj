@@ -97,7 +97,11 @@
   <ItemGroup>
     <None Include="..\Fonts\Manga Temple.ttf" />
     <None Include="..\Fonts\Viner Hand Itc.ttf" />
+<<<<<<< HEAD
     <None Include="..\Images\bg1.bmp" />
+=======
+    <None Include="..\Images\Battle menu.bmp" />
+>>>>>>> origin/Chibin's
     <None Include="..\Images\Quit.bmp" />
     <None Include="..\Images\Quit1.bmp" />
     <None Include="..\Images\start.bmp" />
