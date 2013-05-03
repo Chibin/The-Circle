@@ -7,7 +7,7 @@ class OpeningScene: public Scene{
 		SDL_Rect startRect, quitRect, bgRectSrc, bgRectDest;
 		int startValue, quitValue;
 	public:
-		OpeningScene(int* _gameOver,SDL_Surface* screen);
+		OpeningScene(SDL_Surface* screen);
 		void eventHandler(SDL_Event& event, int& gameState);
 		void display(SDL_Surface* screen);
 };

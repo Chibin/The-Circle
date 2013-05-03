@@ -3,23 +3,23 @@
 #include "SceneManager.h"
 using namespace std;
 
-GameManager GameManager::getInstance(){
+GameManager& GameManager::getInstance(){
 	static GameManager instance;
 	return instance;
 }
 GameManager::GameManager(){
-	gameOver = 0;
+	gameOver = false;
 	gameState = OPENINGMENU;
 	updateFrequency = 30;
 	winHeight = 600;
 	winWidth = 800;
 	//TTF_Init();
-	SDL_Init(SDL_INIT_VIDEO);	
+	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER);	
 	if(!(screen = SDL_SetVideoMode(winWidth,winHeight,32,SDL_DOUBLEBUF|SDL_HWSURFACE|SDL_ANYFORMAT))){
 		SDL_Quit();
 		exit(-1);
 	}
-	sManager = new SceneManager(screen,&gameOver);
+	sManager = new SceneManager(screen);
 }
 
 //Game loop: stuff that runs the whole game.
@@ -57,4 +57,8 @@ float GameManager::getWindowHeight(){
 
 float GameManager::getWindowWidth(){
 	return winWidth;
+}
+
+void GameManager::setGameOver(int state){
+	gameOver = state;
 }

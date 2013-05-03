@@ -5,7 +5,7 @@
 class SceneManager;
 class GameManager{
 	private:
-		int gameOver;
+		bool gameOver;
 		int updateFrequency;
 	   	int gameState;
 		float winHeight, winWidth;
@@ -14,17 +14,18 @@ class GameManager{
 		SceneManager* sManager;
 		GameManager();
 		//disable copy constructors
-		//GameManager(GameManager const& copy);
-		//GameManager& operator = (GameManager const& copy);
+		GameManager(GameManager const& copy);
+		GameManager& operator = (GameManager const& copy);
 	public:
 		//variables
 		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};
 		//functions
-		static GameManager getInstance();
+		static GameManager& getInstance();
 		void GameLoop();
 		void GameDisplay();
 		void eventHandler(SDL_Event& event);
 		float getWindowHeight();
 		float getWindowWidth();
+		void setGameOver(int);
 		};
 #endif

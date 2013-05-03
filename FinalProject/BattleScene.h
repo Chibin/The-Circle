@@ -15,7 +15,7 @@ class BattleScene : public Scene{
 		Player* player;
 		int battleMenu;
 	public:
-		BattleScene(int* gameOver, SDL_Surface* screen);
+		BattleScene(SDL_Surface* screen);
 		void eventHandler(SDL_Event& event, int& gameState);
 		void display(SDL_Surface* screen);
 		~BattleScene();

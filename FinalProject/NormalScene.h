@@ -4,7 +4,7 @@
 class NormalScene : public Scene{
 	private:
 	public:
-		NormalScene(int* _gameOver, SDL_Surface* _screen);
+		NormalScene(SDL_Surface* _screen);
 		void eventHandler(SDL_Event& event, int& gameState);
 		void display(SDL_Surface* screen);
 };

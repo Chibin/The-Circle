@@ -1,11 +1,10 @@
 #include "SceneManager.h"
 
-SceneManager::SceneManager(SDL_Surface* _screen,int* _gameOver){
+SceneManager::SceneManager(SDL_Surface* _screen){
 	screen = _screen;
-	gameOver = _gameOver;
-	opening = new OpeningScene(gameOver, screen);
-	normal = new NormalScene(gameOver, screen);
-	battle = new BattleScene(gameOver, screen);
+	opening = new OpeningScene(screen);
+	normal = new NormalScene(screen);
+	battle = new BattleScene(screen);
 }
 
 void SceneManager::eventHandler(SDL_Event& event,int& gameState){
