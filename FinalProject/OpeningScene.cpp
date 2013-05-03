@@ -9,15 +9,15 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	count = 1;
 
 	//Loads NewGame Button
-	newGame[1] =  SDL_LoadBMP("../Images/newGame.bmp");
-	newGame[0] =  SDL_LoadBMP("../Images/newGame1.bmp");
+	newGame[1] =  SDL_LoadBMP("../Images/opening/newGame.bmp");
+	newGame[0] =  SDL_LoadBMP("../Images/opening/newGame1.bmp");
 	SDL_SetColorKey(newGame[0], SDL_SRCCOLORKEY, SDL_MapRGB(newGame[0]->format, 255, 255, 255) );
 	SDL_SetColorKey(newGame[1], SDL_SRCCOLORKEY, SDL_MapRGB(newGame[1]->format, 255, 255, 255) );
 	newGameRect.x = (Sint16)(game->getWindowWidth()/2) - (newGame[0]->w)/2;
 	newGameRect.y = (Sint16)(game->getWindowHeight()/2- (newGame[0]->h)/2) - newGame[0]->h;
 		
 	//Loads Background
-	bg = SDL_LoadBMP("../Images/bg2.bmp");
+	bg = SDL_LoadBMP("../Images/opening/bg2.bmp");
 	bgRectSrc.x = 0;
 	bgRectSrc.y = 0;
 	bgRectSrc.h = 600;
@@ -28,8 +28,8 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	bgRectDest.w = (Sint16)game->getWindowWidth();
 
 	//Loads the load button
-	load[1] = SDL_LoadBMP("../Images/load.bmp");
-	load[0] = SDL_LoadBMP("../Images/load1.bmp");
+	load[1] = SDL_LoadBMP("../Images/opening/load.bmp");
+	load[0] = SDL_LoadBMP("../Images/opening/load1.bmp");
 	SDL_SetColorKey(load[0], SDL_SRCCOLORKEY, SDL_MapRGB(load[0]->format, 255, 255, 255) );
 	SDL_SetColorKey(load[1], SDL_SRCCOLORKEY, SDL_MapRGB(load[1]->format, 255, 255, 255) );
 	loadRect.x = (Sint16)(game->getWindowWidth()/2) - (load[0]->w)/2;
@@ -41,8 +41,8 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	//startRect.y = game->getWindowHeight()/2;
 
 	//Loads quit button
-	quit[1] = SDL_LoadBMP("../Images/quit.bmp");
-	quit[0] = SDL_LoadBMP("../Images/quit1.bmp");
+	quit[1] = SDL_LoadBMP("../Images/opening/quit.bmp");
+	quit[0] = SDL_LoadBMP("../Images/opening/quit1.bmp");
 	SDL_SetColorKey(quit[0], SDL_SRCCOLORKEY, SDL_MapRGB(quit[0]->format, 255, 255, 255) );
 	SDL_SetColorKey(quit[1], SDL_SRCCOLORKEY, SDL_MapRGB(quit[1]->format, 255, 255, 255) );
 	quitRect.x = (Sint16)(game->getWindowWidth()/2) - (quit[0]->w)/2;
