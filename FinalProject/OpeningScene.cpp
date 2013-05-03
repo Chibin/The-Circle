@@ -17,7 +17,7 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	newGameRect.y = (game->getWindowHeight()/2- (newGame[0]->h)/2) - newGame[0]->h;
 
 	//Loads Background
-	bg = SDL_LoadBMP("../Images/bg1.bmp");
+	bg = SDL_LoadBMP("../Images/bg2.bmp");
 	bgRectSrc.x = 0;
 	bgRectSrc.y = 0;
 	bgRectSrc.h = 600;
