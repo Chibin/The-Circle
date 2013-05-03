@@ -97,7 +97,11 @@
   <ItemGroup>
     <None Include="..\Fonts\Manga Temple.ttf" />
     <None Include="..\Fonts\Viner Hand Itc.ttf" />
+    <None Include="..\Images\Battle menu.bmp" />
+    <None Include="..\Images\Quit.bmp" />
+    <None Include="..\Images\Quit1.bmp" />
     <None Include="..\Images\start.bmp" />
+    <None Include="..\Images\start1.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
