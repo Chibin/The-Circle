@@ -15,7 +15,7 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	SDL_SetColorKey(newGame[1], SDL_SRCCOLORKEY, SDL_MapRGB(newGame[1]->format, 255, 255, 255) );
 	newGameRect.x = (game->getWindowWidth()/2) - (newGame[0]->w)/2;
 	newGameRect.y = (game->getWindowHeight()/2- (newGame[0]->h)/2) - newGame[0]->h;
-
+		
 	//Loads Background
 	bg = SDL_LoadBMP("../Images/bg2.bmp");
 	bgRectSrc.x = 0;
@@ -49,7 +49,7 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	quitRect.y = (game->getWindowHeight()/2- (quit[0]->h)/2) + quit[0]->h;	
 
 
-
+	//loads it on screen
 	SDL_BlitSurface(load[loadValue], NULL, screen, &loadRect);
 	SDL_BlitSurface(newGame[newValue], NULL, screen, &newGameRect);
 	//SDL_BlitSurface(start[startValue],NULL,screen,&startRect);
@@ -64,7 +64,7 @@ void OpeningScene::eventHandler(SDL_Event& event){
 	//Note: we can create our own events
 	while(SDL_PollEvent(&event)){
 		switch(event.type){
-		case SDL_KEYUP:
+		case SDL_KEYDOWN:
 			//case SDL_KEYDOWN:
 			switch(event.key.keysym.sym){
 			case SDLK_UP:
