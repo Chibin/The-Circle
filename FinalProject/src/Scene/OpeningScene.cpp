@@ -76,10 +76,26 @@ void OpeningScene::eventHandler(SDL_Event& event){
 				//std::cout << "count: " << count << std::endl;
 				break;
 			case SDLK_RETURN:	
+<<<<<<< HEAD
+=======
+				//std::cout << "enter was pressed" << std::endl;
+>>>>>>> origin/Chibin's
 				if(newValue == 0)
 					GameManager::getInstance().setGameState(GameManager::NORMAL);//BATTLE);
 				else if(loadValue == 0)
 					GameManager::getInstance().setGameState(GameManager::BATTLE);
+<<<<<<< HEAD
+=======
+				else if(!quitValue)
+					GameManager::getInstance().setGameOver(true);
+				break;
+				case SDLK_z:	
+				//std::cout << "enter was pressed" << std::endl;
+				if(newValue == 0)
+					GameManager::getInstance().setGameState(GameManager::NORMAL);//BATTLE);
+				else if(loadValue == 0)
+					GameManager::getInstance().setGameState(GameManager::BATTLE);
+>>>>>>> origin/Chibin's
 				else if(!quitValue)
 					GameManager::getInstance().setGameOver(true);
 				break;
