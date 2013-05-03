@@ -2,10 +2,12 @@
 #define SCENEMANAGER_H_
 #include <iostream>
 #include <SDL.h>
+#include <SDL_image.h>
 #include "OpeningScene.h"
 #include "NormalScene.h"
 #include "BattleScene.h"
 #include "GameManager.h"
+
 using namespace std;
 
 
