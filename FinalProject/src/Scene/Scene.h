@@ -4,11 +4,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 using namespace std;
-<<<<<<< HEAD:FinalProject/Scene.h
-#include "GameManager.h"
-=======
 #include "../Manager/GameManager.h"
->>>>>>> origin/master:FinalProject/src/Scene/Scene.h
 class Scene{
 	private:
 		
