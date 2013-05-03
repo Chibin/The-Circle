@@ -11,12 +11,13 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	bgRectDest.x = 0;
 	bgRectDest.y = 0;
 	//std::cout << GameManager::getInstance().getWindowHeight() << std:: endl;
-	//bgRectDest.h = GameManager::singleton.getWindowHeight();
-	//bgRectDest.w = GameManager::singleton.getWindowWidth();
-	start[0] = SDL_LoadBMP("../Images/start.bmp");
+	bgRectDest.h = game->getWindowHeight();
+	bgRectDest.w = game->getWindowWidth();
+	
+	start[0] = SDL_LoadBMP("../Images/starta1.bmp");
 	start[1] = SDL_LoadBMP("../Images/start1.bmp");
-	startRect.x = 0;
-	startRect.y = 0;
+	startRect.x = game->getWindowWidth()/2;
+	startRect.y = game->getWindowHeight()/2;
 	quit[0] = SDL_LoadBMP("../Images/quit.bmp");
 	quit[1] = SDL_LoadBMP("../Images/quit1.bmp");
 	quitRect.x = 0;
