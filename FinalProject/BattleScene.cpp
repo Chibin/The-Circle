@@ -1,9 +1,8 @@
 #include <sstream>
 #include "BattleScene.h"
-BattleScene::BattleScene(int* _gameOver,SDL_Surface* _screen){
+BattleScene::BattleScene(SDL_Surface* _screen){
 	TTF_Init();
 	screen = _screen;
-	gameOver = _gameOver;
 	battleMenu = FIGHT;
 	fightVal = 0; runVal = 1;
 	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",40);
