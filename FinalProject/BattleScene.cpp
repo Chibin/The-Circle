@@ -85,15 +85,10 @@ void BattleScene::eventHandler(SDL_Event& event){
 						break;
 					case SDLK_RETURN:
 						bManager->battleHandler(battleMenu,screen);
-<<<<<<< HEAD
-						if(battleMenu == battleEnd)
-							GameManager::getInstance().setGameState(GameManager::OPENINGMENU); //temporary
-=======
 						if(battleMenu == battleEnd){
+							GameManager::getInstance().setGameState(GameManager::OPENINGMENU); //temporary
 							battleMenu = FIGHT;	
-							gameState = OPENINGMENU; //temporary
 						}
->>>>>>> origin/Chibin's
 						else if(battleMenu == battlePhase)
 							bManager->battlePhaseUpdate(battleMenu,screen);
 						break;
