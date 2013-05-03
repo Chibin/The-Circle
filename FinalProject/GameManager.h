@@ -12,12 +12,15 @@ class GameManager{
 		SDL_Event events;
 		SDL_Surface* screen;
 		SceneManager* sManager;
+		GameManager();
+		//disable copy constructors
+		//GameManager(GameManager const& copy);
+		//GameManager& operator = (GameManager const& copy);
 	public:
 		//variables
-		static GameManager singleton;
 		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};
 		//functions
-		GameManager();
+		static GameManager getInstance();
 		void GameLoop();
 		void GameDisplay();
 		void eventHandler(SDL_Event& event);

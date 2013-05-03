@@ -1,22 +1,21 @@
 #include <iostream>
 #include "GameManager.h"
+#include "SceneManager.h"
 using namespace std;
 
+GameManager GameManager::getInstance(){
+	static GameManager instance;
+	return instance;
+}
 GameManager::GameManager(){
-	winHeight = 600;
-	winWidth = 800;
 	gameOver = 0;
 	gameState = OPENINGMENU;
 	updateFrequency = 30;
-<<<<<<< HEAD
+	winHeight = 600;
+	winWidth = 800;
 	//TTF_Init();
 	SDL_Init(SDL_INIT_VIDEO);	
-	if(!(screen = SDL_SetVideoMode(800,600,32,SDL_DOUBLEBUF|SDL_HWSURFACE|SDL_ANYFORMAT))){
-=======
-	TTF_Init();
-	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_AUDIO);	
 	if(!(screen = SDL_SetVideoMode(winWidth,winHeight,32,SDL_DOUBLEBUF|SDL_HWSURFACE|SDL_ANYFORMAT))){
->>>>>>> 216df9e85ec2e59f9055568ab9824a0b17625288
 		SDL_Quit();
 		exit(-1);
 	}
@@ -52,3 +51,10 @@ void GameManager::eventHandler(SDL_Event& event){
 	sManager->eventHandler(event,gameState);
 }
 
+float GameManager::getWindowHeight(){
+	return winHeight;
+}
+
+float GameManager::getWindowWidth(){
+	return winWidth;
+}
