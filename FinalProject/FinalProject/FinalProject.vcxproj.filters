@@ -76,5 +76,17 @@
     <None Include="..\Fonts\Manga Temple.ttf">
       <Filter>Resource Files\Fonts</Filter>
     </None>
+    <None Include="..\Images\Quit.bmp">
+      <Filter>Resource Files\Images</Filter>
+    </None>
+    <None Include="..\Images\Quit1.bmp">
+      <Filter>Resource Files\Images</Filter>
+    </None>
+    <None Include="..\Images\start1.bmp">
+      <Filter>Resource Files\Images</Filter>
+    </None>
+    <None Include="..\Images\bg1.bmp">
+      <Filter>Resource Files\Images</Filter>
+    </None>
   </ItemGroup>
 </Project>

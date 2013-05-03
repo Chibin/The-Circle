@@ -3,8 +3,8 @@
 #include "Scene.h"
 class OpeningScene: public Scene{
 	private:
-		SDL_Surface *start[2], *quit[2];
-		SDL_Rect startRect, quitRect;
+		SDL_Surface *start[2], *quit[2], *bg;
+		SDL_Rect startRect, quitRect, bgRectSrc, bgRectDest;
 		int startValue, quitValue;
 	public:
 		OpeningScene(int* _gameOver,SDL_Surface* screen);

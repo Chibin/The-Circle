@@ -4,7 +4,8 @@
 using namespace std;
 
 int main(int argc, char *argv[]){
-	GameManager singleton;
-	singleton.GameLoop();
+	//start the static version of game manager
+	GameManager::getInstance().GameLoop();
+	//singleton.GameLoop();
 	return 0;
 }

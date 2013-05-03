@@ -5,6 +5,7 @@
 #include "OpeningScene.h"
 #include "NormalScene.h"
 #include "BattleScene.h"
+#include "GameManager.h"
 using namespace std;
 
 
