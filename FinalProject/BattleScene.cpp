@@ -1,5 +1,6 @@
 #include <sstream>
 #include "BattleScene.h"
+#include "GameManager.h"
 BattleScene::BattleScene(SDL_Surface* _screen){
 	TTF_Init();
 	screen = _screen;
@@ -43,7 +44,7 @@ void BattleScene::loadMobs(){
 }
 
 //change the gameState to transition to a different Scene
-void BattleScene::eventHandler(SDL_Event& event, int& gameState){
+void BattleScene::eventHandler(SDL_Event& event){
 	//Runs through all the queued events
 	//Note: we can create our own events
 	while(SDL_PollEvent(&event)){
@@ -81,7 +82,7 @@ void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 					case SDLK_RETURN:
 						bManager->battleHandler(battleMenu,screen);
 						if(battleMenu == battleEnd)
-							gameState = OPENINGMENU; //temporary
+							GameManager::getInstance().setGameState(GameManager::OPENINGMENU); //temporary
 						else if(battleMenu == battlePhase)
 							bManager->battlePhaseUpdate(battleMenu,screen);
 						break;
@@ -89,7 +90,7 @@ void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 						bManager->battleHandler(battleMenu,screen);
 						if(battleMenu == battleEnd){
 							battleMenu = FIGHT;
-							gameState = OPENINGMENU; //temporary
+							GameManager::getInstance().setGameState(GameManager::OPENINGMENU); //temporary
 						}
 						else if(battleMenu == battlePhase)
 							bManager->battlePhaseUpdate(battleMenu,screen);
@@ -101,7 +102,7 @@ void BattleScene::eventHandler(SDL_Event& event, int& gameState){
 							battleMenu = FIGHT;
 						break;
 					case SDLK_ESCAPE:
-						*gameOver = 1;
+						GameManager::getInstance().setGameOver(true);
 						break;
 					default:
 						break;

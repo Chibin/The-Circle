@@ -7,37 +7,37 @@ SceneManager::SceneManager(SDL_Surface* _screen){
 	battle = new BattleScene(screen);
 }
 
-void SceneManager::eventHandler(SDL_Event& event,int& gameState){
-	switch(gameState){
-		case OPENINGMENU:
-			opening->eventHandler(event, gameState);
-			break;
-		case NORMAL:
-			normal->eventHandler(event, gameState);
-			break;
-		case BATTLE:
-			battle->eventHandler(event, gameState);
-			break;
-		default:
-			cerr << "ERROR" << endl;
-			break;
+void SceneManager::eventHandler(SDL_Event& event){
+	switch(GameManager::getInstance().getGameState()){
+	case GameManager::OPENINGMENU:
+		opening->eventHandler(event);
+		break;
+	case GameManager::NORMAL:
+		normal->eventHandler(event);
+		break;
+	case GameManager::BATTLE:
+		battle->eventHandler(event);
+		break;
+	default:
+		cerr << "ERROR" << endl;
+		break;
 	}	
 }
 
-void SceneManager::sceneHandler(int gameState){
+void SceneManager::sceneHandler(GameManager::GameState gameState){
 	switch(gameState){
-		case OPENINGMENU:
-			opening->display(screen);
-			break;
-		case NORMAL:
-			normal->display(screen);
-			break;
-		case BATTLE:
-			battle->display(screen);
-			break;
-		default:
-			cerr << "ERROR" << endl;
-			break;
+	case GameManager::OPENINGMENU:
+		opening->display(screen);
+		break;
+	case GameManager::NORMAL:
+		normal->display(screen);
+		break;
+	case GameManager::BATTLE:
+		battle->display(screen);
+		break;
+	default:
+		cerr << "ERROR" << endl;
+		break;
 	}
 }
 

@@ -11,15 +11,14 @@ using namespace std;
 
 class SceneManager{
 	private:
-		int* gameOver;
 		SDL_Surface* screen;
 		OpeningScene* opening;
 		NormalScene* normal;
 		BattleScene* battle;
 	public:
-		enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};
+		//enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};
 		SceneManager(SDL_Surface* _screen);			
-		void eventHandler(SDL_Event& event,int& gameState);
-		void sceneHandler(int gameState);
+		void eventHandler(SDL_Event& event);
+		void sceneHandler(GameManager::GameState gameState);
 };
 #endif

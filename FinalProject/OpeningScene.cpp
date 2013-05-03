@@ -1,7 +1,6 @@
 #include "OpeningScene.h"
 #include "SceneManager.h"
 OpeningScene::OpeningScene(SDL_Surface* screen){
-	//gameOver = _gameOver;
 	startValue = 0;
 	quitValue = 1;
 	bg = SDL_LoadBMP("../Images/bg1.bmp");
@@ -28,7 +27,7 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	SDL_Flip(screen);
 }
 
-void OpeningScene::eventHandler(SDL_Event& event, int& gameState){
+void OpeningScene::eventHandler(SDL_Event& event){
 	Uint8* keystate =SDL_GetKeyState(NULL);
 	if( keystate[SDLK_UP]){
 		startValue = 0;
@@ -49,14 +48,12 @@ void OpeningScene::eventHandler(SDL_Event& event, int& gameState){
 					case SDLK_RETURN:
 						std::cout << "enter was pressed" << std::endl;
 						if(startValue == 0)
-							gameState = BATTLE;
+							GameManager::getInstance().setGameState(GameManager::BATTLE);
 						else if(!quitValue)
 							GameManager::getInstance().setGameOver(true);
-							//*gameOver = 1;
 						break;
 					case SDLK_ESCAPE:
 						GameManager::getInstance().setGameOver(true);
-						//*gameOver = 1;
 						break;
 					default:
 						break;

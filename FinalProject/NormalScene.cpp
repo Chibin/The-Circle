@@ -3,7 +3,7 @@
 NormalScene::NormalScene(SDL_Surface* _screen){
 	screen = _screen;
 }
-void NormalScene::eventHandler(SDL_Event& event, int& gameState){
+void NormalScene::eventHandler(SDL_Event& event){
 	Uint8* keystate =SDL_GetKeyState(NULL);
 	if( keystate[SDLK_UP]){
 		cout << "UP" << endl;
@@ -28,7 +28,6 @@ void NormalScene::eventHandler(SDL_Event& event, int& gameState){
 				break;
 			case SDLK_ESCAPE:
 				GameManager::getInstance().setGameOver(true);
-				//*gameOver = 1;
 				break;
 			default:
 				break;

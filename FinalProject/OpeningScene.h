@@ -8,7 +8,8 @@ class OpeningScene: public Scene{
 		int startValue, quitValue;
 	public:
 		OpeningScene(SDL_Surface* screen);
-		void eventHandler(SDL_Event& event, int& gameState);
+		void eventHandler(SDL_Event& event);
+		//void eventHandler(SDL_Event& event, int& gameState);
 		void display(SDL_Surface* screen);
 };
 #endif

@@ -22,6 +22,7 @@ GameManager::GameManager(){
 	sManager = new SceneManager(screen);
 }
 
+
 //Game loop: stuff that runs the whole game.
 void GameManager::GameLoop(){
 	int timeLast = 0, timeCurrent = 0, timeDelta = 0, timeAccumulated = 0;
@@ -48,9 +49,12 @@ void GameManager::GameDisplay(){
 }
 
 void GameManager::eventHandler(SDL_Event& event){
-	sManager->eventHandler(event,gameState);
+	sManager->eventHandler(event);
 }
 
+/*************************
+Getters
+**************************/
 float GameManager::getWindowHeight(){
 	return winHeight;
 }
@@ -59,6 +63,17 @@ float GameManager::getWindowWidth(){
 	return winWidth;
 }
 
+GameManager::GameState GameManager::getGameState(){
+	return gameState;
+}
+/*************************
+Setters
+**************************/
 void GameManager::setGameOver(int state){
 	gameOver = state;
 }
+
+void GameManager::setGameState(GameState state){
+	gameState = state;
+}
+

@@ -16,7 +16,7 @@ class BattleScene : public Scene{
 		int battleMenu;
 	public:
 		BattleScene(SDL_Surface* screen);
-		void eventHandler(SDL_Event& event, int& gameState);
+		void eventHandler(SDL_Event& event);
 		void display(SDL_Surface* screen);
 		~BattleScene();
 		void loadMobs();
