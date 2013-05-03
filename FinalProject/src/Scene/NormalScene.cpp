@@ -1,5 +1,5 @@
 #include "NormalScene.h"
-#include "GameManager.h"
+#include "../Manager/GameManager.h"
 NormalScene::NormalScene(SDL_Surface* _screen){
 	screen = _screen;
 }

@@ -1,12 +1,15 @@
 #ifndef BATTLEHANDLER_H_
 #define BATTLEHANDLER_H_
-#include "Entity.h"
+#include "../Entity/Entity.h"
 #include <algorithm>
 #include <vector>
 #include <SDL_ttf.h>
 #include <sstream>
 #include <stdlib.h>
 #include <cmath>
+#include "../Entity/Mob.h"
+#include "../Entity/Player.h"
+
 static bool compare_SPD(Mob* first, Mob* second){
 	return (first->getSPD() > second->getSPD());
 }

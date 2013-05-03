@@ -51,12 +51,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Adrian\Documents\GitHub\The-Circle\FinalProject\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Juan\Documents\GitHub\The-Circle\FinalProject\includes;C:\Users\Adrian\Documents\GitHub\The-Circle\FinalProject\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Libraries\SDL-devel-1.2.15-VC\SDL-1.2.15\lib\x86;C:\Libraries\SDL_ttf-devel-2.0.11-VC\SDL_ttf-2.0.11\lib\x86;C:\Users\Adrian\Documents\GitHub\The-Circle\FinalProject\libs;C:\Users\Maru\Documents\GitHub\The-Circle\FinalProject\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Juan\Documents\GitHub\The-Circle\FinalProject\libs;C:\Libraries\SDL-devel-1.2.15-VC\SDL-1.2.15\lib\x86;C:\Libraries\SDL_ttf-devel-2.0.11-VC\SDL_ttf-2.0.11\lib\x86;C:\Users\Adrian\Documents\GitHub\The-Circle\FinalProject\libs;C:\Users\Maru\Documents\GitHub\The-Circle\FinalProject\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL.lib;SDLmain.lib;SDL_ttf.lib;SDL_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -78,25 +79,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\BattleHandler.cpp" />
-    <ClCompile Include="..\BattleScene.cpp" />
-    <ClCompile Include="..\GameManager.cpp" />
-    <ClCompile Include="..\main.cpp" />
-    <ClCompile Include="..\NormalScene.cpp" />
-    <ClCompile Include="..\OpeningScene.cpp" />
-    <ClCompile Include="..\SceneManager.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\BattleHandler.h" />
-    <ClInclude Include="..\BattleScene.h" />
-    <ClInclude Include="..\Entity.h" />
-    <ClInclude Include="..\GameManager.h" />
-    <ClInclude Include="..\NormalScene.h" />
-    <ClInclude Include="..\OpeningScene.h" />
-    <ClInclude Include="..\Scene.h" />
-    <ClInclude Include="..\SceneManager.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\Fonts\Manga Temple.ttf" />
     <None Include="..\Fonts\Viner Hand Itc.ttf" />
     <None Include="..\Images\bg1.bmp" />
@@ -105,6 +87,33 @@
     <None Include="..\Images\Quit1.bmp" />
     <None Include="..\Images\start.bmp" />
     <None Include="..\Images\start1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Battle\BattleHandler.cpp" />
+    <ClCompile Include="..\src\Entity\Entity.cpp" />
+    <ClCompile Include="..\src\Entity\Mob.cpp" />
+    <ClCompile Include="..\src\Entity\Npc.cpp" />
+    <ClCompile Include="..\src\Entity\Player.cpp" />
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Manager\GameManager.cpp" />
+    <ClCompile Include="..\src\Manager\SceneManager.cpp" />
+    <ClCompile Include="..\src\Scene\BattleScene.cpp" />
+    <ClCompile Include="..\src\Scene\NormalScene.cpp" />
+    <ClCompile Include="..\src\Scene\OpeningScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Battle\BattleHandler.h" />
+    <ClInclude Include="..\src\Entity\Entity.h" />
+    <ClInclude Include="..\src\Entity\Magic.h" />
+    <ClInclude Include="..\src\Entity\Mob.h" />
+    <ClInclude Include="..\src\Entity\Npc.h" />
+    <ClInclude Include="..\src\Entity\Player.h" />
+    <ClInclude Include="..\src\Manager\GameManager.h" />
+    <ClInclude Include="..\src\Manager\SceneManager.h" />
+    <ClInclude Include="..\src\Scene\BattleScene.h" />
+    <ClInclude Include="..\src\Scene\NormalScene.h" />
+    <ClInclude Include="..\src\Scene\OpeningScene.h" />
+    <ClInclude Include="..\src\Scene\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

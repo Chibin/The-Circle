@@ -14,7 +14,7 @@ public:
 	void eventHandler(SDL_Event& event);
 	//setters
 	void setWindowSize(float, float);
-	void setGameOver(int);
+	void setGameOver(bool);
 	void setGameState(GameState);
 	//getters
 	float getWindowHeight();

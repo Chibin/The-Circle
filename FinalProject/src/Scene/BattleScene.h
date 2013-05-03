@@ -1,8 +1,8 @@
 #ifndef BATTLESCENE_H_
 #define BATTLESCENE_H_
 #include "Scene.h"
-#include "BattleHandler.h"
-#include "Entity.h"
+#include "../Battle/BattleHandler.h"
+#include "../Entity/Entity.h"
 #include <vector>
 class BattleScene : public Scene{
 	private:
