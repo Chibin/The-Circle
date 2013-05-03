@@ -1,6 +1,6 @@
 #include <sstream>
 #include "BattleScene.h"
-#include "GameManager.h"
+#include "../Manager/GameManager.h"
 BattleScene::BattleScene(SDL_Surface* _screen){
 	TTF_Init();
 	screen = _screen;

@@ -1,4 +1,4 @@
-#include "BattleScene.h" //no idea why it breaks without this
+#include "../Scene/BattleScene.h" //no idea why it breaks without this
 #include "BattleHandler.h"
 BattleHandler::BattleHandler(Player* _player){
 	battleText.clear();

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <SDL.h>
-#include "GameManager.h"
+#include "Manager/GameManager.h"
 using namespace std;
 
 int main(int argc, char *argv[]){
