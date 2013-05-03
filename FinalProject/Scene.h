@@ -7,8 +7,9 @@ using namespace std;
 #include "GameManager.h"
 class Scene{
 	private:
-		GameManager* game;
+		
 	public:
+		GameManager* game;
 		SDL_Surface* screen;
 		Scene(){ game = &GameManager::getInstance();}
 		virtual void eventHandler(SDL_Event& event) = 0;

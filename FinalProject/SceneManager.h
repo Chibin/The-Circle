@@ -11,7 +11,7 @@ using namespace std;
 
 class SceneManager{
 	private:
-		SDL_Surface* screen;
+		SDL_Surface* screen;	
 		OpeningScene* opening;
 		NormalScene* normal;
 		BattleScene* battle;
