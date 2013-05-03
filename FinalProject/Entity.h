@@ -10,6 +10,7 @@ class Entity{
 		string Name;
 		TTF_Font* font;
 	public:
+		// need x and y coor vars for location of the image
 		Entity(){}
 		void setHP(int _HP){ stats.HP = _HP;}
 		void setMP(int _MP){stats.MP = _MP;}
@@ -90,4 +91,16 @@ class Player: public Entity{
 			return playerText;
 		}
 };
+
+class NPC : public Entity
+{
+private:
+public:
+	NPC()
+	{
+		setStats(1,1,1,1,1,1); // need to be set because it is still a Entity instance, but these will never be used.
+
+	}
+};
+
 #endif

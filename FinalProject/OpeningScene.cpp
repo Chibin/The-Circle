@@ -13,8 +13,8 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	newGame[0] =  SDL_LoadBMP("../Images/newGame1.bmp");
 	SDL_SetColorKey(newGame[0], SDL_SRCCOLORKEY, SDL_MapRGB(newGame[0]->format, 255, 255, 255) );
 	SDL_SetColorKey(newGame[1], SDL_SRCCOLORKEY, SDL_MapRGB(newGame[1]->format, 255, 255, 255) );
-	newGameRect.x = (game->getWindowWidth()/2) - (newGame[0]->w)/2;
-	newGameRect.y = (game->getWindowHeight()/2- (newGame[0]->h)/2) - newGame[0]->h;
+	newGameRect.x = (Sint16)(game->getWindowWidth()/2) - (newGame[0]->w)/2;
+	newGameRect.y = (Sint16)(game->getWindowHeight()/2- (newGame[0]->h)/2) - newGame[0]->h;
 		
 	//Loads Background
 	bg = SDL_LoadBMP("../Images/bg2.bmp");
@@ -24,16 +24,16 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	bgRectSrc.w = 800;
 	bgRectDest.x = 0;
 	bgRectDest.y = 0;
-	bgRectDest.h = game->getWindowHeight();
-	bgRectDest.w = game->getWindowWidth();
+	bgRectDest.h = (Sint16)game->getWindowHeight();
+	bgRectDest.w = (Sint16)game->getWindowWidth();
 
 	//Loads the load button
 	load[1] = SDL_LoadBMP("../Images/load.bmp");
 	load[0] = SDL_LoadBMP("../Images/load1.bmp");
 	SDL_SetColorKey(load[0], SDL_SRCCOLORKEY, SDL_MapRGB(load[0]->format, 255, 255, 255) );
 	SDL_SetColorKey(load[1], SDL_SRCCOLORKEY, SDL_MapRGB(load[1]->format, 255, 255, 255) );
-	loadRect.x = (game->getWindowWidth()/2) - (load[0]->w)/2;
-	loadRect.y = (game->getWindowHeight()/2- (load[0]->h)/2);	
+	loadRect.x = (Sint16)(game->getWindowWidth()/2) - (load[0]->w)/2;
+	loadRect.y = (Sint16)(game->getWindowHeight()/2- (load[0]->h)/2);	
 
 	//start[0] = SDL_LoadBMP("../Images/starta1.bmp");
 	//start[1] = SDL_LoadBMP("../Images/start1.bmp");
@@ -45,8 +45,8 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	quit[0] = SDL_LoadBMP("../Images/quit1.bmp");
 	SDL_SetColorKey(quit[0], SDL_SRCCOLORKEY, SDL_MapRGB(quit[0]->format, 255, 255, 255) );
 	SDL_SetColorKey(quit[1], SDL_SRCCOLORKEY, SDL_MapRGB(quit[1]->format, 255, 255, 255) );
-	quitRect.x = (game->getWindowWidth()/2) - (quit[0]->w)/2;
-	quitRect.y = (game->getWindowHeight()/2- (quit[0]->h)/2) + quit[0]->h;	
+	quitRect.x = (Sint16)(game->getWindowWidth()/2) - (quit[0]->w)/2;
+	quitRect.y = (Sint16)(game->getWindowHeight()/2- (quit[0]->h)/2) + quit[0]->h;	
 
 
 	//loads it on screen
@@ -78,7 +78,7 @@ void OpeningScene::eventHandler(SDL_Event& event){
 			case SDLK_RETURN:	
 				//std::cout << "enter was pressed" << std::endl;
 				if(startValue == 0)
-					GameManager::getInstance().setGameState(GameManager::BATTLE);
+					GameManager::getInstance().setGameState(GameManager::NORMAL);//BATTLE);
 				else if(!quitValue)
 					GameManager::getInstance().setGameOver(true);
 				break;
