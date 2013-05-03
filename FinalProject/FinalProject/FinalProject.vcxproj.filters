@@ -39,6 +39,9 @@
     <ClCompile Include="..\BattleScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\BattleHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GameManager.h">
@@ -62,7 +65,7 @@
     <ClInclude Include="..\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\BattleManager.h">
+    <ClInclude Include="..\BattleHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
