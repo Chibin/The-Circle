@@ -3,9 +3,9 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "OpeningScene.h"
-#include "NormalScene.h"
-#include "BattleScene.h"
+#include "../Scene/BattleScene.h"
+#include "../Scene/OpeningScene.h"
+#include "../Scene/NormalScene.h"
 #include "GameManager.h"
 
 using namespace std;

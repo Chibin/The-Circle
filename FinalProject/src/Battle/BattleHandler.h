@@ -1,6 +1,6 @@
 #ifndef BATTLEHANDLER_H_
 #define BATTLEHANDLER_H_
-#include "Entity.h"
+#include "../Entity/Entity.h"
 #include <algorithm>
 #include <vector>
 #include <SDL_ttf.h>

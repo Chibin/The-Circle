@@ -1,5 +1,5 @@
 #include "OpeningScene.h"
-#include "SceneManager.h"
+#include "../Manager/SceneManager.h"
 OpeningScene::OpeningScene(SDL_Surface* screen){
 	startValue = 0;
 	loadValue = 0;

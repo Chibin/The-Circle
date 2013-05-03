@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 using namespace std;
-#include "GameManager.h"
+#include "../Manager/GameManager.h"
 class Scene{
 	private:
 		
