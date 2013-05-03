@@ -7,10 +7,10 @@ using namespace std;
 #include "GameManager.h"
 class Scene{
 	private:
-		GameManager instance;
+		GameManager* game;
 	public:
 		SDL_Surface* screen;
-		Scene(){ instance = GameManager::getInstance();}
+		Scene(){ game = &GameManager::getInstance();}
 		virtual void eventHandler(SDL_Event& event) = 0;
 		virtual void display(SDL_Surface* screen) = 0;
 };
