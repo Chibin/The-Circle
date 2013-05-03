@@ -72,6 +72,7 @@ class Mob : public Entity{
 class Player: public Entity{
 	private:
 		SDL_Surface* playerText[2];
+		float x,y;
 	public:
 		Player(){
 				//HP, ATK, DEF, SPD, MATK
