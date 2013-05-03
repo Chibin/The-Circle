@@ -1,7 +1,7 @@
 #ifndef BATTLESCENE_H_
 #define BATTLESCENE_H_
 #include "Scene.h"
-#include "BattleManager.h"
+#include "BattleHandler.h"
 #include "Entity.h"
 #include <vector>
 class BattleScene : public Scene{
@@ -12,7 +12,7 @@ class BattleScene : public Scene{
 		SDL_Rect fightLoc, runLoc, itemLoc, magicLoc, bgBattleMenuLoc;
 		int fightVal, runVal,itemVal,magicVal;
 		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isItem,isRun, battleEnd,battlePhase,endPhase};
-		BattleManager* bManager;
+		BattleHandler* bManager;
 		Player* player;
 		int battleMenu;
 	public:

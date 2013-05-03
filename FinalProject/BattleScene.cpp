@@ -26,7 +26,7 @@ BattleScene::BattleScene(SDL_Surface* _screen){
 	itemLoc.x = 165; itemLoc.y = 485;
 	runLoc.x = 165; runLoc.y = 535;
 	player = new Player(); //just added this to test the battle sequence
-	bManager = new BattleManager(player);
+	bManager = new BattleHandler(player);
 	loadMobs();
 }
 
@@ -122,14 +122,7 @@ void BattleScene::eventHandler(SDL_Event& event){
 
 void BattleScene::display(SDL_Surface* screen){
 	SDL_FillRect(screen,NULL,0x554455);
-	if(battleMenu == isFight || battleMenu == battlePhase)
-		bManager->battleUpdate(battleMenu,screen);
-	if(battleMenu == battlePhase){
-		bManager->battlePhaseLoop(battleMenu,screen);	
-	}
-	if(battleMenu == endPhase){
-		bManager->endPhaseLoop(battleMenu,screen);
-	}
+		bManager->battleDisplayUpdate(battleMenu,screen);
 	fightVal = runVal = itemVal = magicVal = 1;
 	switch(battleMenu){
 		case FIGHT:
