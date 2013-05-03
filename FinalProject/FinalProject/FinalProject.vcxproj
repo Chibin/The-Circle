@@ -91,6 +91,7 @@
     <ClCompile Include="..\src\Battle\BattleHandler.cpp" />
     <ClCompile Include="..\src\Entity\Entity.cpp" />
     <ClCompile Include="..\src\Entity\Mob.cpp" />
+    <ClCompile Include="..\src\Entity\Npc.cpp" />
     <ClCompile Include="..\src\Entity\Player.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Manager\GameManager.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="..\src\Entity\Entity.h" />
     <ClInclude Include="..\src\Entity\Magic.h" />
     <ClInclude Include="..\src\Entity\Mob.h" />
+    <ClInclude Include="..\src\Entity\Npc.h" />
     <ClInclude Include="..\src\Entity\Player.h" />
     <ClInclude Include="..\src\Manager\GameManager.h" />
     <ClInclude Include="..\src\Manager\SceneManager.h" />

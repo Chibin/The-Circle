@@ -7,6 +7,9 @@
 #include <sstream>
 #include <stdlib.h>
 #include <cmath>
+#include "../Entity/Mob.h"
+#include "../Entity/Player.h"
+
 static bool compare_SPD(Mob* first, Mob* second){
 	return (first->getSPD() > second->getSPD());
 }
