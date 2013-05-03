@@ -15,7 +15,7 @@ GameManager::GameManager(){
 	winWidth = 800;
 	//TTF_Init();
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER);	
-	if(!(screen = SDL_SetVideoMode(winWidth,winHeight,32,SDL_DOUBLEBUF|SDL_HWSURFACE|SDL_ANYFORMAT))){
+	if(!(screen = SDL_SetVideoMode((int)winWidth,(int)winHeight,32,SDL_DOUBLEBUF|SDL_HWSURFACE|SDL_ANYFORMAT))){
 		SDL_Quit();
 		exit(-1);
 	}
@@ -26,7 +26,7 @@ GameManager::GameManager(){
 //Game loop: stuff that runs the whole game.
 void GameManager::GameLoop(){
 	int timeLast = 0, timeCurrent = 0, timeDelta = 0, timeAccumulated = 0;
-	int timeStep = 1000.0f/updateFrequency; //30 FPS
+	int timeStep = (int)(1000.0f/updateFrequency); //30 FPS
 	//SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY,SDL_DEFAULT_REPEAT_INTERVAL);
 	//All the calculations are in milliseconds
 	while(!gameOver){
@@ -69,7 +69,7 @@ GameManager::GameState GameManager::getGameState(){
 /*************************
 Setters
 **************************/
-void GameManager::setGameOver(int state){
+void GameManager::setGameOver(bool state){
 	gameOver = state;
 }
 

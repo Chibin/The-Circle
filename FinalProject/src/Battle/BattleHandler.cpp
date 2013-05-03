@@ -16,7 +16,7 @@ void BattleHandler::displayItems(){
 bool BattleHandler::startFight(int& battleMenu, SDL_Surface* screen,enum battleCondition condition){
 	if(mobs->size()  == 0)
 		return false;
-	if(mobSelected > mobs->size()-1)
+	if(mobSelected > (int)mobs->size()-1)
 		mobSelected = mobs->size()-1;
 	string mobAttacked = (*mobs)[mobSelected]->getName();
 	std::vector<Entity*>* inOrder = new std::vector<Entity*>();
@@ -34,7 +34,7 @@ void BattleHandler::run(int& battleMenu, SDL_Surface* screen){
 	SDL_Surface* temp;
 	SDL_Color fgColor = {255,255,255};
 	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
-	for(int i = 0; i < mobs->size();i++){
+	for(int i = 0; i < (int)mobs->size();i++){
 		if(player->getSPD() < (*mobs)[i]->getSPD())
 			fasterMonsters++;
 	}
@@ -69,7 +69,7 @@ void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked,
 	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
 	SDL_Color fgColor = {255,200,0};
 	SDL_Color deadColor = {255,50,0};
-	for(int i = 0; i < inOrder->size(); i++){
+	for(int i = 0; i < (int)inOrder->size(); i++){
 		std::ostringstream oss;
 		if(player->getName() == (*inOrder)[i]->getName()){
 			if(condition != FLANKED){
@@ -83,7 +83,7 @@ void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked,
 					dead << (*mobs)[mobSelected]->getName() << " has been slain.";
 					temp = TTF_RenderText_Blended(font,dead.str().c_str(),deadColor);
 					battleText.push_back(temp);
-					for(int i = 0; i < inOrder->size();i++)
+					for(int i = 0; i < (int)inOrder->size();i++)
 						if((*mobs)[mobSelected] == (*inOrder)[i])
 							inOrder->erase(inOrder->begin()+i);
 					mobs->erase(mobs->begin()+mobSelected);
@@ -111,7 +111,7 @@ void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked,
 					playerDead = true;
 					//remove player: Implemented this way so
 					//if there are more than 1 player, they can still fight
-					for(int i = 0; i < inOrder->size();i++)
+					for(int i = 0; i < (int)inOrder->size();i++)
 						if(player == (*inOrder)[i])
 							inOrder->erase(inOrder->begin()+i);
 					break;
@@ -146,7 +146,7 @@ void BattleHandler::monsterSelectDisplay(SDL_Surface* screen,int& battleMenu){
 	//cout << "Fighting ";
 	int x = 0, y = 0;
 	SDL_Rect* mobRect = new SDL_Rect[mobs->size()];
-	for(int i = 0; i < mobs->size(); i++){
+	for(int i = 0; i < (int)mobs->size(); i++){
 		mobRect[i].x = i*150; mobRect[i].y = 0;
 		//cout << (*mobs)[i]->getName() << " ";
 		if(mobSelected == i)
@@ -159,10 +159,10 @@ void BattleHandler::battlePhaseDisplay(int& battleMenu, SDL_Surface* screen){
 	SDL_Rect bText;
 	bText.x = 50;
 	bText.y = 400;
-	if(bpLoopCheck < battleText.size())
+	if(bpLoopCheck < (int)battleText.size())
 		SDL_BlitSurface(battleText[bpLoopCheck],NULL,screen,&bText);
 	else{
-		for(int i = 0; i < battleText.size(); i++)
+		for(int i = 0; i < (int)battleText.size(); i++)
 			SDL_FreeSurface(battleText[i]);
 		battleMenu = FIGHT;
 		if(playerDead){
@@ -180,10 +180,10 @@ void BattleHandler::endPhaseDisplay(int& battleMenu, SDL_Surface* screen){
 	SDL_Rect bText;
 	bText.x = 50;
 	bText.y = 400;
-	if(bpLoopCheck < endBattleText.size())
+	if(bpLoopCheck < (int)endBattleText.size())
 		SDL_BlitSurface(endBattleText[bpLoopCheck],NULL,screen,&bText);
 	else{
-		for(int i = 0; i < endBattleText.size(); i++)
+		for(int i = 0; i < (int)endBattleText.size(); i++)
 			SDL_FreeSurface(endBattleText[i]);
 		battleMenu = battleEnd;
 		endBattleText.clear();
@@ -193,7 +193,7 @@ void BattleHandler::endPhaseDisplay(int& battleMenu, SDL_Surface* screen){
 //Sets players and monsters in turn order for battle phase
 void BattleHandler::turnOrder(std::vector<Entity*>* inOrder){
 	inOrder->push_back((Entity*)player);
-	for(int i = 0; i < mobs->size(); i++)
+	for(int i = 0; i < (int)mobs->size(); i++)
 		inOrder->push_back((Entity*)(*mobs)[i]);
 	std::sort(inOrder->begin(),inOrder->end(),compareEntity_SPD);
 }
@@ -204,7 +204,7 @@ void BattleHandler::moveLeft(){
 		mobSelected--;	 
 }
 void BattleHandler::moveRight(){
-	if(mobSelected < mobs->size()-1)
+	if(mobSelected < (int)mobs->size()-1)
 		mobSelected++;
 }
 
