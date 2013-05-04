@@ -6,6 +6,7 @@ Tiles::Tiles(int x, int y, int tileType){
 	type = tileType;
 }
 
+// TODO: add show code to tiles
 void Tiles::show(){
 
 }

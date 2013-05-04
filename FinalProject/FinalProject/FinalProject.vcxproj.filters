@@ -116,6 +116,12 @@
     <ClCompile Include="..\src\Manager\LevelManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Entity\Tiles.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene\NewCharacter.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Scene\Scene.h">
@@ -156,6 +162,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Manager\LevelManager.h">
       <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entity\Tiles.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\NewCharacter.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
