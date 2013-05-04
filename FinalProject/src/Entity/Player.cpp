@@ -11,6 +11,8 @@ Player::Player(){
 	playerText[1] = TTF_RenderText_Blended(font,getName().c_str(),fgColor1);
 
 }
+
+
 SDL_Surface** Player::getPlayerText(){
 	return playerText;
 }

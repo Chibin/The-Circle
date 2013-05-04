@@ -17,6 +17,7 @@ class SceneManager{
 		OpeningScene* opening;
 		NormalScene* normal;
 		BattleScene* battle;
+
 	public:
 		//enum gameState{NORMAL,MENU,BATTLE,OPENINGMENU};
 		SceneManager(SDL_Surface* _screen);			
