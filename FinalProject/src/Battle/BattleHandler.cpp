@@ -141,6 +141,10 @@ void BattleHandler::battleDisplayUpdate(int& battleMenu, SDL_Surface* screen){
 	if(battleMenu == endPhase){
 		endPhaseDisplay(battleMenu,screen);
 	}
+	else if(battleMenu == battleEnd){
+		battleMenu = FIGHT;
+		GameManager::getInstance().setGameState(GameManager::OPENINGMENU); //temporary
+	}
 }
 void BattleHandler::monsterSelectDisplay(SDL_Surface* screen,int& battleMenu){
 	//cout << "Fighting ";
@@ -188,6 +192,12 @@ void BattleHandler::endPhaseDisplay(int& battleMenu, SDL_Surface* screen){
 		battleMenu = battleEnd;
 		endBattleText.clear();
 	}
+	if(bpLoopCheck == (int)endBattleText.size()){
+		for(int i = 0; i < (int)endBattleText.size(); i++)
+			SDL_FreeSurface(endBattleText[i]);
+		battleMenu = battleEnd;
+		endBattleText.clear();
+	}
 }
 
 //Sets players and monsters in turn order for battle phase
@@ -213,7 +223,6 @@ void BattleHandler::battleHandler(int& battleMenu,SDL_Surface* screen){
 	switch(battleMenu){
 		case FIGHT:
 			battleMenu = isFight;
-			//monsterSelectDisplay(screen, battleMenu);
 			break;
 		case MAGIC:
 			cout << "NO ABILITIES LEARNED" << endl;
@@ -232,10 +241,8 @@ void BattleHandler::battleHandler(int& battleMenu,SDL_Surface* screen){
 			}
 			break;
 		case battlePhase:
-			//battlePhaseDisplay(battleMenu,screen);
 			break;
 		case endPhase:
-			//endPhaseDisplay(battleMenu,screen);
 			cout <<" END OF BATTLE" << endl;
 			break;
 		case battleEnd:
