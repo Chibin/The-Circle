@@ -85,22 +85,14 @@ void BattleScene::eventHandler(SDL_Event& event){
 						break;
 					case SDLK_RETURN:
 						bManager->battleHandler(battleMenu,screen);
-						if(battleMenu == battleEnd){
-							battleMenu = FIGHT;
-							GameManager::getInstance().setGameState(GameManager::OPENINGMENU); //temporary
-						}
-						else if(battleMenu == battlePhase)
+						if(battleMenu == battlePhase)
 							bManager->battlePhaseUpdate(battleMenu,screen);
 						else if(battleMenu == endPhase)
 							bManager->battlePhaseUpdate(battleMenu,screen);
 						break;
 					case SDLK_z:
 						bManager->battleHandler(battleMenu,screen);
-						if(battleMenu == battleEnd){
-							battleMenu = FIGHT;
-							GameManager::getInstance().setGameState(GameManager::OPENINGMENU); //temporary
-						}
-						else if(battleMenu == battlePhase)
+						if(battleMenu == battlePhase)
 							bManager->battlePhaseUpdate(battleMenu,screen);
 						else if(battleMenu == endPhase)
 							bManager->battlePhaseUpdate(battleMenu,screen);
