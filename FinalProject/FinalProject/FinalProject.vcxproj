@@ -96,6 +96,7 @@
     <ClCompile Include="..\src\Entity\Player.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Manager\GameManager.cpp" />
+    <ClCompile Include="..\src\Manager\LevelManager.cpp" />
     <ClCompile Include="..\src\Manager\SceneManager.cpp" />
     <ClCompile Include="..\src\Scene\BattleScene.cpp" />
     <ClCompile Include="..\src\Scene\NormalScene.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="..\src\Entity\Npc.h" />
     <ClInclude Include="..\src\Entity\Player.h" />
     <ClInclude Include="..\src\Manager\GameManager.h" />
+    <ClInclude Include="..\src\Manager\LevelManager.h" />
     <ClInclude Include="..\src\Manager\SceneManager.h" />
     <ClInclude Include="..\src\Scene\BattleScene.h" />
     <ClInclude Include="..\src\Scene\NormalScene.h" />
