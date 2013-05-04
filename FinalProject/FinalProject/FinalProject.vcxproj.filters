@@ -113,7 +113,10 @@
     <ClCompile Include="..\src\Entity\Npc.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\FinalProject\src\Entity\Tiles.cpp">
+    <ClCompile Include="..\src\Manager\LevelManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Entity\Tiles.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
   </ItemGroup>
@@ -154,7 +157,10 @@
     <ClInclude Include="..\src\Entity\Npc.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\FinalProject\src\Entity\Tiles.h">
+    <ClInclude Include="..\src\Manager\LevelManager.h">
+      <Filter>Header Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entity\Tiles.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
   </ItemGroup>

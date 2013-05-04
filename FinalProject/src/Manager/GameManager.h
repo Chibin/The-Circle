@@ -6,7 +6,7 @@ class SceneManager;
 class GameManager{
 public:
 	//variables
-	enum GameState{NORMAL,MENU,BATTLE,OPENINGMENU};
+	enum GameState{NORMAL,MENU,BATTLE,OPENINGMENU, CHARACTERCREATION};
 	//functions
 	static GameManager& getInstance();
 	void GameLoop();

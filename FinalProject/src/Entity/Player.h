@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Entity.h"
+#include "Player.h"
+#include "Tiles.h"
 
 class Player: public Entity{
 	private:
@@ -16,11 +18,12 @@ class Player: public Entity{
 		//intialized the character
 		Player();
 		//takes key presses and adjust player velocity
-		void move();
+		void move(Tiles *tiles[] );
 		//show the player on screen
 		void show();
 		//set the camera on the player
 		void setCamera();
+		void touchObject();
 		SDL_Surface** getPlayerText();
 };
 #endif
