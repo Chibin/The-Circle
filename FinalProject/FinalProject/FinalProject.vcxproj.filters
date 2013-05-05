@@ -43,39 +43,87 @@
     <Filter Include="Header Files\Scene">
       <UniqueIdentifier>{4845bb0f-f4d3-4716-a933-19aa09d85c65}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Images\Opening">
+      <UniqueIdentifier>{73c465d8-38e2-42f9-850b-2bf988ee6029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Images\charCreation">
+      <UniqueIdentifier>{bd20dc1d-0dbd-4cfc-8e8a-b2c73a517f97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Images\Normal">
+      <UniqueIdentifier>{f3931384-7d7d-49c3-988c-1dfb20a578d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Images\start.bmp">
-      <Filter>Resource Files\Images</Filter>
-    </None>
     <None Include="..\Fonts\Viner Hand Itc.ttf">
       <Filter>Resource Files\Fonts</Filter>
     </None>
     <None Include="..\Fonts\Manga Temple.ttf">
       <Filter>Resource Files\Fonts</Filter>
     </None>
-    <None Include="..\Images\Quit.bmp">
+    <None Include="..\Images\start1.bmp">
       <Filter>Resource Files\Images</Filter>
     </None>
     <None Include="..\Images\Quit1.bmp">
       <Filter>Resource Files\Images</Filter>
     </None>
-    <None Include="..\Images\start1.bmp">
+    <None Include="..\Images\Quit.bmp">
       <Filter>Resource Files\Images</Filter>
+    </None>
+    <None Include="..\Images\charCreation\maleStanding.bmp">
+      <Filter>Resource Files\Images\charCreation</Filter>
+    </None>
+    <None Include="..\Images\charCreation\bgChar.bmp">
+      <Filter>Resource Files\Images\charCreation</Filter>
+    </None>
+    <None Include="..\Images\charCreation\maleBG.bmp">
+      <Filter>Resource Files\Images\charCreation</Filter>
+    </None>
+    <None Include="..\Images\normal\grassTileSheet.bmp">
+      <Filter>Resource Files\Images\Normal</Filter>
+    </None>
+    <None Include="..\Images\opening\bg1.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\bg2.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\bg3.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\load.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\load1.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\newGame.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\newGame1.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\Quit.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\Quit1.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\start.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\start1.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\starta1.bmp">
+      <Filter>Resource Files\Images\Opening</Filter>
+    </None>
+    <None Include="..\Images\opening\starta1.png">
+      <Filter>Resource Files\Images\Opening</Filter>
     </None>
     <None Include="..\Images\Battle menu.bmp">
       <Filter>Resource Files\Images</Filter>
     </None>
-    <None Include="..\Images\start1.bmp">
-      <Filter>Resource Files\Images</Filter>
-    </None>
-    <None Include="..\Images\Quit1.bmp">
-      <Filter>Resource Files\Images</Filter>
-    </None>
-    <None Include="..\Images\Quit.bmp">
-      <Filter>Resource Files\Images</Filter>
-    </None>
-    <None Include="..\Images\bg1.bmp">
+    <None Include="..\Images\starta1.bmp">
       <Filter>Resource Files\Images</Filter>
     </None>
   </ItemGroup>
@@ -119,7 +167,7 @@
     <ClCompile Include="..\src\Entity\Tiles.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Scene\NewCharacter.cpp">
+    <ClCompile Include="..\src\Scene\NewCharacterScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -166,7 +214,7 @@
     <ClInclude Include="..\src\Entity\Tiles.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Scene\NewCharacter.h">
+    <ClInclude Include="..\src\Scene\NewCharacterScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>

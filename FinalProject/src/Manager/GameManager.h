@@ -19,6 +19,7 @@ public:
 	//getters
 	float getWindowHeight();
 	float getWindowWidth();
+	SDL_Surface *load_image( std::string file );
 	GameState getGameState();
 
 

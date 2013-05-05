@@ -3,9 +3,10 @@
 SceneManager::SceneManager(SDL_Surface* _screen){
 	screen = _screen;
 	opening = new OpeningScene(screen);
-	normal = new NormalScene(screen);
-	battle = new BattleScene(screen);
+	//normal = new NormalScene(screen);
+	//battle = new BattleScene(screen);
 }
+
 
 void SceneManager::eventHandler(SDL_Event& event){
 	switch(GameManager::getInstance().getGameState()){

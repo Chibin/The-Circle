@@ -81,12 +81,25 @@
   <ItemGroup>
     <None Include="..\Fonts\Manga Temple.ttf" />
     <None Include="..\Fonts\Viner Hand Itc.ttf" />
-    <None Include="..\Images\bg1.bmp" />
     <None Include="..\Images\Battle menu.bmp" />
-    <None Include="..\Images\Quit.bmp" />
-    <None Include="..\Images\Quit1.bmp" />
-    <None Include="..\Images\start.bmp" />
-    <None Include="..\Images\start1.bmp" />
+    <None Include="..\Images\charCreation\bgChar.bmp" />
+    <None Include="..\Images\charCreation\maleBG.bmp" />
+    <None Include="..\Images\charCreation\maleStanding.bmp" />
+    <None Include="..\Images\normal\grassTileSheet.bmp" />
+    <None Include="..\Images\opening\bg1.bmp" />
+    <None Include="..\Images\opening\bg2.bmp" />
+    <None Include="..\Images\opening\bg3.bmp" />
+    <None Include="..\Images\opening\load.bmp" />
+    <None Include="..\Images\opening\load1.bmp" />
+    <None Include="..\Images\opening\newGame.bmp" />
+    <None Include="..\Images\opening\newGame1.bmp" />
+    <None Include="..\Images\opening\Quit.bmp" />
+    <None Include="..\Images\opening\Quit1.bmp" />
+    <None Include="..\Images\opening\start.bmp" />
+    <None Include="..\Images\opening\start1.bmp" />
+    <None Include="..\Images\opening\starta1.bmp" />
+    <None Include="..\Images\opening\starta1.png" />
+    <None Include="..\Images\starta1.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Battle\BattleHandler.cpp" />
@@ -100,7 +113,7 @@
     <ClCompile Include="..\src\Manager\LevelManager.cpp" />
     <ClCompile Include="..\src\Manager\SceneManager.cpp" />
     <ClCompile Include="..\src\Scene\BattleScene.cpp" />
-    <ClCompile Include="..\src\Scene\NewCharacter.cpp" />
+    <ClCompile Include="..\src\Scene\NewCharacterScene.cpp" />
     <ClCompile Include="..\src\Scene\NormalScene.cpp" />
     <ClCompile Include="..\src\Scene\OpeningScene.cpp" />
   </ItemGroup>
@@ -116,7 +129,7 @@
     <ClInclude Include="..\src\Manager\LevelManager.h" />
     <ClInclude Include="..\src\Manager\SceneManager.h" />
     <ClInclude Include="..\src\Scene\BattleScene.h" />
-    <ClInclude Include="..\src\Scene\NewCharacter.h" />
+    <ClInclude Include="..\src\Scene\NewCharacterScene.h" />
     <ClInclude Include="..\src\Scene\NormalScene.h" />
     <ClInclude Include="..\src\Scene\OpeningScene.h" />
     <ClInclude Include="..\src\Scene\Scene.h" />

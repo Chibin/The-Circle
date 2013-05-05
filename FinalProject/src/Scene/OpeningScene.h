@@ -10,7 +10,6 @@ class OpeningScene: public Scene{
 		int count, maxButton;
 		OpeningScene(SDL_Surface* screen);
 		void eventHandler(SDL_Event& event);
-		//void eventHandler(SDL_Event& event, int& gameState);
 		void display(SDL_Surface* screen);
 };
 #endif
