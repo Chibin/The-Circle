@@ -99,6 +99,7 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 			case SDLK_RIGHT:
 				selected = false;
 				break;
+
 			case SDLK_ESCAPE:
 				game->setGameState(GameManager::OPENINGMENU);
 				break;
@@ -149,13 +150,18 @@ void NewCharScreen::display(SDL_Surface* screen){
 	if (selected){
 		SDL_BlitSurface(bg,NULL,screen,&bgRect);
 		SDL_BlitSurface(malebg,NULL,screen,&maleBgRect);
+		SDL_BlitSurface(maleChar1,&maleCharRect[char1Tick],screen,&char1);
+		SDL_BlitSurface(femaleChar,&femaleCharRect[char2Tick],screen,&char2);
 	}
 	else{
 		SDL_BlitSurface(bg1,NULL,screen,&bgRect1);
 		SDL_BlitSurface(femalebg,NULL,screen,&femaleBgRect);
+		SDL_BlitSurface(maleChar,&maleCharRect[char1Tick],screen,&char1);
+		SDL_BlitSurface(femaleChar1,&femaleCharRect[char2Tick],screen,&char2);
 	}
-	SDL_BlitSurface(maleChar,&maleCharRect[char1Tick],screen,&char1);
-	SDL_BlitSurface(femaleChar,&femaleCharRect[char2Tick],screen,&char2);
+	
+	
+	
 	SDL_Flip(screen);	
 }
 void NewCharScreen::disposeResources(){
