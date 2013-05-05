@@ -170,6 +170,9 @@
     <ClCompile Include="..\src\Scene\NewCharacterScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Scene\Scene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Scene\Scene.h">

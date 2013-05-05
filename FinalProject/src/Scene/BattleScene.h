@@ -19,6 +19,7 @@ class BattleScene : public Scene{
 		BattleScene(SDL_Surface* screen);
 		void eventHandler(SDL_Event& event);
 		void display(SDL_Surface* screen);
+		void disposeResources();
 		~BattleScene();
 		void loadMobs();
 };

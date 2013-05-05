@@ -116,6 +116,7 @@
     <ClCompile Include="..\src\Scene\NewCharacterScene.cpp" />
     <ClCompile Include="..\src\Scene\NormalScene.cpp" />
     <ClCompile Include="..\src\Scene\OpeningScene.cpp" />
+    <ClCompile Include="..\src\Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Battle\BattleHandler.h" />

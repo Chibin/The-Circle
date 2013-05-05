@@ -1,13 +1,9 @@
 #include "OpeningScene.h"
 #include "../Manager/SceneManager.h"
 OpeningScene::OpeningScene(SDL_Surface* screen){
-	startValue = 0;
-	loadValue = 0;
-	quitValue = 0;
-	newValue = 1;
-	maxButton = 3;
-	count = 1;
-
+	maxButton = 2;
+	count = 0;
+	type = GameManager::OPENINGMENU;
 	//Loads NewGame Button
 	newGame[1] =  SDL_LoadBMP("../Images/opening/newGame.bmp");
 	newGame[0] =  SDL_LoadBMP("../Images/opening/newGame1.bmp");
@@ -15,7 +11,7 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	SDL_SetColorKey(newGame[1], SDL_SRCCOLORKEY, SDL_MapRGB(newGame[1]->format, 255, 255, 255) );
 	newGameRect.x = (Sint16)(game->getWindowWidth()/2) - (newGame[0]->w)/2;
 	newGameRect.y = (Sint16)(game->getWindowHeight()/2- (newGame[0]->h)/2) - newGame[0]->h;
-		
+
 	//Loads Background
 	bg = SDL_LoadBMP("../Images/opening/bg3.bmp");
 	bgRectSrc.x = 0;
@@ -50,10 +46,10 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 
 
 	//loads it on screen
-	SDL_BlitSurface(load[loadValue], NULL, screen, &loadRect);
-	SDL_BlitSurface(newGame[newValue], NULL, screen, &newGameRect);
+	SDL_BlitSurface(load[0], NULL, screen, &loadRect);
+	SDL_BlitSurface(newGame[1], NULL, screen, &newGameRect);
 	//SDL_BlitSurface(start[startValue],NULL,screen,&startRect);
-	SDL_BlitSurface(quit[quitValue],NULL,screen,&quitRect);
+	SDL_BlitSurface(quit[0],NULL,screen,&quitRect);
 	SDL_BlitSurface(bg,&bgRectSrc,screen,&bgRectDest);
 	SDL_Flip(screen);	
 }
@@ -69,32 +65,40 @@ void OpeningScene::eventHandler(SDL_Event& event){
 			switch(event.key.keysym.sym){
 			case SDLK_UP:
 				count--;
-				//std::cout << "count: " << count << std::endl;
 				break;
 			case SDLK_DOWN:
 				count++;	
-				//std::cout << "count: " << count << std::endl;
 				break;
 			case SDLK_RETURN:	
-				//std::cout << "enter was pressed" << std::endl;
-				if(newValue == 0)
-					GameManager::getInstance().setGameState(GameManager::NORMAL);//BATTLE);
-				else if(loadValue == 0)
-					GameManager::getInstance().setGameState(GameManager::BATTLE);
-				else if(!quitValue)
-					GameManager::getInstance().setGameOver(true);
+				switch(count){
+				case 0:
+					game->setGameState(GameManager::CHARACTERCREATION);
+					break;
+				case 1:
+					game->setGameState(GameManager::BATTLE);
+					break;
+				default:
+					game->setGameOver(true);
+					break;
+				}
 				break;
-				case SDLK_z:	
-				//std::cout << "enter was pressed" << std::endl;
-				if(newValue == 0)
-					GameManager::getInstance().setGameState(GameManager::NORMAL);//BATTLE);
-				else if(loadValue == 0)
-					GameManager::getInstance().setGameState(GameManager::BATTLE);
-				else if(!quitValue)
-					GameManager::getInstance().setGameOver(true);
+			case SDLK_z:	
+				switch(count){
+				case 1:
+					game->setGameState(GameManager::CHARACTERCREATION);
+					break;
+				case 2:
+					game->setGameState(GameManager::BATTLE);
+					break;
+
+
+				default:
+					game->setGameOver(true);
+					break;
+				}
 				break;
 			case SDLK_ESCAPE:
-				GameManager::getInstance().setGameOver(true);
+				game->setGameOver(true);
 				break;
 			default:
 				break;
@@ -104,38 +108,41 @@ void OpeningScene::eventHandler(SDL_Event& event){
 			break;
 		}
 	}
-	if(count <= 0)
+	if(count < 0)
 		count = maxButton;
 	if(count > maxButton)
-		count = 1;
-	switch(count){
-	case 1:
-		newValue = 0;
-		loadValue = 1;
-		quitValue = 1;
-		break;
-	case 2:
-		newValue = 1;
-		loadValue = 0;
-		quitValue = 1;
-		break;
-	case 3:
-		newValue = 1;
-		loadValue = 1;
-		quitValue = 0;
-		break;
-	default:
-		break;
-	}
+		count = 0;
+
 }
 
 void OpeningScene::display(SDL_Surface* screen){
-	//SDL_FillRect(screen,NULL,0x221122);
-	
-	//SDL_BlitSurface(start[startValue],NULL,screen,&startRect);
 	SDL_BlitSurface(bg,&bgRectSrc,screen,&bgRectDest);
-	SDL_BlitSurface(load[loadValue], NULL, screen, &loadRect);
-	SDL_BlitSurface(newGame[newValue], NULL, screen, &newGameRect);
-	SDL_BlitSurface(quit[quitValue],NULL,screen,&quitRect);
+	switch(count){
+	case 0:
+		SDL_BlitSurface(newGame[1], NULL, screen, &newGameRect);
+		SDL_BlitSurface(load[0], NULL, screen, &loadRect);
+		SDL_BlitSurface(quit[0],NULL,screen,&quitRect);
+		break;
+	case 1:
+		SDL_BlitSurface(newGame[0], NULL, screen, &newGameRect);
+		SDL_BlitSurface(load[1], NULL, screen, &loadRect);
+		SDL_BlitSurface(quit[0],NULL,screen,&quitRect);
+		break;
+	case 2:
+		SDL_BlitSurface(newGame[0], NULL, screen, &newGameRect);
+		SDL_BlitSurface(load[0], NULL, screen, &loadRect);
+		SDL_BlitSurface(quit[1],NULL,screen,&quitRect);
+		break;
+	}
+
 	SDL_Flip(screen);
+}
+
+void OpeningScene::disposeResources(){
+	for(int i = 0; i <2; i++){
+		SDL_FreeSurface(newGame[i]);
+		SDL_FreeSurface(quit[i]);
+		SDL_FreeSurface(load[i]);
+	}
+	SDL_FreeSurface(bg);
 }

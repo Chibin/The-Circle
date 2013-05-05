@@ -43,3 +43,5 @@ void NormalScene::display(SDL_Surface* screen){
 	SDL_FillRect(screen,NULL,0x221122);
 	SDL_Flip(screen);
 }
+void NormalScene::disposeResources(){
+}

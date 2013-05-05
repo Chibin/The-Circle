@@ -5,11 +5,11 @@
 #include "Scene.h"
 class NewCharScreen: public Scene{
 	private:
-		SDL_Surface *maleChar[3], *femaleChar, *bg, *malebg;
-		SDL_Rect makeCharRect, femaleCharRect, bgRect;
+		SDL_Surface *maleChar, *femaleChar, *bg, *malebg;
+		SDL_Rect makeCharRect[2], femaleCharRect[2], bgRect;
 		int maleFrame, femaleFrame;
 	public:
-		
+		void disposeResources();
 		NewCharScreen(SDL_Surface* screen);
 		void eventHandler(SDL_Event& event);
 		void display(SDL_Surface* screen);

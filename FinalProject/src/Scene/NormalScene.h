@@ -8,5 +8,6 @@ class NormalScene : public Scene{
 		//void eventHandler(SDL_Event& event, int& gameState);
 		void eventHandler(SDL_Event& event);
 		void display(SDL_Surface* screen);
+		void disposeResources();
 };
 #endif

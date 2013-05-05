@@ -1,44 +1,60 @@
 #include "SceneManager.h"
+#include "../Scene/BattleScene.h"
+#include "../Scene/OpeningScene.h"
+#include "../Scene/NormalScene.h"
+#include "../Scene/NewCharacterScene.h"
+
 
 SceneManager::SceneManager(SDL_Surface* _screen){
 	screen = _screen;
-	opening = new OpeningScene(screen);
-	//normal = new NormalScene(screen);
-	//battle = new BattleScene(screen);
+	currentScene = new OpeningScene(screen);
 }
 
 
 void SceneManager::eventHandler(SDL_Event& event){
-	switch(GameManager::getInstance().getGameState()){
-	case GameManager::OPENINGMENU:
-		opening->eventHandler(event);
-		break;
-	case GameManager::NORMAL:
-		normal->eventHandler(event);
-		break;
-	case GameManager::BATTLE:
-		battle->eventHandler(event);
-		break;
-	default:
-		cerr << "ERROR" << endl;
-		break;
-	}	
+	currentScene->eventHandler(event);
 }
 
 void SceneManager::sceneHandler(GameManager::GameState gameState){
-	switch(gameState){
-	case GameManager::OPENINGMENU:
-		opening->display(screen);
-		break;
-	case GameManager::NORMAL:
-		normal->display(screen);
-		break;
-	case GameManager::BATTLE:
-		battle->display(screen);
-		break;
-	default:
-		cerr << "ERROR" << endl;
-		break;
+
+	//check if we are changing gamestate.
+	if(currentScene->type != gameState){
+		//clear the old scene resource
+		currentScene->disposeResources();
+		std::cout << "Switching gameState from " << currentScene->type<< " to " << gameState << std::endl;
+		switch(gameState){
+		case GameManager::OPENINGMENU:
+			LoadOpeningScene();
+			break;
+		case GameManager::NORMAL:
+			loadNormalScene();
+			break;
+		case GameManager::BATTLE:
+			loadBattleScene();
+			break;
+		case GameManager::CHARACTERCREATION:
+			loadNewCharScene();
+			break;
+		default:
+			cerr << "SCENE DOES NOT EXIST" << endl;
+			break;
+		}
+
+		
 	}
+	currentScene->display(screen);
+
 }
 
+void SceneManager::LoadOpeningScene(){
+	currentScene = new OpeningScene(screen);
+}
+void SceneManager::loadNormalScene(){
+	currentScene = new NormalScene(screen);
+}
+void SceneManager::loadBattleScene(){	
+	currentScene = new BattleScene(screen);
+}
+void SceneManager::loadNewCharScene(){
+	currentScene = new NewCharScreen(screen);
+}

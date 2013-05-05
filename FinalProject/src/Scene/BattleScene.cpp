@@ -3,6 +3,7 @@
 #include "../Manager/GameManager.h"
 BattleScene::BattleScene(SDL_Surface* _screen){
 	TTF_Init();
+	type = GameManager::BATTLE;
 	screen = _screen;
 	battleMenu = FIGHT;
 	fightVal = 0; runVal = 1;
@@ -143,4 +144,7 @@ void BattleScene::display(SDL_Surface* screen){
 }
 BattleScene::~BattleScene(){
 	TTF_CloseFont(font);
+}
+
+void BattleScene::disposeResources(){
 }

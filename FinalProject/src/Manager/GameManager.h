@@ -1,7 +1,7 @@
 #ifndef GAMEMANAGER_H_
 #define GAMEMANAGER_H_
 #include <SDL.h>
-//#include "SceneManager.h"
+
 class SceneManager;
 class GameManager{
 public:
@@ -19,7 +19,6 @@ public:
 	//getters
 	float getWindowHeight();
 	float getWindowWidth();
-	SDL_Surface *load_image( std::string file );
 	GameState getGameState();
 
 
