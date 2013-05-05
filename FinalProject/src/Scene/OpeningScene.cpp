@@ -7,10 +7,8 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	std::cout << "Creating Menu Scene" << std::endl;
 	std::cout << "Loading OpeningScene Resources..." << std::endl; 
 	//Loads NewGame Button
-	newGame[1] =  SDL_LoadBMP("../Images/opening/newGame.bmp");
-	newGame[0] =  SDL_LoadBMP("../Images/opening/newGame1.bmp");
-	SDL_SetColorKey(newGame[0], SDL_SRCCOLORKEY, SDL_MapRGB(newGame[0]->format, 255, 255, 255) );
-	SDL_SetColorKey(newGame[1], SDL_SRCCOLORKEY, SDL_MapRGB(newGame[1]->format, 255, 255, 255) );
+	newGame[1] =  load_imageWhite("../Images/opening/newGame.bmp");
+	newGame[0] =  load_imageWhite("../Images/opening/newGame1.bmp");
 	newGameRect.x = (Sint16)(game->getWindowWidth()/2) - (newGame[0]->w)/2;
 	newGameRect.y = (Sint16)(game->getWindowHeight()/2- (newGame[0]->h)/2) - newGame[0]->h;
 
@@ -26,18 +24,14 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	bgRectDest.w = (Sint16)game->getWindowWidth();
 
 	//Loads the load button
-	load[1] = SDL_LoadBMP("../Images/opening/load.bmp");
-	load[0] = SDL_LoadBMP("../Images/opening/load1.bmp");
-	SDL_SetColorKey(load[0], SDL_SRCCOLORKEY, SDL_MapRGB(load[0]->format, 255, 255, 255) );
-	SDL_SetColorKey(load[1], SDL_SRCCOLORKEY, SDL_MapRGB(load[1]->format, 255, 255, 255) );
+	load[1] = load_imageWhite("../Images/opening/load.bmp");
+	load[0] = load_imageWhite("../Images/opening/load1.bmp");
 	loadRect.x = (Sint16)(game->getWindowWidth()/2) - (load[0]->w)/2;
 	loadRect.y = (Sint16)(game->getWindowHeight()/2- (load[0]->h)/2);	
 
 	//Loads quit button
-	quit[1] = SDL_LoadBMP("../Images/opening/quit.bmp");
-	quit[0] = SDL_LoadBMP("../Images/opening/quit1.bmp");
-	SDL_SetColorKey(quit[0], SDL_SRCCOLORKEY, SDL_MapRGB(quit[0]->format, 255, 255, 255) );
-	SDL_SetColorKey(quit[1], SDL_SRCCOLORKEY, SDL_MapRGB(quit[1]->format, 255, 255, 255) );
+	quit[1] = load_imageWhite("../Images/opening/quit.bmp");
+	quit[0] = load_imageWhite("../Images/opening/quit1.bmp");
 	quitRect.x = (Sint16)(game->getWindowWidth()/2) - (quit[0]->w)/2;
 	quitRect.y = (Sint16)(game->getWindowHeight()/2- (quit[0]->h)/2) + quit[0]->h;	
 
@@ -45,7 +39,6 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	//loads it on screen
 	SDL_BlitSurface(load[0], NULL, screen, &loadRect);
 	SDL_BlitSurface(newGame[1], NULL, screen, &newGameRect);
-	//SDL_BlitSurface(start[startValue],NULL,screen,&startRect);
 	SDL_BlitSurface(quit[0],NULL,screen,&quitRect);
 	SDL_BlitSurface(bg,&bgRectSrc,screen,&bgRectDest);
 

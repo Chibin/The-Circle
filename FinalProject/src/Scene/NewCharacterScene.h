@@ -6,8 +6,9 @@
 class NewCharScreen: public Scene{
 	private:
 		SDL_Surface *maleChar, *femaleChar, *bg, *malebg;
-		SDL_Rect makeCharRect[2], femaleCharRect[2], bgRect, maleBgRect;
-		int maleFrame, femaleFrame;
+		SDL_Rect maleCharRect[3], char1, femaleCharRect[2], bgRect, maleBgRect;
+		Uint32 maleFrame, femaleFrame, currentTick, lastTick, char1Tick;
+		bool back;
 	public:
 		void disposeResources();
 		NewCharScreen(SDL_Surface* screen);

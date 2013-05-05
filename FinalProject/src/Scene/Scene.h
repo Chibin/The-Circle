@@ -14,7 +14,8 @@ class Scene{
 		GameManager::GameState type;
 		SDL_Surface* screen;
 		Scene();
-		SDL_Surface *load_image( std::string file );
+		SDL_Surface *load_imageWhite( std::string file );
+		SDL_Surface *load_imageBlue( std::string file );
 		void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip );
 		virtual void eventHandler(SDL_Event& event) = 0;
 		virtual void display(SDL_Surface* screen) = 0;

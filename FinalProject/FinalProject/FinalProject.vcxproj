@@ -83,7 +83,10 @@
     <None Include="..\Fonts\Viner Hand Itc.ttf" />
     <None Include="..\Images\Battle menu.bmp" />
     <None Include="..\Images\charCreation\bgChar.bmp" />
+    <None Include="..\Images\charCreation\bgChar1.bmp" />
+    <None Include="..\Images\charCreation\bgChar2.bmp" />
     <None Include="..\Images\charCreation\maleBG.bmp" />
+    <None Include="..\Images\charCreation\maleBG1.bmp" />
     <None Include="..\Images\charCreation\maleStanding.bmp" />
     <None Include="..\Images\normal\grassTileSheet.bmp" />
     <None Include="..\Images\opening\bg1.bmp" />
