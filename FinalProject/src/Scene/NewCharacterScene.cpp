@@ -23,8 +23,7 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	bgRect.h = (Sint16)game->getWindowHeight();
 	bgRect.w = (Sint16)game->getWindowWidth();
 	//male animation
-	maleChar[0] = load_imageBlue("../Images/charCreation/maleStanding1.bmp");
-	maleChar[1] = load_imageBlue("../Images/charCreation/maleStanding2.bmp");
+	maleChar = load_imageBlue("../Images/charCreation/maleStanding2.bmp");
 	//clip the male animation
 	maleCharRect[0].x = 0;
 	maleCharRect[0].y = 0;
@@ -44,7 +43,7 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	char1.y = 300;
 	SDL_BlitSurface(bg,NULL,screen,&bgRect);
 	SDL_BlitSurface(malebg,NULL,screen,&maleBgRect);
-	SDL_BlitSurface(maleChar[0],&maleCharRect[char1Tick],screen,&char1);
+	SDL_BlitSurface(maleChar,&maleCharRect[char1Tick],screen,&char1);
 	std::cout << "Finished Loading!" << std::endl;
 	SDL_Flip(screen);	
 }
@@ -75,9 +74,9 @@ void NewCharScreen::display(SDL_Surface* screen){
 		lastTick = currentTick;
 		//update animation
 		if(!back)
-		char1Tick++ ;
+			char1Tick++;
 		else
-		char1Tick;
+			char1Tick--;
 		if(char1Tick == 2){
 			back = !back;
 		}	
@@ -86,7 +85,7 @@ void NewCharScreen::display(SDL_Surface* screen){
 	}
 	SDL_BlitSurface(bg,NULL,screen,&bgRect);
 	SDL_BlitSurface(malebg,NULL,screen,&maleBgRect);
-	SDL_BlitSurface(maleChar[0],&maleCharRect[char1Tick],screen,&char1);
+	SDL_BlitSurface(maleChar,&maleCharRect[char1Tick],screen,&char1);
 	SDL_Flip(screen);	
 }
 void NewCharScreen::disposeResources(){
