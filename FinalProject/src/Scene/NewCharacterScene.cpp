@@ -25,12 +25,17 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	femaleBgRect.x = 0;
 
 	//background image
-	bg = load_imageWhite("../Images/charCreation/bgChar1.bmp");
+	bg = load_imageWhite("../Images/charCreation/bgChar2.bmp");
 	bgRect.x = 0;
 	bgRect.y = 0;
 	bgRect.h = (Sint16)game->getWindowHeight();
 	bgRect.w = (Sint16)game->getWindowWidth();
 
+	bg1 = load_imageWhite("../Images/charCreation/bgChar3.bmp");
+	bgRect1.x = 0;
+	bgRect1.y = 0;
+	bgRect1.h = (Sint16)game->getWindowHeight();
+	bgRect1.w = (Sint16)game->getWindowWidth();
 
 	//male animation selected
 	maleChar = load_imageBlue("../Images/charCreation/maleStanding1.bmp");
@@ -139,11 +144,16 @@ void NewCharScreen::display(SDL_Surface* screen){
 
 		}
 	}
-	SDL_BlitSurface(bg,NULL,screen,&bgRect);
-	if (selected)
+	
+
+	if (selected){
+		SDL_BlitSurface(bg,NULL,screen,&bgRect);
 		SDL_BlitSurface(malebg,NULL,screen,&maleBgRect);
-	else
+	}
+	else{
+		SDL_BlitSurface(bg1,NULL,screen,&bgRect1);
 		SDL_BlitSurface(femalebg,NULL,screen,&femaleBgRect);
+	}
 	SDL_BlitSurface(maleChar,&maleCharRect[char1Tick],screen,&char1);
 	SDL_BlitSurface(femaleChar,&femaleCharRect[char2Tick],screen,&char2);
 	SDL_Flip(screen);	

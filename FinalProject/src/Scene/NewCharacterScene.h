@@ -5,8 +5,8 @@
 #include "Scene.h"
 class NewCharScreen: public Scene{
 	private:
-		SDL_Surface *maleChar, *maleChar1, *femaleChar, *femaleChar1, *bg, *malebg, *femalebg;
-		SDL_Rect maleCharRect[3], char1, femaleCharRect[3], char2, bgRect, maleBgRect, femaleBgRect;
+		SDL_Surface *maleChar, *maleChar1, *femaleChar, *femaleChar1, *bg, *bg1, *malebg, *femalebg;
+		SDL_Rect maleCharRect[3], char1, femaleCharRect[3], char2, bgRect, bgRect1, maleBgRect, femaleBgRect;
 		Uint32 maleFrame, femaleFrame, currentTick, lastTick, char1Tick, char2Tick;
 		bool back, selected;
 	public:
