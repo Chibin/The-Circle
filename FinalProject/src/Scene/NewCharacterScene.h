@@ -9,7 +9,7 @@ class NewCharScreen: public Scene{
 		{
 			PICK, STATS, FINISHED, GOBACK
 		};
-		//global resources
+		//goBack resources
 		SDL_Surface *backScreen, *backScreen1;
 		SDL_Rect backScreenRect;
 		bool goBack;
@@ -25,7 +25,6 @@ class NewCharScreen: public Scene{
 
 		Stage currentStage;
 		bool back, selected;
-		void loadStage2();
 	public:
 		void disposeResources();
 		NewCharScreen(SDL_Surface* screen);
