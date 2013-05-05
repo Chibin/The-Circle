@@ -1,6 +1,8 @@
 #include "NewCharacterScene.h"
 #include "../Entity/Player.h"
 #include <SDL_ttf.h>
+#include <sstream>
+#include <stdlib.h>
 //64 width 64 height for male
 NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	type = GameManager::CHARACTERCREATION;
@@ -16,7 +18,7 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	currentStage = PICK;
 	std::cout << "Creating Character Creation Screen..." << std::endl;
 	std::cout << "Loading Resources..." << std::endl;
-
+	TTF_Init();
 	std::cout << "\tgoBack Resources..." ;
 	/*******************load goBack resources***********************************/
 	/**/backScreen = load_imageWhite("../Images/charCreation/goBack.bmp");
@@ -231,7 +233,7 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 					}
 					break;
 				case SDLK_RIGHT:
-					if(points > 0){
+					if(points > 0 && editStats[curStats] < 15){
 						points--;
 						editStats[curStats]++;
 					}
@@ -335,17 +337,33 @@ void NewCharScreen::display(SDL_Surface* screen){
 				else
 					SDL_BlitSurface(arrows, &arrowsRect[0], screen, &arrowsRect[1]);
 			//draw the numbers
-
-
+			SDL_Surface * nums;
+			SDL_Color black = {0,0,0,255};
+			std::ostringstream oss;
+			oss << editStats[i];
+			nums = TTF_RenderText_Blended(font,oss.str().c_str(),black);
+			numRect.x = 620;
+			numRect.y = 257+ 22*i;
+			SDL_BlitSurface(nums, NULL, screen, &numRect);
+			SDL_FreeSurface(nums);
+			std::ostringstream test;
+			SDL_Surface * pointSurface;
+			test << points;
+			pointSurface = TTF_RenderText_Blended(font,test.str().c_str(),black);
+			pointRect.x = 620;
+			pointRect.y = 387;
+			SDL_BlitSurface(pointSurface, NULL, screen, &pointRect);
+			SDL_FreeSurface(pointSurface);
 			//draws the right side arrows
 			arrowsRect[0].x = 16;
 			arrowsRect[1].x = 670;
 			arrowsRect[1].y = 257+ 22*i;
-			if(editStats[i] <= 15)
+			if(editStats[i] < 15 )
 				if(curStats == i)
 					SDL_BlitSurface(arrows1, &arrowsRect[0], screen, &arrowsRect[1]);
 				else
 					SDL_BlitSurface(arrows, &arrowsRect[0], screen, &arrowsRect[1]);
+
 		}
 
 	}

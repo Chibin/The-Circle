@@ -21,7 +21,7 @@ class NewCharScreen: public Scene{
 		
 		//stage 2 Resources
 		SDL_Surface *malebgp2, *femalebgp2, *numbers, * arrows, *arrows1;
-		SDL_Rect malebgp2Rect, femalebgp2Rect, numbersRect[10], arrowsRect[2];
+		SDL_Rect malebgp2Rect, femalebgp2Rect, arrowsRect[2], numRect, pointRect;
 		int baseStat[6], editStats[6], points, curStats;
 		TTF_Font* font;
 		Stage currentStage;
