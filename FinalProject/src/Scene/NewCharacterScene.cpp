@@ -1,5 +1,6 @@
 #include "NewCharacterScene.h"
 #include "../Entity/Player.h"
+#include <SDL_ttf.h>
 //64 width 64 height for male
 NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	type = GameManager::CHARACTERCREATION;
@@ -10,6 +11,8 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	back = false;
 	selected = true;
 	goBack = false;
+	points = 10;
+	curStats = 0;
 	currentStage = PICK;
 	std::cout << "Creating Character Creation Screen..." << std::endl;
 	std::cout << "Loading Resources..." << std::endl;
@@ -97,20 +100,33 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	std::cout << "Done!" << std::endl;;
 
 	std::cout << "\tStage2 Resources...";
-	//male portait
+	//male background
 	malebgp2 = load_imageWhite("../Images/charCreation/bgLLYODpart2.bmp");
 	malebgp2Rect.h = 600;
 	malebgp2Rect.w = (Sint16)game->getWindowWidth();;
 	malebgp2Rect.y = 0;
 	malebgp2Rect.x = 0;
 
-	//female portait
+	//female background
 	femalebgp2 = load_imageWhite("../Images/charCreation/bgNATALIApart2.bmp");
 	femalebgp2Rect.h = 600;
 	femalebgp2Rect.w = (Sint16)game->getWindowWidth();;
 	femalebgp2Rect.y = 0;
 	femalebgp2Rect.x = 0;
 
+	//arrows
+	arrows = load_imageWhite("../Images/charCreation/arrows.bmp");
+	arrows1 = load_imageWhite("../Images/charCreation/arrows1.bmp");
+	arrowsRect[0].x = 0;
+	arrowsRect[0].y = 0;
+	arrowsRect[0].w = 16;
+	arrowsRect[0].h = 16;
+	arrowsRect[1].x = 16;
+	arrowsRect[1].y = 0;
+	arrowsRect[1].w = 16;
+	arrowsRect[1].h = 16;
+	//font
+	font = TTF_OpenFont("../Fonts/Lucida.ttf",18);
 	std::cout << "Done!" << std::endl;;
 
 	std::cout << "Finished Loading!" << std::endl << std::endl;
@@ -158,20 +174,42 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 
 				case SDLK_z:	
 					if(selected){
-						std::cout << "Player has choosen Llyod" << std::endl;
+						//set base stats for male
+						baseStat[0] = 8; baseStat[1] = 5; baseStat[2] = 6 ;baseStat[3] = 6; baseStat[4] = 4; baseStat[5] = 2;
+						std::cout << "Player has choosen Llyod!" << std::endl;
 					}
 					else{
+						baseStat[0] = 5; baseStat[1] = 6; baseStat[2] = 3; baseStat[3] = 2; baseStat[4] = 7; baseStat[5] = 7;
 						std::cout << "Player has choosen Natalia" << std::endl;
 					}
-
+					std::cout << "Base Stats:\n\t  HP: " << baseStat[0] << std::endl;
+					std::cout << "\t  MP: " << baseStat[1] << std::endl;
+					std::cout << "\t ATK: " << baseStat[2] << std::endl;
+					std::cout << "\t DEF: " << baseStat[3] << std::endl;
+					std::cout << "\t SPD: " << baseStat[4] << std::endl;
+					std::cout << "\tMATK: " << baseStat[5] << std::endl;
+					memcpy(&editStats, &baseStat,sizeof(baseStat));
+					currentStage = STATS;
 					break;
 				case SDLK_RETURN:	
 					if(selected){
-						std::cout << "Player has choosen Llyod" << std::endl;
+						//set base stats for male
+						baseStat[0] = 8; baseStat[1] = 5; baseStat[2] = 6 ;baseStat[3] = 6; baseStat[4] = 4; baseStat[5] = 2;
+						std::cout << "Player has choosen Llyod!" << std::endl;
 					}
 					else{
+						baseStat[0] = 5; baseStat[1] = 6; baseStat[2] = 3; baseStat[3] = 2; baseStat[4] = 7; baseStat[5] = 7;
 						std::cout << "Player has choosen Natalia" << std::endl;
 					}
+					std::cout << "Base Stats:\n\t  HP: " << baseStat[0] << std::endl;
+					std::cout << "\t  MP: " << baseStat[1] << std::endl;
+					std::cout << "\t ATK: " << baseStat[2] << std::endl;
+					std::cout << "\t DEF: " << baseStat[3] << std::endl;
+					std::cout << "\t SPD: " << baseStat[4] << std::endl;
+					std::cout << "\tMATK: " << baseStat[5] << std::endl;
+					memcpy(&editStats, &baseStat,sizeof(baseStat));
+					points = 10;
+					curStats = 0;
 					currentStage = STATS;
 					break;
 				case SDLK_ESCAPE:
@@ -186,6 +224,31 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 			switch(event.type){
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym){
+				case SDLK_LEFT:
+					if(editStats[curStats]-1 >= baseStat[curStats]){
+						editStats[curStats]--;
+						points++;
+					}
+					break;
+				case SDLK_RIGHT:
+					if(points > 0){
+						points--;
+						editStats[curStats]++;
+					}
+
+					break;
+
+				case SDLK_UP:
+					curStats--;
+					if (curStats < 0)
+						curStats = 0;
+					break;
+				case SDLK_DOWN:
+					curStats++;
+					if (curStats > 5)
+						curStats = 5;
+					break;
+
 				case SDLK_ESCAPE:
 					currentStage = PICK;
 					break;
@@ -257,6 +320,34 @@ void NewCharScreen::display(SDL_Surface* screen){
 			SDL_BlitSurface(femalebgp2,NULL,screen,&femalebgp2Rect);
 			SDL_BlitSurface(femalebg,NULL,screen,&femaleBgRect);
 		}
+
+	}
+	if(currentStage == STATS){
+
+		for(int i = 0; i < 6; i++){
+			arrowsRect[0].x = 0;
+			//draws the left side arrows
+			arrowsRect[1].x = 570;
+			arrowsRect[1].y = 257+ 22*i;
+			if(editStats[i] > baseStat[i])
+				if(curStats == i)
+					SDL_BlitSurface(arrows1, &arrowsRect[0], screen, &arrowsRect[1]);
+				else
+					SDL_BlitSurface(arrows, &arrowsRect[0], screen, &arrowsRect[1]);
+			//draw the numbers
+
+
+			//draws the right side arrows
+			arrowsRect[0].x = 16;
+			arrowsRect[1].x = 670;
+			arrowsRect[1].y = 257+ 22*i;
+			if(editStats[i] <= 15)
+				if(curStats == i)
+					SDL_BlitSurface(arrows1, &arrowsRect[0], screen, &arrowsRect[1]);
+				else
+					SDL_BlitSurface(arrows, &arrowsRect[0], screen, &arrowsRect[1]);
+		}
+
 	}
 	if(currentStage == GOBACK)
 		if(goBack)
