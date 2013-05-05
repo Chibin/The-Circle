@@ -42,7 +42,7 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	SDL_BlitSurface(quit[0],NULL,screen,&quitRect);
 	SDL_BlitSurface(bg,&bgRectSrc,screen,&bgRectDest);
 
-	std::cout << "Finished loading!" << std::endl;
+	std::cout << "Finished loading!" << std::endl << std::endl; 
 	SDL_Flip(screen);	
 }
 
@@ -136,5 +136,5 @@ void OpeningScene::disposeResources(){
 		SDL_FreeSurface(load[i]);
 	}
 	SDL_FreeSurface(bg);
-	std::cout << "Cleaning Finished!" << std::endl;
+	std::cout << "Cleaning Finished!" << std::endl << std::endl;
 }

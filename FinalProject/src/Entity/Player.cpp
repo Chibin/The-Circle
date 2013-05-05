@@ -39,3 +39,12 @@ void Player::move(Tiles *tiles[]){
 	} 
 	*/
 }
+
+Player& Player::getInstance(){
+	static Player instance;
+	return instance;
+}
+
+Player::PlayerType Player::getType(){
+	return type;
+}

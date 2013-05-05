@@ -9,8 +9,15 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	char2Tick = 0;
 	back = false;
 	selected = true;
+	goBack = false;
+	currentStage = PICK;
 	std::cout << "Creating Character Creation Screen..." << std::endl;
 	std::cout << "Loading Resources..." << std::endl;
+	//load global resources
+	backScreen = load_imageWhite("../Images/charCreation/goBack.bmp");
+	backScreen1 = load_imageWhite("../Images/charCreation/goBack1.bmp");
+	backScreenRect.x = (Sint16)game->getWindowWidth()/2 - (backScreen->w/2); 
+	backScreenRect.y = (Sint16)game->getWindowHeight()/2 - (backScreen->h/2); 
 	//male portrait
 	malebg = load_imageWhite("../Images/charCreation/maleBG.bmp");
 	maleBgRect.h = 1024;
@@ -84,33 +91,109 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	//SDL_BlitSurface(femalebg,NULL,screen,&femaleBgRect);
 	SDL_BlitSurface(maleChar,&maleCharRect[char1Tick],screen,&char1);
 	SDL_BlitSurface(femaleChar,&femaleCharRect[char2Tick],screen,&char2);
-	std::cout << "Finished Loading!" << std::endl;
+	std::cout << "Finished Loading!" << std::endl << std::endl;
 	SDL_Flip(screen);	
+}
+
+
+void NewCharScreen::loadStage2(){
+	//depending on the character, load different resources
+	switch(Player::getInstance().getType()){
+	case Player::LLYOD:
+		//female portait
+		femalebgp2 = load_imageWhite("../Images/charCreation/femaleBG1.bmp");
+		femaleBgRect.h = 600;
+		femaleBgRect.w = 469;
+		femaleBgRect.y = 0;
+		femaleBgRect.x = 0;
+		break;
+
+	}
+
 }
 void NewCharScreen::eventHandler(SDL_Event& event){
 	while(SDL_PollEvent(&event)){
-		switch(event.type){
-		case SDL_KEYDOWN:
-			//case SDL_KEYDOWN:
-			switch(event.key.keysym.sym){
-			case SDLK_LEFT:
-				selected = true;
-				break;
-			case SDLK_RIGHT:
-				selected = false;
-				break;
 
-			case SDLK_ESCAPE:
-				game->setGameState(GameManager::OPENINGMENU);
+		switch (currentStage){
+		case GOBACK:
+		switch(event.type){
+			case SDL_KEYDOWN:
+				switch(event.key.keysym.sym){
+					case SDLK_LEFT:
+						goBack = true;
+						break;
+					case SDLK_RIGHT:
+						goBack = false;
+						break;
+					case SDLK_RETURN:	
+						if(goBack)
+							game->setGameState(GameManager::OPENINGMENU);
+						else
+							currentStage = PICK;
+						break;
+					case SDLK_ESCAPE:
+						currentStage = PICK;
+						break;
+				}
 				break;
-			default:
-				break;
+		}
+		break;
+		case PICK:
+			switch(event.type){
+			case SDL_KEYDOWN:
+				switch(event.key.keysym.sym){
+				case SDLK_LEFT:
+					selected = true;
+					break;
+				case SDLK_RIGHT:
+					selected = false;
+					break;
+
+				case SDLK_z:	
+					if(selected){
+						std::cout << "Player has choosen Llyod" << std::endl;
+					}
+					else{
+						std::cout << "Player has choosen Natalia" << std::endl;
+					}
+
+					break;
+				case SDLK_RETURN:	
+					if(selected){
+						std::cout << "Player has choosen Llyod" << std::endl;
+					}
+					else{
+						std::cout << "Player has choosen Natalia" << std::endl;
+					}
+					currentStage = STATS;
+					break;
+				case SDLK_ESCAPE:
+					currentStage = GOBACK;
+					//game->setGameState(GameManager::OPENINGMENU);
+					break;
+				default:
+					break;
+				}
 			}
+			break;
+		case STATS:
+			switch(event.type){
+			case SDL_KEYDOWN:
+				switch(event.key.keysym.sym){
+				case SDLK_ESCAPE:
+					currentStage = PICK;
+					break;
+				default:
+					break;
+				}
+			}
+			break;
 		}
 	}
 }
 
 void NewCharScreen::display(SDL_Surface* screen){
+
 	currentTick = SDL_GetTicks();
 	if(currentTick - lastTick > 150)
 	{
@@ -142,10 +225,8 @@ void NewCharScreen::display(SDL_Surface* screen){
 				back = !back;	
 			if(char1Tick == 0)
 				back = !back;
-
 		}
 	}
-	
 
 	if (selected){
 		SDL_BlitSurface(bg,NULL,screen,&bgRect);
@@ -159,14 +240,25 @@ void NewCharScreen::display(SDL_Surface* screen){
 		SDL_BlitSurface(maleChar,&maleCharRect[char1Tick],screen,&char1);
 		SDL_BlitSurface(femaleChar1,&femaleCharRect[char2Tick],screen,&char2);
 	}
-	
-	
-	
+	if(currentStage == GOBACK)
+		if(goBack)
+			SDL_BlitSurface(backScreen, NULL, screen, &backScreenRect);
+		else
+			SDL_BlitSurface(backScreen1, NULL, screen, &backScreenRect);
+
 	SDL_Flip(screen);	
 }
+
 void NewCharScreen::disposeResources(){
 	std::cout << "Cleaning Character Creation Scene" << std::endl;
 	SDL_FreeSurface( malebg );
+	SDL_FreeSurface( maleChar1 );
+	SDL_FreeSurface( femaleChar );
+	SDL_FreeSurface( femaleChar1 );
 	SDL_FreeSurface( bg );
-	std::cout << "Cleaning Finished!" << std::endl;
+	SDL_FreeSurface( bg1 );
+	//SDL_FreeSurface( malebg );
+	SDL_FreeSurface( femalebg );
+
+	std::cout << "Cleaning Finished!" << std::endl << std::endl;
 }
