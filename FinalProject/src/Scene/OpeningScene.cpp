@@ -76,10 +76,10 @@ void OpeningScene::eventHandler(SDL_Event& event){
 				break;
 			case SDLK_z:	
 				switch(count){
-				case 1:
+				case 0:
 					game->setGameState(GameManager::CHARACTERCREATION);
 					break;
-				case 2:
+				case 1:
 					game->setGameState(GameManager::BATTLE);
 					break;
 				default:
