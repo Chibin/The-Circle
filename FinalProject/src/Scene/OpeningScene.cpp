@@ -4,6 +4,8 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	maxButton = 2;
 	count = 0;
 	type = GameManager::OPENINGMENU;
+	std::cout << "Creating Menu Scene" << std::endl;
+	std::cout << "Loading OpeningScene Resources..." << std::endl; 
 	//Loads NewGame Button
 	newGame[1] =  SDL_LoadBMP("../Images/opening/newGame.bmp");
 	newGame[0] =  SDL_LoadBMP("../Images/opening/newGame1.bmp");
@@ -31,11 +33,6 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	loadRect.x = (Sint16)(game->getWindowWidth()/2) - (load[0]->w)/2;
 	loadRect.y = (Sint16)(game->getWindowHeight()/2- (load[0]->h)/2);	
 
-	//start[0] = SDL_LoadBMP("../Images/starta1.bmp");
-	//start[1] = SDL_LoadBMP("../Images/start1.bmp");
-	//startRect.x = game->getWindowWidth()/2;
-	//startRect.y = game->getWindowHeight()/2;
-
 	//Loads quit button
 	quit[1] = SDL_LoadBMP("../Images/opening/quit.bmp");
 	quit[0] = SDL_LoadBMP("../Images/opening/quit1.bmp");
@@ -51,6 +48,8 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	//SDL_BlitSurface(start[startValue],NULL,screen,&startRect);
 	SDL_BlitSurface(quit[0],NULL,screen,&quitRect);
 	SDL_BlitSurface(bg,&bgRectSrc,screen,&bgRectDest);
+
+	std::cout << "Finished loading!" << std::endl;
 	SDL_Flip(screen);	
 }
 
@@ -90,8 +89,6 @@ void OpeningScene::eventHandler(SDL_Event& event){
 				case 2:
 					game->setGameState(GameManager::BATTLE);
 					break;
-
-
 				default:
 					game->setGameOver(true);
 					break;
@@ -139,10 +136,12 @@ void OpeningScene::display(SDL_Surface* screen){
 }
 
 void OpeningScene::disposeResources(){
+	std::cout << "Cleaning Menu Scene" << std::endl;
 	for(int i = 0; i <2; i++){
 		SDL_FreeSurface(newGame[i]);
 		SDL_FreeSurface(quit[i]);
 		SDL_FreeSurface(load[i]);
 	}
 	SDL_FreeSurface(bg);
+	std::cout << "Cleaning Finished!" << std::endl;
 }

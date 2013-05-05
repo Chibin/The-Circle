@@ -6,7 +6,7 @@
 class NewCharScreen: public Scene{
 	private:
 		SDL_Surface *maleChar, *femaleChar, *bg, *malebg;
-		SDL_Rect makeCharRect[2], femaleCharRect[2], bgRect;
+		SDL_Rect makeCharRect[2], femaleCharRect[2], bgRect, maleBgRect;
 		int maleFrame, femaleFrame;
 	public:
 		void disposeResources();
