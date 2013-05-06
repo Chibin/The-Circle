@@ -17,7 +17,7 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	points = 10;
 	curStats = 0;
 	currentStage = PICK;
-	std::cout << "Creating Character Creation Screen..." << std::endl;
+	std::cout << "Entering Character Creation Screen..." << std::endl;
 	std::cout << "Loading Resources..." << std::endl;
 	TTF_Init();
 	std::cout << "\tgoBack Resources..." ;
@@ -151,12 +151,22 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 				case SDLK_RIGHT:
 					goBack = false;
 					break;
+				case SDLK_z:	
+					if(goBack)
+						game->setGameState(GameManager::OPENINGMENU);
+					else
+						currentStage = PICK;
+					break;
 				case SDLK_RETURN:	
 					if(goBack)
 						game->setGameState(GameManager::OPENINGMENU);
 					else
 						currentStage = PICK;
 					break;
+				case SDLK_x:
+					currentStage = PICK;
+					break;
+
 				case SDLK_ESCAPE:
 					currentStage = PICK;
 					break;
@@ -214,6 +224,9 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 					points = 10;
 					curStats = 0;
 					currentStage = STATS;
+					break;
+				case SDLK_x:
+					currentStage = GOBACK;
 					break;
 				case SDLK_ESCAPE:
 					currentStage = GOBACK;
@@ -283,6 +296,9 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 						game->setGameState(GameManager::NORMAL);
 					}
 
+					break;
+				case SDLK_x:
+					currentStage = PICK;
 					break;
 				case SDLK_ESCAPE:
 					currentStage = PICK;
