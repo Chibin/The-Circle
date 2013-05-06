@@ -28,6 +28,10 @@ int LevelManager::getTotalTiles(){
 	return totalTiles;
 }
 void LevelManager::loadMap(char* mapName){
+	xml_document<> doc;
+	doc.parse<0>(mapName);
+	xml_node<> *mapnode = doc.first_node("map");
+
 
 }
 

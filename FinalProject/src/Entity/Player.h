@@ -29,6 +29,8 @@ private:
 	PlayerType type;
 	//Collision Box
 	SDL_Rect box;
+	//experience points
+	int currentXP, maxXP;
 	//the x and y offeset of the character
 	int x , y;
 	//The velocity of the character

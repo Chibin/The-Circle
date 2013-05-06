@@ -10,6 +10,8 @@ protected:
 		int HP, MP, ATK, DEF, SPD, MATK, MAXHP, MAXMP;
 	};
 	status stats;
+	//current level
+	int level;
 	std::string Name;
 	TTF_Font* font;
 public:
