@@ -275,15 +275,24 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 					break;
 				case SDLK_z:
 					if(continued){
-						std::cout << "Character Created!" << std::endl;
+						std::cout << "\nCharacter Created...";
 						Player::getInstance().setStats(editStats[0],editStats[1],editStats[2],editStats[3],editStats[4],editStats[5]);
-						if(selected)
+						if(selected){
+							std::cout << "Player created Llyod" << std::endl;
 							Player::getInstance().setType(Player::PlayerType::LLYOD);
-						else
+						}
+						else{
+							std::cout << "Player created Natilia" << std::endl;
 							Player::getInstance().setType(Player::PlayerType::NATILIA);
+						}
+						std::cout << "Starting Stats:\n\t  HP: " << editStats[0] << std::endl;
+						std::cout << "\t  MP: " << editStats[1] << std::endl;
+						std::cout << "\t ATK: " << editStats[2] << std::endl;
+						std::cout << "\t DEF: " << editStats[3] << std::endl;
+						std::cout << "\t SPD: " << editStats[4] << std::endl;
+						std::cout << "\tMATK: " << editStats[5] << std::endl;
 						game->setGameState(GameManager::NORMAL);
 					}
-
 					break;
 				case SDLK_RETURN:	
 					if(continued){
