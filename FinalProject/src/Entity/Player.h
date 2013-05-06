@@ -22,6 +22,8 @@ public:
 	void setCamera();
 	void touchObject();
 	void setType(PlayerType);
+	int getPositionX();
+	int getPositionY();
 	PlayerType getType();
 	SDL_Surface** getPlayerText();
 	

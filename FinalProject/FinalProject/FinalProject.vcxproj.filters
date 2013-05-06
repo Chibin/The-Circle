@@ -58,6 +58,9 @@
     <Filter Include="Header Files\Utility\rapidxml">
       <UniqueIdentifier>{7f475347-8840-45de-a2e4-33cbc61b5b51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Levels">
+      <UniqueIdentifier>{b31dbdef-f564-456e-a692-6f63a477709a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Fonts\Viner Hand Itc.ttf">
@@ -133,6 +136,15 @@
       <Filter>Resource Files\Images\charCreation</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
+    <None Include="..\levels\map.png">
+      <Filter>Resource Files\Levels</Filter>
+    </None>
+    <None Include="..\levels\testLevel.tmx">
+      <Filter>Resource Files\Levels</Filter>
+    </None>
+    <None Include="..\levels\tilesheet.png">
+      <Filter>Resource Files\Levels</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Battle\BattleHandler.cpp">

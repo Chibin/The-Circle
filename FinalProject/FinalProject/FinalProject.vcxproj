@@ -103,6 +103,9 @@
     <None Include="..\Images\opening\starta1.bmp" />
     <None Include="..\Images\opening\starta1.png" />
     <None Include="..\Images\starta1.bmp" />
+    <None Include="..\levels\map.png" />
+    <None Include="..\levels\testLevel.tmx" />
+    <None Include="..\levels\tilesheet.png" />
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>

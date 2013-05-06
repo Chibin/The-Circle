@@ -52,3 +52,11 @@ Player::PlayerType Player::getType(){
 void Player::setType(Player::PlayerType _type){
 	type = _type;
 }
+
+int Player::getPositionX(){
+	return x;
+}
+
+int Player::getPositionY(){
+	return y;
+}
