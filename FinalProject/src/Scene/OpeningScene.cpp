@@ -67,7 +67,8 @@ void OpeningScene::eventHandler(SDL_Event& event){
 					game->setGameState(GameManager::CHARACTERCREATION);
 					break;
 				case 1:
-					game->setGameState(GameManager::BATTLE);
+					game->loadGame();
+					//game->setGameState(GameManager::BATTLE);
 					break;
 				default:
 					game->setGameOver(true);
@@ -80,7 +81,8 @@ void OpeningScene::eventHandler(SDL_Event& event){
 					game->setGameState(GameManager::CHARACTERCREATION);
 					break;
 				case 1:
-					game->setGameState(GameManager::BATTLE);
+					game->loadGame();
+					//game->setGameState(GameManager::BATTLE);
 					break;
 				default:
 					game->setGameOver(true);

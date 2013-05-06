@@ -137,6 +137,10 @@
     <ClInclude Include="..\src\Scene\NormalScene.h" />
     <ClInclude Include="..\src\Scene\OpeningScene.h" />
     <ClInclude Include="..\src\Scene\Scene.h" />
+    <ClInclude Include="..\src\Utility\RapidXML\rapidxml.hpp" />
+    <ClInclude Include="..\src\Utility\RapidXML\rapidxml_iterators.hpp" />
+    <ClInclude Include="..\src\Utility\RapidXML\rapidxml_print.hpp" />
+    <ClInclude Include="..\src\Utility\RapidXML\rapidxml_utils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

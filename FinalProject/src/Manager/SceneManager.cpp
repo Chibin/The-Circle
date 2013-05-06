@@ -22,43 +22,25 @@ void SceneManager::sceneHandler(GameManager::GameState gameState){
 		//clear the old scene resource
 		currentScene->disposeResources();
 		std::cout << "Switching gameState from " << currentScene->type<< " to " << gameState << std::endl;
+		delete currentScene;
 		switch(gameState){
 		case GameManager::OPENINGMENU:
-			LoadOpeningScene();
+			currentScene = new OpeningScene(screen);
 			break;
 		case GameManager::NORMAL:
-			loadNormalScene();
+			currentScene = new NormalScene(screen);
 			break;
 		case GameManager::BATTLE:
-			loadBattleScene();
+			currentScene = new BattleScene(screen);
 			break;
 		case GameManager::CHARACTERCREATION:
-			loadNewCharScene();
+			currentScene = new NewCharScreen(screen);
 			break;
 		default:
 			cerr << "SCENE DOES NOT EXIST" << endl;
 			break;
-		}
-
-		
+		}	
 	}
 	currentScene->display(screen);
 
-}
-
-void SceneManager::LoadOpeningScene(){
-	delete currentScene;
-	currentScene = new OpeningScene(screen);
-}
-void SceneManager::loadNormalScene(){
-	delete currentScene;
-	currentScene = new NormalScene(screen);
-}
-void SceneManager::loadBattleScene(){	
-	delete currentScene;
-	currentScene = new BattleScene(screen);
-}
-void SceneManager::loadNewCharScene(){
-	delete currentScene;
-	currentScene = new NewCharScreen(screen);
 }

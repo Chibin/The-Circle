@@ -52,6 +52,12 @@
     <Filter Include="Resource Files\Images\Normal">
       <UniqueIdentifier>{f3931384-7d7d-49c3-988c-1dfb20a578d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{aa541f3a-1f15-4027-beef-b7931368972c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility\rapidxml">
+      <UniqueIdentifier>{7f475347-8840-45de-a2e4-33cbc61b5b51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Fonts\Viner Hand Itc.ttf">
@@ -219,6 +225,18 @@
     </ClInclude>
     <ClInclude Include="..\src\Scene\NewCharacterScene.h">
       <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\RapidXML\rapidxml.hpp">
+      <Filter>Header Files\Utility\rapidxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\RapidXML\rapidxml_iterators.hpp">
+      <Filter>Header Files\Utility\rapidxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\RapidXML\rapidxml_print.hpp">
+      <Filter>Header Files\Utility\rapidxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\RapidXML\rapidxml_utils.hpp">
+      <Filter>Header Files\Utility\rapidxml</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

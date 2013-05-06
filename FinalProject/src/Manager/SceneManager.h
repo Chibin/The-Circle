@@ -17,9 +17,6 @@ class SceneManager{
 		SceneManager(SDL_Surface* _screen);			
 		void eventHandler(SDL_Event& event);
 		void sceneHandler(GameManager::GameState gameState);
-		void LoadOpeningScene();
-		void loadNormalScene();
-		void loadBattleScene();
-		void loadNewCharScene();
+
 };
 #endif

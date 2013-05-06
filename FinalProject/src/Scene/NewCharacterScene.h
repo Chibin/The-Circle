@@ -20,7 +20,7 @@ class NewCharScreen: public Scene{
 		Uint32 maleFrame, femaleFrame, currentTick, lastTick, char1Tick, char2Tick;
 		
 		//stage 2 Resources
-		SDL_Surface *malebgp2, *femalebgp2, *numbers, * arrows, *arrows1;
+		SDL_Surface *malebgp2, *femalebgp2,  *arrows, *arrows1;
 		SDL_Rect malebgp2Rect, femalebgp2Rect, arrowsRect[2], numRect, pointRect, finish;
 		int baseStat[6], editStats[6], points, curStats;
 		TTF_Font* font;

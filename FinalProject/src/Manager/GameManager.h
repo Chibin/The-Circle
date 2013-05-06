@@ -1,7 +1,7 @@
 #ifndef GAMEMANAGER_H_
 #define GAMEMANAGER_H_
 #include <SDL.h>
-
+#include <fstream>
 class SceneManager;
 class GameManager{
 public:
@@ -16,6 +16,8 @@ public:
 	void setWindowSize(float, float);
 	void setGameOver(bool);
 	void setGameState(GameState);
+	void saveGame();
+	void loadGame();
 	//getters
 	float getWindowHeight();
 	float getWindowWidth();

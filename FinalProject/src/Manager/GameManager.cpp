@@ -84,3 +84,22 @@ void GameManager::setGameState(GameState state){
 	gameState = state;
 }
 
+/*************************
+Save and Load game
+**************************/
+void GameManager::loadGame()
+{
+	std::cout << "Loading game..." << std::endl;
+	setGameState(GameManager::BATTLE);
+
+	std::cout << "Loading Done!" << std::endl;
+}
+void GameManager::saveGame()
+{
+	std::cout << "Saving game..." << std::endl;
+	//save current level
+	//save character position
+	//save character info
+	//write into file
+	std::cout << "Saving Done!" << std::endl;
+}

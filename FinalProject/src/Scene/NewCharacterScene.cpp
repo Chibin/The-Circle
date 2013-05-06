@@ -444,14 +444,20 @@ void NewCharScreen::display(SDL_Surface* screen){
 
 void NewCharScreen::disposeResources(){
 	std::cout << "Cleaning Character Creation Scene" << std::endl;
-	SDL_FreeSurface( malebg );
+	SDL_FreeSurface( backScreen );
+	SDL_FreeSurface( backScreen1);
+	SDL_FreeSurface( maleChar );
 	SDL_FreeSurface( maleChar1 );
 	SDL_FreeSurface( femaleChar );
 	SDL_FreeSurface( femaleChar1 );
 	SDL_FreeSurface( bg );
 	SDL_FreeSurface( bg1 );
-	//SDL_FreeSurface( malebg );
+	SDL_FreeSurface( malebg );
 	SDL_FreeSurface( femalebg );
+	SDL_FreeSurface( malebgp2 );
+	SDL_FreeSurface( femalebgp2 );
+	SDL_FreeSurface( arrows );
+	SDL_FreeSurface( arrows1 );
 
 	std::cout << "Cleaning Finished!" << std::endl << std::endl;
 }
