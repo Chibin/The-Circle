@@ -262,9 +262,10 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 					break;
 				case SDLK_DOWN:
 					curStats++;
+					if(curStats > 6)
+						curStats = 6;
 					if(points != 0){
-
-						if (curStats > 5)
+						if (curStats > 5 )
 							curStats = 5;
 					}
 					if(points == 0 && curStats == 6 ){
