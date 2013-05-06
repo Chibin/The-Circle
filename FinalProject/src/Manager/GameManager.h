@@ -21,11 +21,12 @@ public:
 	//getters
 	float getWindowHeight();
 	float getWindowWidth();
+	bool isLoaded();
 	GameState getGameState();
 
 
 private:
-	bool gameOver;
+	bool gameOver, didLoad;
 	int updateFrequency;
 	GameState gameState;
 	float winHeight, winWidth;

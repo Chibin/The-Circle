@@ -9,6 +9,7 @@ GameManager& GameManager::getInstance(){
 }
 GameManager::GameManager(){
 	gameOver = false;
+	didLoad = false;
 	gameState = OPENINGMENU;
 	updateFrequency = 30;
 	winHeight = 600;
@@ -70,6 +71,9 @@ float GameManager::getWindowWidth(){
 	return winWidth;
 }
 
+bool GameManager::isLoaded(){
+	return didLoad;
+}
 GameManager::GameState GameManager::getGameState(){
 	return gameState;
 }
@@ -84,12 +88,14 @@ void GameManager::setGameState(GameState state){
 	gameState = state;
 }
 
+
 /*************************
 Save and Load game
 **************************/
 void GameManager::loadGame()
 {
 	std::cout << "Loading game..." << std::endl;
+	didLoad = true;
 	setGameState(GameManager::BATTLE);
 
 	std::cout << "Loading Done!" << std::endl;

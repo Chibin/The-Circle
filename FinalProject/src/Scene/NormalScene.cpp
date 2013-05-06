@@ -3,6 +3,17 @@
 NormalScene::NormalScene(SDL_Surface* _screen){
 	type = GameManager::NORMAL;
 	screen = _screen;
+		std::cout << "Entering Normal Screen..." << std::endl;
+		std::cout << "Loading Resources..." << std::endl;
+		std::cout << "\tLoading Level " ;
+		if(game->isLoaded()){
+			std::cout << "from a save." << std::endl;;
+		}
+		else{
+
+		}
+		std::cout << "Done!" << std::endl;;
+		std::cout << "Finished Loading!" << std::endl << std::endl;
 }
 void NormalScene::eventHandler(SDL_Event& event){
 	Uint8* keystate =SDL_GetKeyState(NULL);

@@ -1,4 +1,7 @@
 #include "LevelManager.h"
+#include "../Utility/RapidXML/rapidxml.hpp"
+#include <iostream>
+using namespace rapidxml;
 
 LevelManager& LevelManager::getInstance(){
 	static LevelManager instance;
@@ -10,11 +13,11 @@ LevelManager::LevelManager(){
 }
 
 int LevelManager::getHeight(){
-return levelHeight;
+	return levelHeight;
 }
 
 int LevelManager::getWidth(){
-return levelWidth;
+	return levelWidth;
 }
 
 int LevelManager::getTotalSprites(){
