@@ -3,7 +3,7 @@
 OpeningScene::OpeningScene(){
 	maxButton = 2;
 	count = 0;
-	type = GameManager::OPENINGMENU;
+	type = SceneManager::OPENINGMENU;
 	std::cout << "Entering Menu Scene" << std::endl;
 	std::cout << "Loading OpeningScene Resources..." << std::endl; 
 	//Loads NewGame Button
@@ -56,7 +56,7 @@ void OpeningScene::eventHandler(SDL_Event& event){
 			case SDLK_RETURN:	
 				switch(count){
 				case 0:
-					game->setGameState(GameManager::CHARACTERCREATION);
+					scene->setGameScene(SceneManager::CHARACTERCREATION);
 					break;
 				case 1:
 					game->loadGame();
@@ -70,7 +70,7 @@ void OpeningScene::eventHandler(SDL_Event& event){
 			case SDLK_z:	
 				switch(count){
 				case 0:
-					game->setGameState(GameManager::CHARACTERCREATION);
+					scene->setGameScene(SceneManager::CHARACTERCREATION);
 					break;
 				case 1:
 					game->loadGame();

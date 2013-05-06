@@ -16,6 +16,7 @@ SceneManager::SceneManager(){
 	}
 	SDL_WM_SetCaption( "Tales of Breakers - Pre-alpha v.01a", NULL );
 	currentScene = new OpeningScene();
+	gameScene = OPENINGMENU;
 }
 SceneManager& SceneManager::getInstance(){
 	static SceneManager instance;
@@ -29,25 +30,25 @@ void SceneManager::eventHandler(SDL_Event& event){
 		std::cout << "There are no scene to process the event" << std::endl;
 }
 
-void SceneManager::sceneHandler(GameManager::GameState gameState){
+void SceneManager::sceneHandler(GameScene _gameScene){
 
 	//check if we are changing gamestate.
-	if(currentScene->type != gameState){
+	if(currentScene->type != _gameScene){
 		//clear the old scene resource
 		currentScene->disposeResources();
-		std::cout << "Switching gameState from " << currentScene->type<< " to " << gameState << std::endl;
+		std::cout << "Switching gameState from " << currentScene->type<< " to " << _gameScene << std::endl;
 		delete currentScene;
-		switch(gameState){
-		case GameManager::OPENINGMENU:
+		switch(_gameScene){
+		case OPENINGMENU:
 			currentScene = new OpeningScene();
 			break;
-		case GameManager::NORMAL:
+		case NORMAL:
 			currentScene = new NormalScene();
 			break;
-		case GameManager::BATTLE:
+		case BATTLE:
 			currentScene = new BattleScene();
 			break;
-		case GameManager::CHARACTERCREATION:
+		case CHARACTERCREATION:
 			currentScene = new NewCharScreen();
 			break;
 		default:
@@ -72,4 +73,14 @@ float SceneManager::getWindowWidth(){
 
 SDL_Surface* SceneManager::getScreen(){
 	return screen;
+}
+
+SceneManager::GameScene SceneManager::getGameScene(){
+	return gameScene;
+}
+/*************************
+Setters
+**************************/
+void SceneManager::setGameScene(SceneManager::GameScene _gameScene){
+	gameScene = _gameScene;
 }

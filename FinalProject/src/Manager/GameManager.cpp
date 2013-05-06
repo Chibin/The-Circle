@@ -10,11 +10,10 @@ GameManager& GameManager::getInstance(){
 GameManager::GameManager(){
 	gameOver = false;
 	didLoad = false;
-	gameState = OPENINGMENU;
 	updateFrequency = 30;
 	//we want to intialize all the manager here
 	sManager = &SceneManager::getInstance();
-
+	
 }
 
 
@@ -34,13 +33,8 @@ void GameManager::GameLoop(){
 			eventHandler(events);
 			timeAccumulated -= timeStep;
 		}
-		GameDisplay();
+		sManager->sceneHandler(sManager->getGameScene());
 	}
-}
-
-//will handle all the drawing
-void GameManager::GameDisplay(){
-	sManager->sceneHandler(gameState);
 }
 
 void GameManager::eventHandler(SDL_Event& event){
@@ -58,9 +52,7 @@ Getters
 bool GameManager::isLoaded(){
 	return didLoad;
 }
-GameManager::GameState GameManager::getGameState(){
-	return gameState;
-}
+
 /*************************
 Setters
 **************************/
@@ -68,9 +60,6 @@ void GameManager::setGameOver(bool state){
 	gameOver = state;
 }
 
-void GameManager::setGameState(GameState state){
-	gameState = state;
-}
 
 
 /*************************
@@ -80,7 +69,7 @@ void GameManager::loadGame()
 {
 	std::cout << "Loading game..." << std::endl;
 	didLoad = true;
-	setGameState(GameManager::BATTLE);
+	sManager->setGameScene(SceneManager::BATTLE);
 
 	std::cout << "Loading Done!" << std::endl;
 }

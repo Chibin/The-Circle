@@ -14,7 +14,7 @@ class Scene{
 		
 	public:
 		GameManager* game;
-		GameManager::GameState type;
+		SceneManager::GameScene type;
 		Player* player;
 		SceneManager* scene;
 		//SDL_Surface* screen;

@@ -144,7 +144,7 @@ void BattleHandler::battleDisplayUpdate(int& battleMenu){
 	}
 	else if(battleMenu == battleEnd){
 		battleMenu = FIGHT;
-		GameManager::getInstance().setGameState(GameManager::OPENINGMENU); //temporary
+		scene->setGameScene(SceneManager::OPENINGMENU); //temporary
 	}
 }
 void BattleHandler::monsterSelectDisplay(int& battleMenu){

@@ -103,6 +103,7 @@
     <None Include="..\Images\opening\starta1.bmp" />
     <None Include="..\Images\opening\starta1.png" />
     <None Include="..\Images\starta1.bmp" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Battle\BattleHandler.cpp" />

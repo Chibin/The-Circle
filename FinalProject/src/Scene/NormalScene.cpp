@@ -1,7 +1,7 @@
 #include "NormalScene.h"
 #include "../Manager/GameManager.h"
 NormalScene::NormalScene(){
-	type = GameManager::NORMAL;
+	type = SceneManager::NORMAL;
 		std::cout << "Entering Normal Screen..." << std::endl;
 		std::cout << "Loading Resources..." << std::endl;
 		std::cout << "\tLoading Level " ;

@@ -3,7 +3,7 @@
 #include "../Manager/GameManager.h"
 BattleScene::BattleScene(){
 	TTF_Init();
-	type = GameManager::BATTLE;
+	type = SceneManager::BATTLE;
 	battleMenu = FIGHT;
 	fightVal = 0; runVal = 1;
 	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",40);

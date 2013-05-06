@@ -4,9 +4,7 @@
 #include <fstream>
 class SceneManager;
 class GameManager{
-public:
-	//variables
-	enum GameState{NORMAL,MENU,BATTLE,OPENINGMENU, CHARACTERCREATION};
+public:	
 	//functions
 	static GameManager& getInstance();
 	void GameLoop();
@@ -14,18 +12,16 @@ public:
 	void eventHandler(SDL_Event& event);
 	//setters
 	void setGameOver(bool);
-	void setGameState(GameState);
 	void saveGame();
 	void loadGame();
 	//getters
 	bool isLoaded();
-	GameState getGameState();
+
 
 
 private:
 	bool gameOver, didLoad;
 	int updateFrequency;
-	GameState gameState;
 	//float winHeight, winWidth;
 	SDL_Event events;
 	//SDL_Surface* screen;

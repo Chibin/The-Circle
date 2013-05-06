@@ -5,7 +5,7 @@
 #include <stdlib.h>
 //64 width 64 height for male
 NewCharScreen::NewCharScreen(){
-	type = GameManager::CHARACTERCREATION;
+	type = SceneManager::CHARACTERCREATION;
 	currentTick = SDL_GetTicks();
 	lastTick = 0;
 	char1Tick = 0;
@@ -152,13 +152,13 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 					break;
 				case SDLK_z:	
 					if(goBack)
-						game->setGameState(GameManager::OPENINGMENU);
+						scene->setGameScene(SceneManager::OPENINGMENU);
 					else
 						currentStage = PICK;
 					break;
 				case SDLK_RETURN:	
 					if(goBack)
-						game->setGameState(GameManager::OPENINGMENU);
+						scene->setGameScene(SceneManager::OPENINGMENU);
 					else
 						currentStage = PICK;
 					break;
@@ -291,7 +291,7 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 						std::cout << "\t DEF: " << editStats[3] << std::endl;
 						std::cout << "\t SPD: " << editStats[4] << std::endl;
 						std::cout << "\tMATK: " << editStats[5] << std::endl;
-						game->setGameState(GameManager::NORMAL);
+						scene->setGameScene(SceneManager::NORMAL);
 					}
 					break;
 				case SDLK_RETURN:	
@@ -312,7 +312,7 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 						std::cout << "\t DEF: " << editStats[3] << std::endl;
 						std::cout << "\t SPD: " << editStats[4] << std::endl;
 						std::cout << "\tMATK: " << editStats[5] << std::endl;
-						game->setGameState(GameManager::NORMAL);
+						scene->setGameScene(SceneManager::NORMAL);
 					}
 
 					break;
