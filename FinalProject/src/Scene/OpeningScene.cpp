@@ -4,7 +4,7 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	maxButton = 2;
 	count = 0;
 	type = GameManager::OPENINGMENU;
-	std::cout << "Creating Menu Scene" << std::endl;
+	std::cout << "Entering Menu Scene" << std::endl;
 	std::cout << "Loading OpeningScene Resources..." << std::endl; 
 	//Loads NewGame Button
 	newGame[1] =  load_imageWhite("../Images/opening/newGame.bmp");
