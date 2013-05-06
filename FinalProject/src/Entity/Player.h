@@ -21,8 +21,10 @@ public:
 	//set the camera on the player
 	void setCamera();
 	void touchObject();
+	void setType(PlayerType);
 	PlayerType getType();
 	SDL_Surface** getPlayerText();
+	
 private:
 	PlayerType type;
 	//Collision Box

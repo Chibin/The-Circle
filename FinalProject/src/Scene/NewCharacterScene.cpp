@@ -13,6 +13,7 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	back = false;
 	selected = true;
 	goBack = false;
+	continued = false;
 	points = 10;
 	curStats = 0;
 	currentStage = PICK;
@@ -241,16 +242,48 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 					break;
 
 				case SDLK_UP:
+					continued = false;
 					curStats--;
 					if (curStats < 0)
 						curStats = 0;
 					break;
 				case SDLK_DOWN:
 					curStats++;
-					if (curStats > 5)
-						curStats = 5;
-					break;
+					if(points != 0){
 
+						if (curStats > 5)
+							curStats = 5;
+					}
+					if(points == 0 && curStats == 6 ){
+						//	std::cout << "Available to continue!" << std::endl;
+						//std::cout << "points: " << points << "curStats: " << curStats << std::endl;
+						continued = true;
+					}
+					break;
+				case SDLK_z:
+					if(continued){
+						std::cout << "Character Created!" << std::endl;
+						Player::getInstance().setStats(editStats[0],editStats[1],editStats[2],editStats[3],editStats[4],editStats[5]);
+						if(selected)
+							Player::getInstance().setType(Player::PlayerType::LLYOD);
+						else
+							Player::getInstance().setType(Player::PlayerType::NATILIA);
+						game->setGameState(GameManager::NORMAL);
+					}
+
+					break;
+				case SDLK_RETURN:	
+					if(continued){
+						std::cout << "Character Created!" << std::endl;
+						Player::getInstance().setStats(editStats[0],editStats[1],editStats[2],editStats[3],editStats[4],editStats[5]);
+						if(selected)
+							Player::getInstance().setType(Player::PlayerType::LLYOD);
+						else
+							Player::getInstance().setType(Player::PlayerType::NATILIA);
+						game->setGameState(GameManager::NORMAL);
+					}
+
+					break;
 				case SDLK_ESCAPE:
 					currentStage = PICK;
 					break;
@@ -324,8 +357,8 @@ void NewCharScreen::display(SDL_Surface* screen){
 		}
 
 	}
-	if(currentStage == STATS){
 
+	if(currentStage == STATS){
 		for(int i = 0; i < 6; i++){
 			arrowsRect[0].x = 0;
 			//draws the left side arrows
@@ -338,15 +371,16 @@ void NewCharScreen::display(SDL_Surface* screen){
 					SDL_BlitSurface(arrows, &arrowsRect[0], screen, &arrowsRect[1]);
 			//draw the numbers
 			SDL_Surface * nums;
-			SDL_Color black = {0,0,0,255};
-			std::ostringstream oss;
+			SDL_Color black = {0,0,0};
+			{std::ostringstream oss;
 			oss << editStats[i];
 			nums = TTF_RenderText_Blended(font,oss.str().c_str(),black);
 			numRect.x = 620;
 			numRect.y = 257+ 22*i;
 			SDL_BlitSurface(nums, NULL, screen, &numRect);
 			SDL_FreeSurface(nums);
-			std::ostringstream test;
+			}
+			{std::ostringstream test;
 			SDL_Surface * pointSurface;
 			test << points;
 			pointSurface = TTF_RenderText_Blended(font,test.str().c_str(),black);
@@ -354,6 +388,7 @@ void NewCharScreen::display(SDL_Surface* screen){
 			pointRect.y = 387;
 			SDL_BlitSurface(pointSurface, NULL, screen, &pointRect);
 			SDL_FreeSurface(pointSurface);
+			}
 			//draws the right side arrows
 			arrowsRect[0].x = 16;
 			arrowsRect[1].x = 670;
@@ -363,7 +398,22 @@ void NewCharScreen::display(SDL_Surface* screen){
 					SDL_BlitSurface(arrows1, &arrowsRect[0], screen, &arrowsRect[1]);
 				else
 					SDL_BlitSurface(arrows, &arrowsRect[0], screen, &arrowsRect[1]);
+			if(points == 0){
+				TTF_Font* temp;
+				temp = TTF_OpenFont("../Fonts/Lucida.ttf",18);
+				std::ostringstream test;
+				SDL_Surface *text_surface;
+				test << "Continue...";
+				if(continued)
+					temp = TTF_OpenFont("../Fonts/Lucida.ttf", 22);
+				text_surface	= TTF_RenderText_Blended( temp, test.str().c_str(), black );
+				finish.x = 670;
+				finish.y = 387;
+				finish.w = text_surface->w;
+				finish.h = text_surface->h;
+				SDL_BlitSurface(text_surface, NULL, screen, &finish);
 
+			}
 		}
 
 	}

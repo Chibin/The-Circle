@@ -48,3 +48,7 @@ Player& Player::getInstance(){
 Player::PlayerType Player::getType(){
 	return type;
 }
+
+void Player::setType(Player::PlayerType _type){
+	type = _type;
+}

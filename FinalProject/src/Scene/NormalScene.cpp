@@ -1,6 +1,7 @@
 #include "NormalScene.h"
 #include "../Manager/GameManager.h"
 NormalScene::NormalScene(SDL_Surface* _screen){
+	type = GameManager::NORMAL;
 	screen = _screen;
 }
 void NormalScene::eventHandler(SDL_Event& event){

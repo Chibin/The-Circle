@@ -16,10 +16,11 @@ class Scene{
 		Scene();
 		SDL_Surface *load_imageWhite( std::string file );
 		SDL_Surface *load_imageBlue( std::string file );
+		void SetSurfaceAlpha(SDL_Surface *surface, Uint8 alpha);
 		void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip );
 		virtual void eventHandler(SDL_Event& event) = 0;
 		virtual void display(SDL_Surface* screen) = 0;
-		//TODO: properly remove resource we dont need
+		// TODO: properly remove resource we dont need
 		virtual void disposeResources() = 0;
 };
 #endif
