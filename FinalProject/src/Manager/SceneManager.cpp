@@ -47,14 +47,18 @@ void SceneManager::sceneHandler(GameManager::GameState gameState){
 }
 
 void SceneManager::LoadOpeningScene(){
+	delete currentScene;
 	currentScene = new OpeningScene(screen);
 }
 void SceneManager::loadNormalScene(){
+	delete currentScene;
 	currentScene = new NormalScene(screen);
 }
 void SceneManager::loadBattleScene(){	
+	delete currentScene;
 	currentScene = new BattleScene(screen);
 }
 void SceneManager::loadNewCharScene(){
+	delete currentScene;
 	currentScene = new NewCharScreen(screen);
 }
