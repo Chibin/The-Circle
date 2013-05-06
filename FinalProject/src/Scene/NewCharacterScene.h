@@ -29,8 +29,8 @@ class NewCharScreen: public Scene{
 
 	public:
 		void disposeResources();
-		NewCharScreen(SDL_Surface* screen);
+		NewCharScreen();
 		void eventHandler(SDL_Event& event);
-		void display(SDL_Surface* screen);
+		void display();
 };
 #endif

@@ -8,9 +8,9 @@ class OpeningScene: public Scene{
 		//int quitValue, newValue, loadValue;
 	public:
 		int count, maxButton;
-		OpeningScene(SDL_Surface* screen);
+		OpeningScene();
 		void eventHandler(SDL_Event& event);
-		void display(SDL_Surface* screen);
+		void display();
 		void disposeResources();
 };
 #endif

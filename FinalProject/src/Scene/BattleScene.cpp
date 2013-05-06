@@ -1,10 +1,9 @@
 #include <sstream>
 #include "BattleScene.h"
 #include "../Manager/GameManager.h"
-BattleScene::BattleScene(SDL_Surface* _screen){
+BattleScene::BattleScene(){
 	TTF_Init();
 	type = GameManager::BATTLE;
-	screen = _screen;
 	battleMenu = FIGHT;
 	fightVal = 0; runVal = 1;
 	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",40);
@@ -85,25 +84,25 @@ void BattleScene::eventHandler(SDL_Event& event){
 							bManager->moveRight();
 						break;
 					case SDLK_RETURN:
-						bManager->battleHandler(battleMenu,screen);
+						bManager->battleHandler(battleMenu);
 						if(battleMenu == battlePhase)
-							bManager->battlePhaseUpdate(battleMenu,screen);
+							bManager->battlePhaseUpdate(battleMenu);
 						else if(battleMenu == endPhase)
-							bManager->battlePhaseUpdate(battleMenu,screen);
+							bManager->battlePhaseUpdate(battleMenu);
 						break;
 					case SDLK_z:
-						bManager->battleHandler(battleMenu,screen);
+						bManager->battleHandler(battleMenu);
 						if(battleMenu == battlePhase)
-							bManager->battlePhaseUpdate(battleMenu,screen);
+							bManager->battlePhaseUpdate(battleMenu);
 						else if(battleMenu == endPhase)
-							bManager->battlePhaseUpdate(battleMenu,screen);
+							bManager->battlePhaseUpdate(battleMenu);
 						break;
 					case SDLK_x:
 						if(battleMenu == isFight)
 							battleMenu = FIGHT;
 						break;
 					case SDLK_ESCAPE:
-						GameManager::getInstance().setGameOver(true);
+						game->setGameOver(true);
 						break;
 					default:
 						break;
@@ -115,9 +114,9 @@ void BattleScene::eventHandler(SDL_Event& event){
 	}
 }
 
-void BattleScene::display(SDL_Surface* screen){
-	SDL_FillRect(screen,NULL,0x554455);
-		bManager->battleDisplayUpdate(battleMenu,screen);
+void BattleScene::display(){
+	SDL_FillRect(scene->getScreen(),NULL,0x554455);
+		bManager->battleDisplayUpdate(battleMenu);
 	fightVal = runVal = itemVal = magicVal = 1;
 	switch(battleMenu){
 		case FIGHT:
@@ -135,12 +134,12 @@ void BattleScene::display(SDL_Surface* screen){
 		default:
 			break;
 	}
-	SDL_BlitSurface(bgBattleMenu,NULL,screen,&bgBattleMenuLoc);
-	SDL_BlitSurface(textFight[fightVal],NULL,screen,&fightLoc);
-	SDL_BlitSurface(textMagic[magicVal],NULL,screen,&magicLoc);
-	SDL_BlitSurface(textItem[itemVal],NULL,screen,&itemLoc);
-	SDL_BlitSurface(textRun[runVal],NULL,screen,&runLoc);
-	SDL_Flip(screen);
+	SDL_BlitSurface(bgBattleMenu,NULL,scene->getScreen(),&bgBattleMenuLoc);
+	SDL_BlitSurface(textFight[fightVal],NULL,scene->getScreen(),&fightLoc);
+	SDL_BlitSurface(textMagic[magicVal],NULL,scene->getScreen(),&magicLoc);
+	SDL_BlitSurface(textItem[itemVal],NULL,scene->getScreen(),&itemLoc);
+	SDL_BlitSurface(textRun[runVal],NULL,scene->getScreen(),&runLoc);
+	SDL_Flip(scene->getScreen());
 }
 BattleScene::~BattleScene(){
 	TTF_CloseFont(font);

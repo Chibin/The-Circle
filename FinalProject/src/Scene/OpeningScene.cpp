@@ -1,6 +1,6 @@
 #include "OpeningScene.h"
 #include "../Manager/SceneManager.h"
-OpeningScene::OpeningScene(SDL_Surface* screen){
+OpeningScene::OpeningScene(){
 	maxButton = 2;
 	count = 0;
 	type = GameManager::OPENINGMENU;
@@ -9,8 +9,8 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	//Loads NewGame Button
 	newGame[1] =  load_imageWhite("../Images/opening/newGame.bmp");
 	newGame[0] =  load_imageWhite("../Images/opening/newGame1.bmp");
-	newGameRect.x = (Sint16)(game->getWindowWidth()/2) - (newGame[0]->w)/2;
-	newGameRect.y = (Sint16)(game->getWindowHeight()/2- (newGame[0]->h)/2) - newGame[0]->h;
+	newGameRect.x = (Sint16)(scene->getWindowWidth()/2) - (newGame[0]->w)/2;
+	newGameRect.y = (Sint16)(scene->getWindowHeight()/2- (newGame[0]->h)/2) - newGame[0]->h;
 
 	//Loads Background
 	bg = SDL_LoadBMP("../Images/opening/bg3.bmp");
@@ -20,30 +20,22 @@ OpeningScene::OpeningScene(SDL_Surface* screen){
 	bgRectSrc.w = 800;
 	bgRectDest.x = 0;
 	bgRectDest.y = 0;
-	bgRectDest.h = (Sint16)game->getWindowHeight();
-	bgRectDest.w = (Sint16)game->getWindowWidth();
+	bgRectDest.h = (Sint16)scene->getWindowHeight();
+	bgRectDest.w = (Sint16)scene->getWindowWidth();
 
 	//Loads the load button
 	load[1] = load_imageWhite("../Images/opening/load.bmp");
 	load[0] = load_imageWhite("../Images/opening/load1.bmp");
-	loadRect.x = (Sint16)(game->getWindowWidth()/2) - (load[0]->w)/2;
-	loadRect.y = (Sint16)(game->getWindowHeight()/2- (load[0]->h)/2);	
+	loadRect.x = (Sint16)(scene->getWindowWidth()/2) - (load[0]->w)/2;
+	loadRect.y = (Sint16)(scene->getWindowHeight()/2- (load[0]->h)/2);	
 
 	//Loads quit button
 	quit[1] = load_imageWhite("../Images/opening/quit.bmp");
 	quit[0] = load_imageWhite("../Images/opening/quit1.bmp");
-	quitRect.x = (Sint16)(game->getWindowWidth()/2) - (quit[0]->w)/2;
-	quitRect.y = (Sint16)(game->getWindowHeight()/2- (quit[0]->h)/2) + quit[0]->h;	
-
-
-	//loads it on screen
-	SDL_BlitSurface(load[0], NULL, screen, &loadRect);
-	SDL_BlitSurface(newGame[1], NULL, screen, &newGameRect);
-	SDL_BlitSurface(quit[0],NULL,screen,&quitRect);
-	SDL_BlitSurface(bg,&bgRectSrc,screen,&bgRectDest);
+	quitRect.x = (Sint16)(scene->getWindowWidth()/2) - (quit[0]->w)/2;
+	quitRect.y = (Sint16)(scene->getWindowHeight()/2- (quit[0]->h)/2) + quit[0]->h;	
 
 	std::cout << "Finished loading!" << std::endl << std::endl; 
-	SDL_Flip(screen);	
 }
 
 void OpeningScene::eventHandler(SDL_Event& event){
@@ -107,27 +99,27 @@ void OpeningScene::eventHandler(SDL_Event& event){
 
 }
 
-void OpeningScene::display(SDL_Surface* screen){
-	SDL_BlitSurface(bg,&bgRectSrc,screen,&bgRectDest);
+void OpeningScene::display(){
+	SDL_BlitSurface(bg,&bgRectSrc,scene->getScreen(),&bgRectDest);
 	switch(count){
 	case 0:
-		SDL_BlitSurface(newGame[1], NULL, screen, &newGameRect);
-		SDL_BlitSurface(load[0], NULL, screen, &loadRect);
-		SDL_BlitSurface(quit[0],NULL,screen,&quitRect);
+		SDL_BlitSurface(newGame[1], NULL, scene->getScreen(), &newGameRect);
+		SDL_BlitSurface(load[0], NULL, scene->getScreen(), &loadRect);
+		SDL_BlitSurface(quit[0],NULL,scene->getScreen(),&quitRect);
 		break;
 	case 1:
-		SDL_BlitSurface(newGame[0], NULL, screen, &newGameRect);
-		SDL_BlitSurface(load[1], NULL, screen, &loadRect);
-		SDL_BlitSurface(quit[0],NULL,screen,&quitRect);
+		SDL_BlitSurface(newGame[0], NULL, scene->getScreen(), &newGameRect);
+		SDL_BlitSurface(load[1], NULL, scene->getScreen(), &loadRect);
+		SDL_BlitSurface(quit[0],NULL,scene->getScreen(),&quitRect);
 		break;
 	case 2:
-		SDL_BlitSurface(newGame[0], NULL, screen, &newGameRect);
-		SDL_BlitSurface(load[0], NULL, screen, &loadRect);
-		SDL_BlitSurface(quit[1],NULL,screen,&quitRect);
+		SDL_BlitSurface(newGame[0], NULL, scene->getScreen(), &newGameRect);
+		SDL_BlitSurface(load[0], NULL, scene->getScreen(), &loadRect);
+		SDL_BlitSurface(quit[1],NULL,scene->getScreen(),&quitRect);
 		break;
 	}
 
-	SDL_Flip(screen);
+	SDL_Flip(scene->getScreen());
 }
 
 void OpeningScene::disposeResources(){

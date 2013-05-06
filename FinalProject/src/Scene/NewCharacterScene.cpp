@@ -4,7 +4,7 @@
 #include <sstream>
 #include <stdlib.h>
 //64 width 64 height for male
-NewCharScreen::NewCharScreen(SDL_Surface* screen){
+NewCharScreen::NewCharScreen(){
 	type = GameManager::CHARACTERCREATION;
 	currentTick = SDL_GetTicks();
 	lastTick = 0;
@@ -24,8 +24,8 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	/*******************load goBack resources***********************************/
 	/**/backScreen = load_imageWhite("../Images/charCreation/goBack.bmp");
 	/**/backScreen1 = load_imageWhite("../Images/charCreation/goBack1.bmp");
-	/**/backScreenRect.x = (Sint16)game->getWindowWidth()/2 - (backScreen->w/2); 
-	/**/backScreenRect.y = (Sint16)game->getWindowHeight()/2 - (backScreen->h/2); 
+	/**/backScreenRect.x = (Sint16)scene->getWindowWidth()/2 - (backScreen->w/2); 
+	/**/backScreenRect.y = (Sint16)scene->getWindowHeight()/2 - (backScreen->h/2); 
 	/****************************************************************************/
 	std::cout << "Done!" << std::endl;;
 
@@ -48,14 +48,14 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	/**/bg = load_imageWhite("../Images/charCreation/bgChar2.bmp");
 	/**/bgRect.x = 0;
 	/**/bgRect.y = 0;
-	/**/bgRect.h = (Sint16)game->getWindowHeight();
-	/**/bgRect.w = (Sint16)game->getWindowWidth();
+	/**/bgRect.h = (Sint16)scene->getWindowHeight();
+	/**/bgRect.w = (Sint16)scene->getWindowWidth();
 	/**/
 	/**/bg1 = load_imageWhite("../Images/charCreation/bgChar3.bmp");
 	/**/bgRect1.x = 0;
 	/**/bgRect1.y = 0;
-	/**/bgRect1.h = (Sint16)game->getWindowHeight();
-	/**/bgRect1.w = (Sint16)game->getWindowWidth();
+	/**/bgRect1.h = (Sint16)scene->getWindowHeight();
+	/**/bgRect1.w = (Sint16)scene->getWindowWidth();
 	/**/
 	//male animation selected
 	/**/maleChar = load_imageBlue("../Images/charCreation/maleStanding1.bmp");
@@ -106,14 +106,14 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	//male background
 	malebgp2 = load_imageWhite("../Images/charCreation/bgLLYODpart2.bmp");
 	malebgp2Rect.h = 600;
-	malebgp2Rect.w = (Sint16)game->getWindowWidth();;
+	malebgp2Rect.w = (Sint16)scene->getWindowWidth();;
 	malebgp2Rect.y = 0;
 	malebgp2Rect.x = 0;
 
 	//female background
 	femalebgp2 = load_imageWhite("../Images/charCreation/bgNATALIApart2.bmp");
 	femalebgp2Rect.h = 600;
-	femalebgp2Rect.w = (Sint16)game->getWindowWidth();;
+	femalebgp2Rect.w = (Sint16)scene->getWindowWidth();;
 	femalebgp2Rect.y = 0;
 	femalebgp2Rect.x = 0;
 
@@ -133,7 +133,6 @@ NewCharScreen::NewCharScreen(SDL_Surface* screen){
 	std::cout << "Done!" << std::endl;;
 
 	std::cout << "Finished Loading!" << std::endl << std::endl;
-	SDL_Flip(screen);	
 }
 
 
@@ -280,11 +279,11 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 						Player::getInstance().setStats(editStats[0],editStats[1],editStats[2],editStats[3],editStats[4],editStats[5]);
 						if(selected){
 							std::cout << "Player created Llyod" << std::endl;
-							Player::getInstance().setType(Player::PlayerType::LLYOD);
+							Player::getInstance().setType(Player::LLYOD);
 						}
 						else{
 							std::cout << "Player created Natilia" << std::endl;
-							Player::getInstance().setType(Player::PlayerType::NATILIA);
+							Player::getInstance().setType(Player::NATILIA);
 						}
 						std::cout << "Starting Stats:\n\t  HP: " << editStats[0] << std::endl;
 						std::cout << "\t  MP: " << editStats[1] << std::endl;
@@ -301,11 +300,11 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 						Player::getInstance().setStats(editStats[0],editStats[1],editStats[2],editStats[3],editStats[4],editStats[5]);
 						if(selected){
 							std::cout << "Player created Llyod" << std::endl;
-							Player::getInstance().setType(Player::PlayerType::LLYOD);
+							Player::getInstance().setType(Player::LLYOD);
 						}
 						else{
 							std::cout << "Player created Natilia" << std::endl;
-							Player::getInstance().setType(Player::PlayerType::NATILIA);
+							Player::getInstance().setType(Player::NATILIA);
 						}
 						std::cout << "Starting Stats:\n\t  HP: " << editStats[0] << std::endl;
 						std::cout << "\t  MP: " << editStats[1] << std::endl;
@@ -332,7 +331,7 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 	}
 }
 
-void NewCharScreen::display(SDL_Surface* screen){
+void NewCharScreen::display(){
 
 	currentTick = SDL_GetTicks();
 	if(currentTick - lastTick > 150)
@@ -370,26 +369,26 @@ void NewCharScreen::display(SDL_Surface* screen){
 
 	if (selected){
 		if(currentStage == PICK){
-			SDL_BlitSurface(bg,NULL,screen,&bgRect);
-			SDL_BlitSurface(malebg,NULL,screen,&maleBgRect);
-			SDL_BlitSurface(maleChar1,&maleCharRect[char1Tick],screen,&char1);
-			SDL_BlitSurface(femaleChar,&femaleCharRect[char2Tick],screen,&char2);
+			SDL_BlitSurface(bg,NULL,scene->getScreen(),&bgRect);
+			SDL_BlitSurface(malebg,NULL,scene->getScreen(),&maleBgRect);
+			SDL_BlitSurface(maleChar1,&maleCharRect[char1Tick],scene->getScreen(),&char1);
+			SDL_BlitSurface(femaleChar,&femaleCharRect[char2Tick],scene->getScreen(),&char2);
 		}
 		if(currentStage == STATS){
-			SDL_BlitSurface(malebgp2,NULL,screen,&malebgp2Rect);
-			SDL_BlitSurface(malebg,NULL,screen,&maleBgRect);
+			SDL_BlitSurface(malebgp2,NULL,scene->getScreen(),&malebgp2Rect);
+			SDL_BlitSurface(malebg,NULL,scene->getScreen(),&maleBgRect);
 		}
 	}
 	else{
 		if(currentStage == PICK){
-			SDL_BlitSurface(bg1,NULL,screen,&bgRect1);
-			SDL_BlitSurface(femalebg,NULL,screen,&femaleBgRect);
-			SDL_BlitSurface(maleChar,&maleCharRect[char1Tick],screen,&char1);
-			SDL_BlitSurface(femaleChar1,&femaleCharRect[char2Tick],screen,&char2);
+			SDL_BlitSurface(bg1,NULL,scene->getScreen(),&bgRect1);
+			SDL_BlitSurface(femalebg,NULL,scene->getScreen(),&femaleBgRect);
+			SDL_BlitSurface(maleChar,&maleCharRect[char1Tick],scene->getScreen(),&char1);
+			SDL_BlitSurface(femaleChar1,&femaleCharRect[char2Tick],scene->getScreen(),&char2);
 		}
 		if(currentStage == STATS){
-			SDL_BlitSurface(femalebgp2,NULL,screen,&femalebgp2Rect);
-			SDL_BlitSurface(femalebg,NULL,screen,&femaleBgRect);
+			SDL_BlitSurface(femalebgp2,NULL,scene->getScreen(),&femalebgp2Rect);
+			SDL_BlitSurface(femalebg,NULL,scene->getScreen(),&femaleBgRect);
 		}
 
 	}
@@ -402,9 +401,9 @@ void NewCharScreen::display(SDL_Surface* screen){
 			arrowsRect[1].y = 257+ 22*i;
 			if(editStats[i] > baseStat[i])
 				if(curStats == i)
-					SDL_BlitSurface(arrows1, &arrowsRect[0], screen, &arrowsRect[1]);
+					SDL_BlitSurface(arrows1, &arrowsRect[0], scene->getScreen(), &arrowsRect[1]);
 				else
-					SDL_BlitSurface(arrows, &arrowsRect[0], screen, &arrowsRect[1]);
+					SDL_BlitSurface(arrows, &arrowsRect[0], scene->getScreen(), &arrowsRect[1]);
 			//draw the numbers
 			SDL_Surface * nums;
 			SDL_Color black = {0,0,0};
@@ -413,7 +412,7 @@ void NewCharScreen::display(SDL_Surface* screen){
 			nums = TTF_RenderText_Blended(font,oss.str().c_str(),black);
 			numRect.x = 620;
 			numRect.y = 257+ 22*i;
-			SDL_BlitSurface(nums, NULL, screen, &numRect);
+			SDL_BlitSurface(nums, NULL, scene->getScreen(), &numRect);
 			SDL_FreeSurface(nums);
 			}
 			{std::ostringstream test;
@@ -422,7 +421,7 @@ void NewCharScreen::display(SDL_Surface* screen){
 			pointSurface = TTF_RenderText_Blended(font,test.str().c_str(),black);
 			pointRect.x = 620;
 			pointRect.y = 387;
-			SDL_BlitSurface(pointSurface, NULL, screen, &pointRect);
+			SDL_BlitSurface(pointSurface, NULL, scene->getScreen(), &pointRect);
 			SDL_FreeSurface(pointSurface);
 			}
 			//draws the right side arrows
@@ -431,9 +430,9 @@ void NewCharScreen::display(SDL_Surface* screen){
 			arrowsRect[1].y = 257+ 22*i;
 			if(editStats[i] < 15 )
 				if(curStats == i)
-					SDL_BlitSurface(arrows1, &arrowsRect[0], screen, &arrowsRect[1]);
+					SDL_BlitSurface(arrows1, &arrowsRect[0], scene->getScreen(), &arrowsRect[1]);
 				else
-					SDL_BlitSurface(arrows, &arrowsRect[0], screen, &arrowsRect[1]);
+					SDL_BlitSurface(arrows, &arrowsRect[0], scene->getScreen(), &arrowsRect[1]);
 			if(points == 0){
 				TTF_Font* temp;
 				temp = TTF_OpenFont("../Fonts/Lucida.ttf",18);
@@ -447,7 +446,7 @@ void NewCharScreen::display(SDL_Surface* screen){
 				finish.y = 387;
 				finish.w = text_surface->w;
 				finish.h = text_surface->h;
-				SDL_BlitSurface(text_surface, NULL, screen, &finish);
+				SDL_BlitSurface(text_surface, NULL, scene->getScreen(), &finish);
 
 			}
 		}
@@ -455,11 +454,11 @@ void NewCharScreen::display(SDL_Surface* screen){
 	}
 	if(currentStage == GOBACK)
 		if(goBack)
-			SDL_BlitSurface(backScreen, NULL, screen, &backScreenRect);
+			SDL_BlitSurface(backScreen, NULL, scene->getScreen(), &backScreenRect);
 		else
-			SDL_BlitSurface(backScreen1, NULL, screen, &backScreenRect);
+			SDL_BlitSurface(backScreen1, NULL, scene->getScreen(), &backScreenRect);
 
-	SDL_Flip(screen);	
+	SDL_Flip(scene->getScreen());	
 }
 
 void NewCharScreen::disposeResources(){

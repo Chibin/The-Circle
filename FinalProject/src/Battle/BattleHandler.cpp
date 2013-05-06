@@ -3,6 +3,7 @@
 BattleHandler::BattleHandler(){
 	battleText.clear();
 	player = &Player::getInstance();
+	scene = &SceneManager::getInstance();
 	mobSelected = 0;
 	playerDead = false;
 }
@@ -13,7 +14,7 @@ void BattleHandler::loadMobs(std::vector<Mob*>* _mobs){
 //Selected Actions
 void BattleHandler::displayItems(){
 }
-bool BattleHandler::startFight(int& battleMenu, SDL_Surface* screen,enum battleCondition condition){
+bool BattleHandler::startFight(int& battleMenu, enum battleCondition condition){
 	if(mobs->size()  == 0)
 		return false;
 	if(mobSelected > (int)mobs->size()-1)
@@ -29,7 +30,7 @@ bool BattleHandler::startFight(int& battleMenu, SDL_Surface* screen,enum battleC
 	bpLoopCheck = -1;
 	return true;
 }
-void BattleHandler::run(int& battleMenu, SDL_Surface* screen){
+void BattleHandler::run(int& battleMenu){
 	int fasterMonsters = 1;
 	SDL_Surface* temp;
 	SDL_Color fgColor = {255,255,255};
@@ -57,7 +58,7 @@ void BattleHandler::run(int& battleMenu, SDL_Surface* screen){
 			battleText.push_back(temp);
 			battleMenu = battlePhase;
 			//commence attack of mob here
-			startFight(battleMenu,screen,FLANKED);
+			startFight(battleMenu,FLANKED);
 
 		}
 	}
@@ -128,25 +129,25 @@ void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked,
 }
 
 //Modifier for the battle display via incrementing a counter
-void BattleHandler::battlePhaseUpdate(int& battleMenu, SDL_Surface* screen){
+void BattleHandler::battlePhaseUpdate(int& battleMenu){
 	bpLoopCheck++;
 }
 //For Display
-void BattleHandler::battleDisplayUpdate(int& battleMenu, SDL_Surface* screen){
+void BattleHandler::battleDisplayUpdate(int& battleMenu){
 	if(battleMenu == isFight || battleMenu == battlePhase)
-		monsterSelectDisplay(screen,battleMenu);
+		monsterSelectDisplay(battleMenu);
 	if(battleMenu == battlePhase){
-		battlePhaseDisplay(battleMenu,screen);	
+		battlePhaseDisplay(battleMenu);	
 	}
 	if(battleMenu == endPhase){
-		endPhaseDisplay(battleMenu,screen);
+		endPhaseDisplay(battleMenu);
 	}
 	else if(battleMenu == battleEnd){
 		battleMenu = FIGHT;
 		GameManager::getInstance().setGameState(GameManager::OPENINGMENU); //temporary
 	}
 }
-void BattleHandler::monsterSelectDisplay(SDL_Surface* screen,int& battleMenu){
+void BattleHandler::monsterSelectDisplay(int& battleMenu){
 	//cout << "Fighting ";
 	int x = 0, y = 0;
 	SDL_Rect* mobRect = new SDL_Rect[mobs->size()];
@@ -154,17 +155,17 @@ void BattleHandler::monsterSelectDisplay(SDL_Surface* screen,int& battleMenu){
 		mobRect[i].x = i*150; mobRect[i].y = 0;
 		//cout << (*mobs)[i]->getName() << " ";
 		if(mobSelected == i)
-			SDL_BlitSurface((*mobs)[i]->getEnemyText()[0],NULL,screen,&mobRect[i]);
+			SDL_BlitSurface((*mobs)[i]->getEnemyText()[0],NULL,scene->getScreen(),&mobRect[i]);
 		else
-			SDL_BlitSurface((*mobs)[i]->getEnemyText()[1],NULL,screen,&mobRect[i]);
+			SDL_BlitSurface((*mobs)[i]->getEnemyText()[1],NULL,scene->getScreen(),&mobRect[i]);
 	}
 }
-void BattleHandler::battlePhaseDisplay(int& battleMenu, SDL_Surface* screen){
+void BattleHandler::battlePhaseDisplay(int& battleMenu){
 	SDL_Rect bText;
 	bText.x = 50;
 	bText.y = 400;
 	if(bpLoopCheck < (int)battleText.size())
-		SDL_BlitSurface(battleText[bpLoopCheck],NULL,screen,&bText);
+		SDL_BlitSurface(battleText[bpLoopCheck],NULL,scene->getScreen(),&bText);
 	else{
 		for(int i = 0; i < (int)battleText.size(); i++)
 			SDL_FreeSurface(battleText[i]);
@@ -180,12 +181,12 @@ void BattleHandler::battlePhaseDisplay(int& battleMenu, SDL_Surface* screen){
 		battleText.clear();
 	}
 }
-void BattleHandler::endPhaseDisplay(int& battleMenu, SDL_Surface* screen){
+void BattleHandler::endPhaseDisplay(int& battleMenu){
 	SDL_Rect bText;
 	bText.x = 50;
 	bText.y = 400;
 	if(bpLoopCheck < (int)endBattleText.size())
-		SDL_BlitSurface(endBattleText[bpLoopCheck],NULL,screen,&bText);
+		SDL_BlitSurface(endBattleText[bpLoopCheck],NULL,scene->getScreen(),&bText);
 	else{
 		for(int i = 0; i < (int)endBattleText.size(); i++)
 			SDL_FreeSurface(endBattleText[i]);
@@ -219,7 +220,7 @@ void BattleHandler::moveRight(){
 }
 
 //Flow State of battle
-void BattleHandler::battleHandler(int& battleMenu,SDL_Surface* screen){
+void BattleHandler::battleHandler(int& battleMenu){
 	switch(battleMenu){
 		case FIGHT:
 			battleMenu = isFight;
@@ -231,10 +232,10 @@ void BattleHandler::battleHandler(int& battleMenu,SDL_Surface* screen){
 			cout << "ITEMS WHERE R U" << endl;
 			break;
 		case RUN:
-			run(battleMenu,screen);
+			run(battleMenu);
 			break;
 		case isFight:
-			if(!startFight(battleMenu,screen,MUTAL)){
+			if(!startFight(battleMenu,MUTAL)){
 				//call EXP EVENT?
 				battleMenu = endPhase;
 				cout << "BATTLE SHOULD END" << endl;

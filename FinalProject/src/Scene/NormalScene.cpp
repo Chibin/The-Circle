@@ -1,8 +1,7 @@
 #include "NormalScene.h"
 #include "../Manager/GameManager.h"
-NormalScene::NormalScene(SDL_Surface* _screen){
+NormalScene::NormalScene(){
 	type = GameManager::NORMAL;
-	screen = _screen;
 		std::cout << "Entering Normal Screen..." << std::endl;
 		std::cout << "Loading Resources..." << std::endl;
 		std::cout << "\tLoading Level " ;
@@ -13,7 +12,7 @@ NormalScene::NormalScene(SDL_Surface* _screen){
 
 		}
 		std::cout << "\tLoading Character..." ;
-			
+		//if()	
 		std::cout << "Done!" << std::endl;;
 		std::cout << "Finished Loading!" << std::endl << std::endl;
 }
@@ -41,7 +40,7 @@ void NormalScene::eventHandler(SDL_Event& event){
 				cout << "STOP PRESSING ENTER" << endl;
 				break;
 			case SDLK_ESCAPE:
-				GameManager::getInstance().setGameOver(true);
+				game->setGameOver(true);
 				break;
 			default:
 				break;
@@ -53,9 +52,9 @@ void NormalScene::eventHandler(SDL_Event& event){
 	}
 
 }
-void NormalScene::display(SDL_Surface* screen){
-	SDL_FillRect(screen,NULL,0x221122);
-	SDL_Flip(screen);
+void NormalScene::display(){
+	SDL_FillRect(scene->getScreen(),NULL,0x221122);
+	SDL_Flip(scene->getScreen());
 }
 void NormalScene::disposeResources(){
 }

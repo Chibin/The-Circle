@@ -12,18 +12,9 @@ GameManager::GameManager(){
 	didLoad = false;
 	gameState = OPENINGMENU;
 	updateFrequency = 30;
-	winHeight = 600;
-	winWidth = 800;
+	//we want to intialize all the manager here
+	sManager = &SceneManager::getInstance();
 
-	//TTF_Init();
-	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER);	
-	if(!(screen = SDL_SetVideoMode((int)winWidth,(int)winHeight,32,SDL_DOUBLEBUF|SDL_HWSURFACE|SDL_ANYFORMAT))){
-		SDL_Quit();
-		exit(-1);
-	}
-	SDL_WM_SetCaption( "Tales of Breakers - Pre-alpha v.01a", NULL );
-
-	sManager = new SceneManager(screen);
 }
 
 
@@ -63,13 +54,6 @@ void GameManager::eventHandler(SDL_Event& event){
 /*************************
 Getters
 **************************/
-float GameManager::getWindowHeight(){
-	return winHeight;
-}
-
-float GameManager::getWindowWidth(){
-	return winWidth;
-}
 
 bool GameManager::isLoaded(){
 	return didLoad;

@@ -13,14 +13,11 @@ public:
 	void GameDisplay();
 	void eventHandler(SDL_Event& event);
 	//setters
-	void setWindowSize(float, float);
 	void setGameOver(bool);
 	void setGameState(GameState);
 	void saveGame();
 	void loadGame();
 	//getters
-	float getWindowHeight();
-	float getWindowWidth();
 	bool isLoaded();
 	GameState getGameState();
 
@@ -29,9 +26,9 @@ private:
 	bool gameOver, didLoad;
 	int updateFrequency;
 	GameState gameState;
-	float winHeight, winWidth;
+	//float winHeight, winWidth;
 	SDL_Event events;
-	SDL_Surface* screen;
+	//SDL_Surface* screen;
 	SceneManager* sManager;
 	GameManager();
 	//disable copy constructors

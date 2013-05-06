@@ -3,6 +3,7 @@
 Scene::Scene(){
 	game = &GameManager::getInstance();
 	player = &Player::getInstance();
+	scene = &SceneManager::getInstance();
 }
 
 void Scene::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL )
