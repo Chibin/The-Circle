@@ -26,8 +26,8 @@ BattleScene::BattleScene(SDL_Surface* _screen){
 	magicLoc.x = 25; magicLoc.y = 535;
 	itemLoc.x = 165; itemLoc.y = 485;
 	runLoc.x = 165; runLoc.y = 535;
-	player = &Player::getInstance(); //just added this to test the battle sequence
-	bManager = new BattleHandler(player);
+	//player = &Player::getInstance(); //just added this to test the battle sequence
+	bManager = new BattleHandler();
 	loadMobs();
 }
 

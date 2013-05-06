@@ -27,7 +27,7 @@ class BattleHandler{
 		std::vector<SDL_Surface*> battleText,endBattleText;
 		std::vector<Mob*>* mobs;
 	public:
-		BattleHandler(Player* _player);
+		BattleHandler();
 		void loadMobs(std::vector<Mob*>* _mobs);
 		//Selected Actions
 		void displayItems();

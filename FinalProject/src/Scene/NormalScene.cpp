@@ -12,6 +12,8 @@ NormalScene::NormalScene(SDL_Surface* _screen){
 		else{
 
 		}
+		std::cout << "\tLoading Character..." ;
+			
 		std::cout << "Done!" << std::endl;;
 		std::cout << "Finished Loading!" << std::endl << std::endl;
 }

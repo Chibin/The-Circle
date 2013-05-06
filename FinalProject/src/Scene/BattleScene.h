@@ -13,7 +13,6 @@ class BattleScene : public Scene{
 		int fightVal, runVal,itemVal,magicVal;
 		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isItem,isRun, battleEnd,battlePhase,endPhase};
 		BattleHandler* bManager;
-		Player* player;
 		int battleMenu;
 	public:
 		BattleScene(SDL_Surface* screen);

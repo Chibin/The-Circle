@@ -1,8 +1,8 @@
 #include "../Scene/BattleScene.h" //no idea why it breaks without this
 #include "BattleHandler.h"
-BattleHandler::BattleHandler(Player* _player){
+BattleHandler::BattleHandler(){
 	battleText.clear();
-	player = _player;
+	player = &Player::getInstance();
 	mobSelected = 0;
 	playerDead = false;
 }

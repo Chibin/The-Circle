@@ -6,12 +6,14 @@
 #include <SDL_image.h>
 using namespace std;
 #include "../Manager/GameManager.h"
+#include "../Entity//Player.h"
 class Scene{
 	private:
 		
 	public:
 		GameManager* game;
 		GameManager::GameState type;
+		Player* player;
 		SDL_Surface* screen;
 		Scene();
 		SDL_Surface *load_imageWhite( std::string file );
