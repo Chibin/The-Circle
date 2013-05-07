@@ -3,15 +3,18 @@
 #include <string>
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include "Magic.h"
 
 class Entity{
 protected:
 	struct status{
-		int HP, MP, ATK, DEF, SPD, MATK, MAXHP, MAXMP;
+		int HP, MP, STR, DEF, SPD, INT, DEX, MAXHP, MAXMP;
 	};
 	status stats;
 	//current level
 	int level;
+	int gold; //or whatever our currency is
+	int	experience;
 	std::string Name;
 	TTF_Font* font;
 public:
@@ -19,17 +22,20 @@ public:
 	Entity();
 	void setHP(int _HP);
 	void setMP(int _MP);
-	void setATK(int _ATK);
+	void setSTR(int _STR);
 	void setDEF(int _DEF);
 	void setSPD(int _SPD);
-	void setMATK(int _MATK);
-	void setStats(int _HP, int _MP, int _ATK, int _DEF, int _SPD, int _MATK);
+	void setDEX(int _DEX);
+	void setINT(int _INT);
+	void setStats(int _STR,int _DEX,int _INT);
 	virtual void setName(std::string _Name);
 	std::string getName();
 	int getHP();
-	int getATK();
-	int getSPD();
 	int getMP();
+	int getSTR();
+	int getDEF();
+	int getSPD();
+	int getINT();
 	status getStats();
 };
 

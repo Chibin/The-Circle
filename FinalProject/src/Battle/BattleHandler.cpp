@@ -75,10 +75,10 @@ void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked,
 		if(player->getName() == (*inOrder)[i]->getName()){
 			if(condition != FLANKED){
 				//Attacking selected mob
-				oss << player->getName() << " attacked " << mobAttacked << " for " << player->getATK() << " damage!";
+				oss << player->getName() << " attacked " << mobAttacked << " for " << player->getSTR() << " damage!";
 				temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
 				battleText.push_back(temp);
-				(*mobs)[mobSelected]->setHP((*mobs)[mobSelected]->getHP()-player->getATK());
+				(*mobs)[mobSelected]->setHP((*mobs)[mobSelected]->getHP()-player->getSTR());
 				if((*mobs)[mobSelected]->getHP() <= 0){
 					std::ostringstream dead;
 					dead << (*mobs)[mobSelected]->getName() << " has been slain.";
@@ -97,10 +97,10 @@ void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked,
 			//Make an AI, may be...?
 			//checks if player has a free attack
 			if(condition != PREEMPTIVE){
-				oss << (*inOrder)[i]->getName() << " attacks Player with " << (*inOrder)[i]->getATK() << " damage!";
+				oss << (*inOrder)[i]->getName() << " attacks Player with " << (*inOrder)[i]->getSTR() << " damage!";
 				temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
 				battleText.push_back(temp);
-				player->setHP(player->getHP()-(*inOrder)[i]->getATK());
+				player->setHP(player->getHP()-(*inOrder)[i]->getSTR());
 				if(player->getHP() <= 0){
 					std::ostringstream dead, gameover;
 					dead << player->getName() << " has been slain.";
