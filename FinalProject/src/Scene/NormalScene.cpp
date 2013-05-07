@@ -86,7 +86,27 @@ NormalScene::NormalScene(){
 	std::cout << "Finished Loading!" << std::endl << std::endl;
 }
 void NormalScene::eventHandler(SDL_Event& event){
-
+	Uint8* keystate =SDL_GetKeyState(NULL);
+	if( keystate[SDLK_UP]){
+			currentAnim = playerAnimUp;
+			currentAnim->NextFrame();
+			player->move(0,-velocity);
+	}
+	else if( keystate[SDLK_DOWN]){
+		currentAnim = playerAnimDown;
+		currentAnim->NextFrame();
+		player->move(0,velocity);
+	}
+	else if( keystate[SDLK_LEFT]){
+		currentAnim = playerAnimLeft;
+		currentAnim->NextFrame();
+		player->move(-velocity,0);
+	}
+	else if( keystate[SDLK_RIGHT]){
+		currentAnim = playerAnimRight;
+		currentAnim->NextFrame();
+		player->move(velocity,0);
+	}
 	//Runs through all the queued events
 	//Note: we can create our own events
 	while(SDL_PollEvent(&event)){
@@ -96,26 +116,12 @@ void NormalScene::eventHandler(SDL_Event& event){
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym){
 				case SDLK_UP:
-					currentAnim = playerAnimUp;
-					currentAnim->NextFrame();
-					player->move(0,-velocity);
 					break;
 				case SDLK_DOWN:
-					currentAnim = playerAnimDown;
-					currentAnim->NextFrame();
-					player->move(0,velocity);
 					break;
 				case SDLK_LEFT:
-					currentAnim = playerAnimLeft;
-					currentAnim->NextFrame();
-					player->move(-velocity,0);
-
 					break;
 				case SDLK_RIGHT:
-					currentAnim = playerAnimRight;
-					currentAnim->NextFrame();
-					player->move(velocity,0);
-
 					break;
 				case SDLK_c:
 					std::cout << "Starting a battle for no reason at all!" << std::endl;
@@ -154,7 +160,7 @@ void NormalScene::eventHandler(SDL_Event& event){
 
 }
 void NormalScene::display(){
-	SDL_Delay(125);
+	//SDL_Delay(125);
 	SDL_FillRect(scene->getScreen(),NULL,0x221122);
 	SDL_BlitSurface(tempMap,NULL,scene->getScreen(),&mapRect);
 	SDL_BlitSurface(playerModel, currentAnim->GetFrame(), scene->getScreen(), player->getPlayerPosition());
