@@ -140,6 +140,9 @@ void NormalScene::eventHandler(SDL_Event& event){
 					break;
 				}
 				break;
+			case SDL_KEYUP:
+				lastTick = 0;
+				break;
 			default:
 				break;
 			}
