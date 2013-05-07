@@ -102,7 +102,8 @@ void BattleScene::eventHandler(SDL_Event& event){
 							battleMenu = FIGHT;
 						break;
 					case SDLK_ESCAPE:
-						game->setGameOver(true);
+						scene->setGameScene(SceneManager::NORMAL);
+						//game->setGameOver(true);
 						break;
 					default:
 						break;

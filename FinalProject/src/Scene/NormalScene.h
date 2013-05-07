@@ -3,9 +3,14 @@
 #include "Scene.h"
 class NormalScene : public Scene{
 	private:
+		enum PLayerState
+		{
+			DIALOGUE, ROAM, MERCHANT 
+		};
 		SDL_Surface *playerModel, *tempMap;
 		SDL_Rect playerModelRectSrc, playerModelRectDest, mapRect;
 		Animation *playerAnimUp, *playerAnimDown, *playerAnimLeft, *playerAnimRight, *currentAnim;
+		PLayerState currentState;
 		int velocity;
 	public:
 		NormalScene();

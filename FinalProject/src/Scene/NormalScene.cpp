@@ -9,14 +9,14 @@ NormalScene::NormalScene(){
 	/*******************************************************************************/
 
 	std::cout << "\tLoading Level..." ;
-	if(game->isLoaded()){
-		std::cout << "from a save." << std::endl;;
-	}
-	else{
+	//if(game->isLoaded()){
+	//	std::cout << "from a save." << std::endl;;
+	//}
+	//else{
 		tempMap = SDL_LoadBMP("../levels/map.bmp");
 		mapRect.x = scene->getWindowWidth()/2 - tempMap->w/2;
 		mapRect.y = scene->getWindowHeight()/2 - tempMap->h/2;
-	}
+	//}
 	std::cout << "Done!" << std::endl;
 	/*******************************************************************************/
 	/* ***************************CHARACTER*****************************************/
@@ -81,7 +81,8 @@ NormalScene::NormalScene(){
 	//playerModelRect.x = player->getPositionX();
 	//playerModelRect.y = player->getPositionY();
 	currentAnim = playerAnimDown;
-	velocity = 10;
+	velocity = 8;
+	currentState = ROAM;
 	std::cout << "Finished Loading!" << std::endl << std::endl;
 }
 void NormalScene::eventHandler(SDL_Event& event){
@@ -89,42 +90,60 @@ void NormalScene::eventHandler(SDL_Event& event){
 	//Runs through all the queued events
 	//Note: we can create our own events
 	while(SDL_PollEvent(&event)){
-		switch(event.type){
-		case SDL_KEYDOWN:
-			switch(event.key.keysym.sym){
-			case SDLK_UP:
-				currentAnim = playerAnimUp;
-				currentAnim->NextFrame();
-				player->move(0,-velocity);
-				break;
-			case SDLK_DOWN:
-				currentAnim = playerAnimDown;
-				currentAnim->NextFrame();
-				player->move(0,velocity);
-				break;
-			case SDLK_LEFT:
-				currentAnim = playerAnimLeft;
-				currentAnim->NextFrame();
-				player->move(-velocity,0);
+		switch(currentState){
+		case ROAM:
+			switch(event.type){
+			case SDL_KEYDOWN:
+				switch(event.key.keysym.sym){
+				case SDLK_UP:
+					currentAnim = playerAnimUp;
+					currentAnim->NextFrame();
+					player->move(0,-velocity);
+					break;
+				case SDLK_DOWN:
+					currentAnim = playerAnimDown;
+					currentAnim->NextFrame();
+					player->move(0,velocity);
+					break;
+				case SDLK_LEFT:
+					currentAnim = playerAnimLeft;
+					currentAnim->NextFrame();
+					player->move(-velocity,0);
 
-				break;
-			case SDLK_RIGHT:
-				currentAnim = playerAnimRight;
-				currentAnim->NextFrame();
-				player->move(velocity,0);
+					break;
+				case SDLK_RIGHT:
+					currentAnim = playerAnimRight;
+					currentAnim->NextFrame();
+					player->move(velocity,0);
 
-				break;
-			case SDLK_RETURN:
+					break;
+				case SDLK_RETURN:
 
-				break;
-			case SDLK_ESCAPE:
-				game->setGameOver(true);
+					break;
+				case SDLK_ESCAPE:
+					game->setGameOver(true);
+					break;
+				default:
+					break;
+				}
 				break;
 			default:
 				break;
 			}
 			break;
-		default:
+		case DIALOGUE:
+			switch(event.type){
+			case SDL_KEYDOWN:
+				switch(event.key.keysym.sym){
+				}
+			}
+			break;
+		case MERCHANT:
+			switch(event.type){
+			case SDL_KEYDOWN:
+				switch(event.key.keysym.sym){
+				}
+			}
 			break;
 		}
 	}
@@ -135,7 +154,9 @@ void NormalScene::display(){
 	SDL_FillRect(scene->getScreen(),NULL,0x221122);
 	SDL_BlitSurface(tempMap,NULL,scene->getScreen(),&mapRect);
 	SDL_BlitSurface(playerModel, currentAnim->GetFrame(), scene->getScreen(), player->getPlayerPosition());
-
+	if(currentState == DIALOGUE){
+		std::cout << "Hey..someones talking to you" << std::endl;
+	}
 	SDL_Flip(scene->getScreen());
 }
 void NormalScene::disposeResources(){
