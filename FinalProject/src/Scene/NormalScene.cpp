@@ -20,6 +20,7 @@ NormalScene::NormalScene(){
 	}
 	else{
 		std::cout << "Loading Natalia..." << std::endl;
+		playerModel = load_imageWhite("../Images/normal/maleModel.bmp");
 		if(playerModel == 0)
 			std::cout << "Image did not load" << std::endl;
 

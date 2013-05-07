@@ -38,7 +38,7 @@ NewCharScreen::NewCharScreen(){
 	/**/maleBgRect.y = 0;
 	/**/maleBgRect.x = 0;
 	//female portait
-	/**/femalebg = load_imageWhite("../Images/charCreation/femaleBG1.bmp");
+	/**///femalebg = load_imageWhite("../Images/charCreation/femaleBG1.bmp");
 	/**/femaleBgRect.h = 600;
 	/**/femaleBgRect.w = 469;
 	/**/femaleBgRect.y = 0;
@@ -129,7 +129,7 @@ NewCharScreen::NewCharScreen(){
 	arrowsRect[1].w = 16;
 	arrowsRect[1].h = 16;
 	//font
-	font = TTF_OpenFont("../Fonts/Lucida.ttf",18);
+	font = TTF_OpenFont("../Fonts/Lucida.ttf",16);
 	std::cout << "Done!" << std::endl;;
 
 	std::cout << "Finished Loading!" << std::endl << std::endl;
@@ -213,12 +213,12 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 						baseStat[0] = 5; baseStat[1] = 6; baseStat[2] = 3; baseStat[3] = 2; baseStat[4] = 7; baseStat[5] = 7;
 						std::cout << "Player has choosen Natalia" << std::endl;
 					}
-					std::cout << "Base Stats:\n\t  HP: " << baseStat[0] << std::endl;
-					std::cout << "\t  MP: " << baseStat[1] << std::endl;
-					std::cout << "\t ATK: " << baseStat[2] << std::endl;
-					std::cout << "\t DEF: " << baseStat[3] << std::endl;
-					std::cout << "\t SPD: " << baseStat[4] << std::endl;
-					std::cout << "\tMATK: " << baseStat[5] << std::endl;
+					std::cout << "Base Stats:\n\t STR: " << baseStat[0] << std::endl;
+					std::cout << "\t CON: " << baseStat[1] << std::endl;
+					std::cout << "\t DEX: " << baseStat[2] << std::endl;
+					std::cout << "\t AGI: " << baseStat[3] << std::endl;
+					std::cout << "\t INT: " << baseStat[4] << std::endl;
+					std::cout << "\t LUK: " << baseStat[5] << std::endl;
 					memcpy(&editStats, &baseStat,sizeof(baseStat));
 					points = 10;
 					curStats = 0;
@@ -285,12 +285,12 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 							std::cout << "Player created Natilia" << std::endl;
 							Player::getInstance().setType(Player::NATILIA);
 						}
-						std::cout << "Starting Stats:\n\t  HP: " << editStats[0] << std::endl;
-						std::cout << "\t  MP: " << editStats[1] << std::endl;
-						std::cout << "\t ATK: " << editStats[2] << std::endl;
-						std::cout << "\t DEF: " << editStats[3] << std::endl;
-						std::cout << "\t SPD: " << editStats[4] << std::endl;
-						std::cout << "\tMATK: " << editStats[5] << std::endl;
+						std::cout << "Starting Stats:\n\t STR: " << editStats[0] << std::endl;
+						std::cout << "\t CON: " << editStats[1] << std::endl;
+						std::cout << "\t DEX: " << editStats[2] << std::endl;
+						std::cout << "\t AGI: " << editStats[3] << std::endl;
+						std::cout << "\t INT: " << editStats[4] << std::endl;
+						std::cout << "\t LUK: " << editStats[5] << std::endl;
 						scene->setGameScene(SceneManager::NORMAL);
 					}
 					break;
@@ -306,12 +306,12 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 							std::cout << "Player created Natilia" << std::endl;
 							Player::getInstance().setType(Player::NATILIA);
 						}
-						std::cout << "Starting Stats:\n\t  HP: " << editStats[0] << std::endl;
-						std::cout << "\t  MP: " << editStats[1] << std::endl;
-						std::cout << "\t ATK: " << editStats[2] << std::endl;
-						std::cout << "\t DEF: " << editStats[3] << std::endl;
-						std::cout << "\t SPD: " << editStats[4] << std::endl;
-						std::cout << "\tMATK: " << editStats[5] << std::endl;
+						std::cout << "Starting Stats:\n\t STR: " << editStats[0] << std::endl;
+				std::cout << "\t CON: " << editStats[1] << std::endl;
+						std::cout << "\t DEX: " << editStats[2] << std::endl;
+						std::cout << "\t AGI: " << editStats[3] << std::endl;
+						std::cout << "\t INT: " << editStats[4] << std::endl;
+						std::cout << "\t LUK: " << editStats[5] << std::endl;
 						scene->setGameScene(SceneManager::NORMAL);
 					}
 
@@ -382,13 +382,13 @@ void NewCharScreen::display(){
 	else{
 		if(currentStage == PICK){
 			SDL_BlitSurface(bg1,NULL,scene->getScreen(),&bgRect1);
-			SDL_BlitSurface(femalebg,NULL,scene->getScreen(),&femaleBgRect);
+			//SDL_BlitSurface(femalebg,NULL,scene->getScreen(),&femaleBgRect);
 			SDL_BlitSurface(maleChar,&maleCharRect[char1Tick],scene->getScreen(),&char1);
 			SDL_BlitSurface(femaleChar1,&femaleCharRect[char2Tick],scene->getScreen(),&char2);
 		}
 		if(currentStage == STATS){
 			SDL_BlitSurface(femalebgp2,NULL,scene->getScreen(),&femalebgp2Rect);
-			SDL_BlitSurface(femalebg,NULL,scene->getScreen(),&femaleBgRect);
+		//	SDL_BlitSurface(femalebg,NULL,scene->getScreen(),&femaleBgRect);
 		}
 
 	}
@@ -411,7 +411,7 @@ void NewCharScreen::display(){
 			oss << editStats[i];
 			nums = TTF_RenderText_Blended(font,oss.str().c_str(),black);
 			numRect.x = 620;
-			numRect.y = 257+ 22*i;
+			numRect.y = 255+ 22*i;
 			SDL_BlitSurface(nums, NULL, scene->getScreen(), &numRect);
 			SDL_FreeSurface(nums);
 			}
@@ -420,7 +420,7 @@ void NewCharScreen::display(){
 			test << points;
 			pointSurface = TTF_RenderText_Blended(font,test.str().c_str(),black);
 			pointRect.x = 620;
-			pointRect.y = 387;
+			pointRect.y = 384;
 			SDL_BlitSurface(pointSurface, NULL, scene->getScreen(), &pointRect);
 			SDL_FreeSurface(pointSurface);
 			}
@@ -472,7 +472,7 @@ void NewCharScreen::disposeResources(){
 	SDL_FreeSurface( bg );
 	SDL_FreeSurface( bg1 );
 	SDL_FreeSurface( malebg );
-	SDL_FreeSurface( femalebg );
+//	SDL_FreeSurface( femalebg );
 	SDL_FreeSurface( malebgp2 );
 	SDL_FreeSurface( femalebgp2 );
 	SDL_FreeSurface( arrows );
