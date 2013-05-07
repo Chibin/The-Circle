@@ -3,7 +3,6 @@
 #include "Entity.h"
 #include "Player.h"
 #include "Tiles.h"
-
 class Player: public Entity{
 
 public:

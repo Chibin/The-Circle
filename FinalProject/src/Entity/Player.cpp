@@ -1,8 +1,8 @@
 #include "Player.h"
 #include "../Manager/LevelManager.h"
 Player::Player(){
-	//HP, MP, ATK, DEF, SPD, MATK
-	setStats(10,10,10,10,7,10);
+	//STR,DEX,INT
+	setStats(10,7,5);
 	Name = "Player";
 	SDL_Color fgColor = {255,255,255};
 	SDL_Color fgColor1 = {255,255,0};
