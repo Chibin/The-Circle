@@ -2,7 +2,7 @@
 #include "../Manager/LevelManager.h"
 Player::Player(){
 	//STR,DEX,INT
-	setStats(10,7,5);
+	setStats(10,7,5,3,2,2);
 	Name = "Player";
 	SDL_Color fgColor = {255,255,255};
 	SDL_Color fgColor1 = {255,255,0};
