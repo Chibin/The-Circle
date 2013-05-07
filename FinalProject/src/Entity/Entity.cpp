@@ -14,8 +14,8 @@ void Entity::setStats(int _STR,int _CON, int _DEX,int _AGI, int _INT, int _LCK){
 	stats.INT = _INT;
 	stats.HP = _STR*10;
 	stats.MP = _INT*15;
-	stats.PDEF = _STR*1.1;
-	stats.SPD = _DEX*1.5;
+	stats.PDEF = (int)(_STR*1.1);
+	stats.SPD = (int)(_DEX*1.5);
 	stats.LCK = _LCK;
 }
 void Entity::setName(std::string _Name){Name = _Name;}

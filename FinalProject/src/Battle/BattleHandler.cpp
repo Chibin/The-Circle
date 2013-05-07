@@ -2,6 +2,7 @@
 #include "BattleHandler.h"
 BattleHandler::BattleHandler(){
 	battleText.clear();
+	endBattleText.clear();
 	player = &Player::getInstance();
 	scene = &SceneManager::getInstance();
 	mobSelected = 0;
@@ -40,7 +41,9 @@ void BattleHandler::run(int& battleMenu){
 			fasterMonsters++;
 	}
 	if(fasterMonsters == 0){
-		temp = TTF_RenderText_Blended(font,"Player got away!",fgColor);
+		string sentence = player->getName();
+		sentence += " ran away!";
+		temp = TTF_RenderText_Blended(font,sentence.c_str(),fgColor);
 		endBattleText.push_back(temp);
 		battleMenu = endPhase;
 	}
@@ -48,7 +51,9 @@ void BattleHandler::run(int& battleMenu){
 		double chanceToRun = (1.0/(double)fasterMonsters)*100;
 		double runAway = rand()%100+1;
 		if(runAway <= chanceToRun){
-			temp = TTF_RenderText_Blended(font,"Player got away!",fgColor);
+			string sentence = player->getName();
+			sentence += " ran away!";
+			temp = TTF_RenderText_Blended(font,sentence.c_str(),fgColor);
 			endBattleText.push_back(temp);
 			battleMenu = endPhase;
 		}
@@ -87,6 +92,7 @@ void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked,
 					for(int i = 0; i < (int)inOrder->size();i++)
 						if((*mobs)[mobSelected] == (*inOrder)[i])
 							inOrder->erase(inOrder->begin()+i);
+					delete (*mobs)[mobSelected];
 					mobs->erase(mobs->begin()+mobSelected);
 					//add to exp gained this fight
 				}
@@ -148,12 +154,10 @@ void BattleHandler::battleDisplayUpdate(int& battleMenu){
 	}
 }
 void BattleHandler::monsterSelectDisplay(int& battleMenu){
-	//cout << "Fighting ";
 	int x = 0, y = 0;
 	SDL_Rect* mobRect = new SDL_Rect[mobs->size()];
 	for(int i = 0; i < (int)mobs->size(); i++){
 		mobRect[i].x = i*150; mobRect[i].y = 0;
-		//cout << (*mobs)[i]->getName() << " ";
 		if(mobSelected == i)
 			SDL_BlitSurface((*mobs)[i]->getEnemyText()[0],NULL,scene->getScreen(),&mobRect[i]);
 		else
@@ -209,6 +213,12 @@ void BattleHandler::turnOrder(std::vector<Entity*>* inOrder){
 	std::sort(inOrder->begin(),inOrder->end(),compareEntity_SPD);
 }
 
+//Input Handler
+void BattleHandler::inputHandler(){
+
+}
+
+
 //Monster Selection
 void BattleHandler::moveLeft(){
 	if(mobSelected > 0)
@@ -226,6 +236,7 @@ void BattleHandler::battleHandler(int& battleMenu){
 			battleMenu = isFight;
 			break;
 		case MAGIC:
+			battleMenu = isMagic;
 			cout << "NO ABILITIES LEARNED" << endl;
 			break;
 		case ITEM:
@@ -240,6 +251,8 @@ void BattleHandler::battleHandler(int& battleMenu){
 				battleMenu = endPhase;
 				cout << "BATTLE SHOULD END" << endl;
 			}
+			break;
+		case isMagic:
 			break;
 		case battlePhase:
 			break;

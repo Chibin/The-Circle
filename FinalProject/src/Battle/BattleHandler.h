@@ -19,7 +19,7 @@ static bool compareEntity_SPD(Entity* first, Entity* second){
 }
 class BattleHandler{
 	private:
-		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isItem,isRun, battleEnd,battlePhase,endPhase};
+		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isMagic,isItem,isRun, battleEnd,battlePhase,endPhase};
 		enum battleCondition{MUTAL,PREEMPTIVE,FLANKED};
 		int mobSelected, bpLoopCheck;
 		Player* player;
@@ -46,6 +46,8 @@ class BattleHandler{
 		void endPhaseDisplay(int& battleMenu);
 		//Sets players and monsters in turn order for battle phase
 		void turnOrder(std::vector<Entity*>* inOrder);
+		//Input Handler
+		void inputHandler();
 		//Monster selection
 		void moveLeft();
 		void moveRight();

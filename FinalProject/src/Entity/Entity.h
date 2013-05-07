@@ -3,6 +3,7 @@
 #include <string>
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <vector>
 #include "Magic.h"
 
 class Entity{
@@ -15,6 +16,7 @@ protected:
 	int level;
 	int gold; //or whatever our currency is
 	int	experience, maxExperience;
+	std::vector<Magic> skills;
 	std::string Name;
 	TTF_Font* font;
 public:
@@ -37,8 +39,7 @@ public:
 	int getDEF();
 	int getSPD();
 	int getINT();
-	int fetLCK();
+	int getLCK();
 	status getStats();
 };
-
 #endif

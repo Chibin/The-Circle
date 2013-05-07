@@ -11,7 +11,7 @@ class BattleScene : public Scene{
 		SDL_Surface* bgBattleMenu;
 		SDL_Rect fightLoc, runLoc, itemLoc, magicLoc, bgBattleMenuLoc;
 		int fightVal, runVal,itemVal,magicVal;
-		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isItem,isRun, battleEnd,battlePhase,endPhase};
+		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isMagic,isItem,isRun, battleEnd,battlePhase,endPhase};
 		BattleHandler* bManager;
 		int battleMenu;
 	public:
