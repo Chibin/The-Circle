@@ -5,6 +5,7 @@ class NormalScene : public Scene{
 	private:
 		SDL_Surface *playerModel, *tempMap;
 		SDL_Rect playerModelRectSrc, playerModelRectDest;
+		Animation *playerAnimUp, *playerAnimDown, *playerAnimLeft, *playerAnimRight, *currentAnim;
 	public:
 		NormalScene();
 		//void eventHandler(SDL_Event& event, int& gameState);

@@ -9,6 +9,7 @@ using namespace std;
 #include "../Entity//Player.h"
 #include "../Manager/SceneManager.h"
 
+
 class Scene{
 	private:
 		
@@ -28,4 +29,19 @@ class Scene{
 		// TODO: properly remove resource we dont need
 		virtual void disposeResources() = 0;
 };
+
+class Animation  {
+	int NumberOfFrames;
+	int CurrentFrame;
+	SDL_Rect* rectangles;
+public:
+	void Init( int number_of_frames );
+	SDL_Rect* GetFrame(void);
+	void SetFrame( int frame_number, int x, int y, int w, int h);
+	void NextFrame(void);
+	void LastFrame(void);
+	friend class Scene;
+};
+
+
 #endif

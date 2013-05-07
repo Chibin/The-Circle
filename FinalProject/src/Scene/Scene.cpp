@@ -109,3 +109,45 @@ SDL_Surface* Scene::load_imageBlue( std::string file )
 	//Return the optimized surface
 	return optimizedImage;
 }
+
+
+void Animation::Init( int number_of_frames )
+{
+	// create a new array of SDL_Rects to tell where on the Sprite surface(s)
+	// the individual frames are
+	rectangles = new SDL_Rect[ number_of_frames ];
+
+	// record how many frames we have in total
+	NumberOfFrames = number_of_frames - 1;  // -1 because arrays start counting from 0 not 1
+	
+	// set the current frame
+	CurrentFrame = 0;
+}
+
+SDL_Rect* Animation::GetFrame(void)
+{
+	// return a pointer to the current frame
+	return &rectangles[ CurrentFrame ];
+}
+
+void Animation::SetFrame( int frame_number, int x, int y, int w, int h)
+{
+	// setup the location and dimensions of a frame
+	rectangles[ frame_number ].x = x;
+	rectangles[ frame_number ].y = y;
+	rectangles[ frame_number ].w = w;
+	rectangles[ frame_number ].h = h;
+}
+
+void Animation::NextFrame(void)
+{
+	CurrentFrame++; // advance one frame
+	if(CurrentFrame > NumberOfFrames) CurrentFrame = 0; // if we go over the top set to zero
+}
+
+void Animation::LastFrame(void)
+{
+	CurrentFrame--; // step back one frame
+	if(CurrentFrame < 0) CurrentFrame = NumberOfFrames; // if we underrun the list set to top
+}
+	
