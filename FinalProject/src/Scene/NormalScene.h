@@ -3,7 +3,8 @@
 #include "Scene.h"
 class NormalScene : public Scene{
 	private:
-		SDL_Surface *playerModel;
+		SDL_Surface *playerModel, *tempMap;
+		SDL_Rect playerModelRectSrc, playerModelRectDest;
 	public:
 		NormalScene();
 		//void eventHandler(SDL_Event& event, int& gameState);

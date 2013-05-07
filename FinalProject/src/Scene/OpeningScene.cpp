@@ -7,8 +7,8 @@ OpeningScene::OpeningScene(){
 	std::cout << "Entering Menu Scene" << std::endl;
 	std::cout << "Loading OpeningScene Resources..." << std::endl; 
 	//Loads NewGame Button
-	newGame[1] =  load_imageWhite("../Images/opening/newGame.bmp");
-	newGame[0] =  load_imageWhite("../Images/opening/newGame1.bmp");
+	newGame[0] =  load_imageWhite("../Images/opening/newGame.bmp");
+	newGame[1] =  load_imageWhite("../Images/opening/newGame1.bmp");
 	newGameRect.x = (Sint16)(scene->getWindowWidth()/2) - (newGame[0]->w)/2;
 	newGameRect.y = (Sint16)(scene->getWindowHeight()/2- (newGame[0]->h)/2) - newGame[0]->h;
 
@@ -24,14 +24,14 @@ OpeningScene::OpeningScene(){
 	bgRectDest.w = (Sint16)scene->getWindowWidth();
 
 	//Loads the load button
-	load[1] = load_imageWhite("../Images/opening/load.bmp");
-	load[0] = load_imageWhite("../Images/opening/load1.bmp");
+	load[0] = load_imageWhite("../Images/opening/load.bmp");
+	load[1] = load_imageWhite("../Images/opening/load1.bmp");
 	loadRect.x = (Sint16)(scene->getWindowWidth()/2) - (load[0]->w)/2;
 	loadRect.y = (Sint16)(scene->getWindowHeight()/2- (load[0]->h)/2);	
 
 	//Loads quit button
-	quit[1] = load_imageWhite("../Images/opening/quit.bmp");
-	quit[0] = load_imageWhite("../Images/opening/quit1.bmp");
+	quit[0] = load_imageWhite("../Images/opening/quit.bmp");
+	quit[1] = load_imageWhite("../Images/opening/quit1.bmp");
 	quitRect.x = (Sint16)(scene->getWindowWidth()/2) - (quit[0]->w)/2;
 	quitRect.y = (Sint16)(scene->getWindowHeight()/2- (quit[0]->h)/2) + quit[0]->h;	
 
