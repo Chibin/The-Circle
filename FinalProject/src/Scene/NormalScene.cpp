@@ -117,6 +117,9 @@ void NormalScene::eventHandler(SDL_Event& event){
 					player->move(velocity,0);
 
 					break;
+				case SDLK_c:
+					std::cout << "Starting a battle for no reason at all!" << std::endl;
+					scene->setGameScene(SceneManager::BATTLE);
 				case SDLK_RETURN:
 
 					break;
