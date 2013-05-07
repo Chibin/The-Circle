@@ -121,7 +121,8 @@ void NormalScene::eventHandler(SDL_Event& event){
 
 					break;
 				case SDLK_ESCAPE:
-					game->setGameOver(true);
+					scene->setGameScene(SceneManager::OPENINGMENU);
+					//game->setGameOver(true);
 					break;
 				default:
 					break;
