@@ -9,7 +9,9 @@ NormalScene::NormalScene(){
 		std::cout << "from a save." << std::endl;;
 	}
 	else{
-		tempMap = IMG_Load("../levels/map.png");
+		tempMap = SDL_LoadBMP("../levels/map.bmp");
+		mapRect.x = scene->getWindowWidth()/2 - tempMap->w/2;
+		mapRect.y = scene->getWindowHeight()/2 - tempMap->h/2;
 	}
 	std::cout << "\tLoading Character...\n" ;
 	if(player->getType()==0){
@@ -29,7 +31,7 @@ NormalScene::NormalScene(){
 		playerModelRectSrc.w = 24;
 		playerModelRectSrc.h = 34;
 		playerModelRectSrc.y = 68;
-		playerModelRectSrc.x = 0;
+		playerModelRectSrc.x = 24;
 		playerModelRectDest.x = scene->getWindowWidth()/2;
 		playerModelRectDest.y = scene->getWindowHeight()/2;
 	}
@@ -48,6 +50,8 @@ void NormalScene::eventHandler(SDL_Event& event){
 	Uint8* keystate =SDL_GetKeyState(NULL);
 	if( keystate[SDLK_UP]){
 		cout << "UP" << endl;
+		playerModelRectSrc.x;
+		playerModelRectSrc.y;
 	}
 	if( keystate[SDLK_DOWN]){
 		cout << "DOWN" << endl;
@@ -81,7 +85,15 @@ void NormalScene::eventHandler(SDL_Event& event){
 
 }
 void NormalScene::display(){
+	currentTick = SDL_GetTicks();
+	if(currentTick - lastTick > 150)
+	{
+		lastTick = currentTick;
+		//update animation
+		
+	}
 	SDL_FillRect(scene->getScreen(),NULL,0x221122);
+	SDL_BlitSurface(tempMap,NULL,scene->getScreen(),&mapRect);
 	SDL_BlitSurface(playerModel, &playerModelRectSrc, scene->getScreen(), &playerModelRectDest);
 
 	SDL_Flip(scene->getScreen());
