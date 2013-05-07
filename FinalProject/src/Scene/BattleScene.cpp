@@ -15,11 +15,11 @@ BattleScene::BattleScene(){
 	textFight[0] = TTF_RenderText_Blended(font, "Fight",fgColor);
 	textRun[0] = TTF_RenderText_Blended(font,"Run",fgColor);
 	textItem[0] = TTF_RenderText_Blended(font,"Item",fgColor);
-	textMagic[0] = TTF_RenderText_Blended(font,"Magic",fgColor);
+	textMagic[0] = TTF_RenderText_Blended(font,"Skill",fgColor);
 	textFight[1] = TTF_RenderText_Blended(font, "Fight",bgColor);
 	textRun[1] = TTF_RenderText_Blended(font, "Run",bgColor);
 	textItem[1] = TTF_RenderText_Blended(font,"Item",bgColor);
-	textMagic[1] = TTF_RenderText_Blended(font,"Magic",bgColor);
+	textMagic[1] = TTF_RenderText_Blended(font,"Skill",bgColor);
 	bgBattleMenuLoc.x = 10; bgBattleMenuLoc.y = 473; //473 = height(600) - 117(height of picture) + 10
 	fightLoc.x = 25; fightLoc.y = 485;
 	magicLoc.x = 25; magicLoc.y = 535;
@@ -60,6 +60,8 @@ void BattleScene::eventHandler(SDL_Event& event){
 							battleMenu = FIGHT;
 						else if(battleMenu == RUN)
 							battleMenu = ITEM;
+						if(battleMenu == isMagic)
+							cout << "MAGIC" << endl;
 						break;
 					case SDLK_DOWN:
 						if(battleMenu == ITEM)
@@ -98,7 +100,7 @@ void BattleScene::eventHandler(SDL_Event& event){
 							bManager->battlePhaseUpdate(battleMenu);
 						break;
 					case SDLK_x:
-						if(battleMenu == isFight)
+						if(battleMenu == isFight || battleMenu == isMagic)
 							battleMenu = FIGHT;
 						break;
 					case SDLK_ESCAPE:
