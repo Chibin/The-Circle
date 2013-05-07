@@ -4,7 +4,11 @@ NormalScene::NormalScene(){
 	type = SceneManager::NORMAL;
 	std::cout << "Entering Normal Screen..." << std::endl;
 	std::cout << "Loading Resources..." << std::endl;
-	std::cout << "\tLoading Level " ;
+	/*******************************************************************************/
+	/* *******************************LEVEL*****************************************/
+	/*******************************************************************************/
+
+	std::cout << "\tLoading Level..." ;
 	if(game->isLoaded()){
 		std::cout << "from a save." << std::endl;;
 	}
@@ -13,22 +17,28 @@ NormalScene::NormalScene(){
 		mapRect.x = scene->getWindowWidth()/2 - tempMap->w/2;
 		mapRect.y = scene->getWindowHeight()/2 - tempMap->h/2;
 	}
-	std::cout << "\tLoading Character...\n" ;
+	std::cout << "Done!" << std::endl;
+	/*******************************************************************************/
+	/* ***************************CHARACTER*****************************************/
+	/*******************************************************************************/
+
+	std::cout << "\tLoading Character..." ;
 	if(player->getType()==0){
-		std::cout << "\t\tLoading Llyod..." << std::endl;
 		playerModel = load_imageWhite("../Images/normal/maleModel.bmp");	
 
-		if(playerModel == 0)
-			std::cout << "Image did not load" << std::endl;
 	}
 	else{
-		std::cout << "Loading Natalia..." << std::endl;
-		playerModel = load_imageWhite("../Images/normal/maleModel.bmp");
-		if(playerModel == 0)
-			std::cout << "Image did not load" << std::endl;
+		playerModel = load_imageWhite("../Images/normal/femaleModel.bmp");
 
 	}
+	std::cout << "Done!" << std::endl;
+
+	/*******************************************************************************/
+	/* ***************************ANIMATION*****************************************/
+	/*******************************************************************************/
+
 	//there will be three frames these animation are 24w x 32h
+	std::cout << "\tLoading Animation..." ;
 	playerAnimUp = new Animation;
 	playerAnimDown = new Animation;
 	playerAnimLeft = new Animation;
@@ -55,20 +65,23 @@ NormalScene::NormalScene(){
 	playerAnimLeft->SetFrame(0, 0, 96, 24, 32);
 	playerAnimLeft->SetFrame(1, 24, 96, 24, 32);
 	playerAnimLeft->SetFrame(2, 48, 96, 24, 32);
+	std::cout << "Done!" << std::endl;
+	/*******************************************************************************/
+	/*****************************SET SETTINGS**************************************/
+	/*******************************************************************************/
+	std::cout << "\tPlacing Character on map.\n\t\tResult: " ;
 	if(player->getPositionX() == 0 && player->getPositionY()  == 0){
 		std::cout << "don't know position... setting position to center of map" << std::endl;
-		playerModelRectDest.x = scene->getWindowWidth()/2;
-		playerModelRectDest.y = scene->getWindowHeight()/2;
+		player->setPosition(scene->getWindowWidth()/2 - 12,scene->getWindowHeight()/2 - 16);
 	}
 	else{
 		std::cout << "Setting player position to x: " << player->getPositionX() << ", y: " << player->getPositionY() << std::endl;
-		playerModelRectDest.x = player->getPositionX();
-		playerModelRectDest.y = player->getPositionY();
+		player->setPosition( player->getPositionX(),player->getPositionY());
 	}
 	//playerModelRect.x = player->getPositionX();
 	//playerModelRect.y = player->getPositionY();
 	currentAnim = playerAnimDown;
-	std::cout << "Done!" << std::endl;;
+	velocity = 10;
 	std::cout << "Finished Loading!" << std::endl << std::endl;
 }
 void NormalScene::eventHandler(SDL_Event& event){
@@ -82,18 +95,24 @@ void NormalScene::eventHandler(SDL_Event& event){
 			case SDLK_UP:
 				currentAnim = playerAnimUp;
 				currentAnim->NextFrame();
+				player->move(0,-velocity);
 				break;
 			case SDLK_DOWN:
 				currentAnim = playerAnimDown;
 				currentAnim->NextFrame();
+				player->move(0,velocity);
 				break;
 			case SDLK_LEFT:
 				currentAnim = playerAnimLeft;
 				currentAnim->NextFrame();
+				player->move(-velocity,0);
+
 				break;
 			case SDLK_RIGHT:
 				currentAnim = playerAnimRight;
 				currentAnim->NextFrame();
+				player->move(velocity,0);
+
 				break;
 			case SDLK_RETURN:
 
@@ -115,7 +134,7 @@ void NormalScene::display(){
 	SDL_Delay(125);
 	SDL_FillRect(scene->getScreen(),NULL,0x221122);
 	SDL_BlitSurface(tempMap,NULL,scene->getScreen(),&mapRect);
-	SDL_BlitSurface(playerModel, currentAnim->GetFrame(), scene->getScreen(), &playerModelRectDest);
+	SDL_BlitSurface(playerModel, currentAnim->GetFrame(), scene->getScreen(), player->getPlayerPosition());
 
 	SDL_Flip(scene->getScreen());
 }

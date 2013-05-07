@@ -61,7 +61,15 @@ int Player::getPositionY(){
 	return rect.y;
 }
 
+void Player::setPosition(int x, int y){
+	rect.x = x;
+	rect.y = y;
+}
 void Player::move(int x, int y){
 	rect.x += x;
 	rect.y += y;
+}
+
+SDL_Rect* Player::getPlayerPosition(){
+	return &rect;
 }

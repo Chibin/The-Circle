@@ -27,6 +27,7 @@ public:
 	SDL_Surface** getPlayerText();
 	void move(int x, int y);
 	SDL_Rect* getPlayerPosition();
+	void setPosition(int,int);
 private:
 	PlayerType type;
 	//Collision Box

@@ -6,7 +6,7 @@ class NormalScene : public Scene{
 		SDL_Surface *playerModel, *tempMap;
 		SDL_Rect playerModelRectSrc, playerModelRectDest, mapRect;
 		Animation *playerAnimUp, *playerAnimDown, *playerAnimLeft, *playerAnimRight, *currentAnim;
-
+		int velocity;
 	public:
 		NormalScene();
 		//void eventHandler(SDL_Event& event, int& gameState);
