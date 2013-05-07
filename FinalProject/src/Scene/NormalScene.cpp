@@ -15,34 +15,6 @@ NormalScene::NormalScene(){
 	if(player->getType()==0){
 		std::cout << "\t\tLoading Llyod..." << std::endl;
 		playerModel = load_imageWhite("../Images/normal/maleModel.bmp");	
-		//there will be three frames these animation are 24w x 32h
-		playerAnimUp = new Animation;
-		playerAnimDown = new Animation;
-		playerAnimLeft = new Animation;
-		playerAnimRight = new Animation;
-
-		playerAnimUp->Init(3);
-		playerAnimDown->Init(3);
-		playerAnimLeft->Init(3);
-		playerAnimRight->Init(3);
-		//up
-						//(frameNumber, x,y,w,h)
-		playerAnimUp->SetFrame(0, 0, 0, 24, 32);
-		playerAnimUp->SetFrame(1, 24, 0, 24, 32);
-		playerAnimUp->SetFrame(2, 48, 0, 24, 32);
-		//right
-		playerAnimRight->SetFrame(0, 0, 32, 24, 32);
-		playerAnimRight->SetFrame(1, 24, 32, 24, 32);
-		playerAnimRight->SetFrame(2, 48, 32, 24, 32);
-		//down
-		playerAnimDown->SetFrame(0, 0, 64, 24, 32);
-		playerAnimDown->SetFrame(1, 24, 64, 24, 32);
-		playerAnimDown->SetFrame(2, 48, 64, 24, 32);
-		//left
-		playerAnimLeft->SetFrame(0, 0, 96, 24, 32);
-		playerAnimLeft->SetFrame(1, 24, 96, 24, 32);
-		playerAnimLeft->SetFrame(2, 48, 96, 24, 32);
-		
 
 		if(playerModel == 0)
 			std::cout << "Image did not load" << std::endl;
@@ -54,13 +26,35 @@ NormalScene::NormalScene(){
 			std::cout << "Image did not load" << std::endl;
 
 	}
+	//there will be three frames these animation are 24w x 32h
+	playerAnimUp = new Animation;
+	playerAnimDown = new Animation;
+	playerAnimLeft = new Animation;
+	playerAnimRight = new Animation;
 
+	playerAnimUp->Init(3);
+	playerAnimDown->Init(3);
+	playerAnimLeft->Init(3);
+	playerAnimRight->Init(3);
+	//up
+	//(frameNumber, x,y,w,h)
+	playerAnimUp->SetFrame(0, 0, 0, 24, 32);
+	playerAnimUp->SetFrame(1, 24, 0, 24, 32);
+	playerAnimUp->SetFrame(2, 48, 0, 24, 32);
+	//right
+	playerAnimRight->SetFrame(0, 0, 32, 24, 32);
+	playerAnimRight->SetFrame(1, 24, 32, 24, 32);
+	playerAnimRight->SetFrame(2, 48, 32, 24, 32);
+	//down
+	playerAnimDown->SetFrame(0, 0, 64, 24, 32);
+	playerAnimDown->SetFrame(1, 24, 64, 24, 32);
+	playerAnimDown->SetFrame(2, 48, 64, 24, 32);
+	//left
+	playerAnimLeft->SetFrame(0, 0, 96, 24, 32);
+	playerAnimLeft->SetFrame(1, 24, 96, 24, 32);
+	playerAnimLeft->SetFrame(2, 48, 96, 24, 32);
 	if(player->getPositionX() == 0 && player->getPositionY()  == 0){
 		std::cout << "don't know position... setting position to center of map" << std::endl;
-		//playerModelRectSrc.w = 24;
-		//playerModelRectSrc.h = 32;
-		//playerModelRectSrc.y = 68;
-		//playerModelRectSrc.x = 0;
 		playerModelRectDest.x = scene->getWindowWidth()/2;
 		playerModelRectDest.y = scene->getWindowHeight()/2;
 	}
@@ -76,29 +70,29 @@ NormalScene::NormalScene(){
 	std::cout << "Finished Loading!" << std::endl << std::endl;
 }
 void NormalScene::eventHandler(SDL_Event& event){
-	Uint8* keystate =SDL_GetKeyState(NULL);
-	if( keystate[SDLK_UP]){
-		cout << "UP" << endl;
-		currentAnim = playerAnimUp;
-	}
-	if( keystate[SDLK_DOWN]){
-		cout << "DOWN" << endl;
-		currentAnim = playerAnimDown;
-	}
-	if( keystate[SDLK_LEFT]){
-		cout << "LEFT" << endl;
-		currentAnim = playerAnimLeft;
-	}
-	if( keystate[SDLK_RIGHT]){
-		cout << "RIGHT" << endl;
-		currentAnim = playerAnimRight;
-	}
+
 	//Runs through all the queued events
 	//Note: we can create our own events
 	while(SDL_PollEvent(&event)){
 		switch(event.type){
 		case SDL_KEYDOWN:
 			switch(event.key.keysym.sym){
+			case SDLK_UP:
+				currentAnim = playerAnimUp;
+				currentAnim->NextFrame();
+				break;
+			case SDLK_DOWN:
+				currentAnim = playerAnimDown;
+				currentAnim->NextFrame();
+				break;
+			case SDLK_LEFT:
+				currentAnim = playerAnimLeft;
+				currentAnim->NextFrame();
+				break;
+			case SDLK_RIGHT:
+				currentAnim = playerAnimRight;
+				currentAnim->NextFrame();
+				break;
 			case SDLK_RETURN:
 
 				break;
@@ -117,12 +111,19 @@ void NormalScene::eventHandler(SDL_Event& event){
 }
 void NormalScene::display(){
 	SDL_Delay(125);
-	currentAnim->NextFrame();
 	SDL_FillRect(scene->getScreen(),NULL,0x221122);
 	SDL_BlitSurface(playerModel, currentAnim->GetFrame(), scene->getScreen(), &playerModelRectDest);
-	
-	
+
+
 	SDL_Flip(scene->getScreen());
 }
 void NormalScene::disposeResources(){
+
+	SDL_FreeSurface(playerModel);
+	SDL_FreeSurface(tempMap);
+	delete playerAnimUp;
+	delete playerAnimDown;
+	delete playerAnimLeft;
+	delete playerAnimRight;
+
 }

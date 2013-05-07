@@ -25,15 +25,16 @@ public:
 	int getPositionY();
 	PlayerType getType();
 	SDL_Surface** getPlayerText();
-	
+	void move(int x, int y);
+	SDL_Rect* getPlayerPosition();
 private:
 	PlayerType type;
 	//Collision Box
-	SDL_Rect box;
+	SDL_Rect rect;
 	//experience points
 	int currentXP, maxXP;
 	//the x and y offeset of the character
-	int x , y;
+	//int x , y;
 	//The velocity of the character
 	int xVel, yVel;
 	Player();

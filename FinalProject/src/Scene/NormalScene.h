@@ -4,7 +4,7 @@
 class NormalScene : public Scene{
 	private:
 		SDL_Surface *playerModel, *tempMap;
-		SDL_Rect playerModelRectSrc, playerModelRectDest;
+		SDL_Rect playerModelRectSrc, playerModelRectDest, tempMapRect;
 		Animation *playerAnimUp, *playerAnimDown, *playerAnimLeft, *playerAnimRight, *currentAnim;
 	public:
 		NormalScene();
