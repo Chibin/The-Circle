@@ -10,7 +10,6 @@ GameManager& GameManager::getInstance(){
 GameManager::GameManager(){
 	gameOver = false;
 	didLoad = false;
-	SDL_EnableKeyRepeat(70, 70);
 	updateFrequency = 30;
 	//we want to intialize all the manager here
 	sManager = &SceneManager::getInstance();
