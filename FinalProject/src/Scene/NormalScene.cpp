@@ -13,9 +13,9 @@ NormalScene::NormalScene(){
 	//	std::cout << "from a save." << std::endl;;
 	//}
 	//else{
-		tempMap = SDL_LoadBMP("../levels/map.bmp");
-		mapRect.x = scene->getWindowWidth()/2 - tempMap->w/2;
-		mapRect.y = scene->getWindowHeight()/2 - tempMap->h/2;
+	tempMap = SDL_LoadBMP("../levels/map.bmp");
+	mapRect.x = scene->getWindowWidth()/2 - tempMap->w/2;
+	mapRect.y = scene->getWindowHeight()/2 - tempMap->h/2;
 	//}
 	std::cout << "Done!" << std::endl;
 	/*******************************************************************************/
@@ -81,16 +81,19 @@ NormalScene::NormalScene(){
 	//playerModelRect.x = player->getPositionX();
 	//playerModelRect.y = player->getPositionY();
 	currentAnim = playerAnimDown;
-	velocity = 8;
+	velocity = 4;
+	lastTick = 0;
+	currentTick = 0;
+	tempAnim = playerAnimDown->GetFrame();
 	currentState = ROAM;
 	std::cout << "Finished Loading!" << std::endl << std::endl;
 }
 void NormalScene::eventHandler(SDL_Event& event){
 	Uint8* keystate =SDL_GetKeyState(NULL);
 	if( keystate[SDLK_UP]){
-			currentAnim = playerAnimUp;
-			currentAnim->NextFrame();
-			player->move(0,-velocity);
+		currentAnim = playerAnimUp;
+		currentAnim->NextFrame();
+		player->move(0,-velocity);
 	}
 	else if( keystate[SDLK_DOWN]){
 		currentAnim = playerAnimDown;
@@ -162,8 +165,19 @@ void NormalScene::eventHandler(SDL_Event& event){
 void NormalScene::display(){
 	//SDL_Delay(125);
 	SDL_FillRect(scene->getScreen(),NULL,0x221122);
-	SDL_BlitSurface(tempMap,NULL,scene->getScreen(),&mapRect);
-	SDL_BlitSurface(playerModel, currentAnim->GetFrame(), scene->getScreen(), player->getPlayerPosition());
+	SDL_BlitSurface(tempMap,NULL,scene->getScreen(),&mapRect);	
+	currentTick = SDL_GetTicks();
+	if(currentTick - lastTick > 150)
+	{
+		lastTick = currentTick;
+		//update animation and draw new frame
+		SDL_BlitSurface(playerModel, currentAnim->GetFrame(), scene->getScreen(), player->getPlayerPosition());
+		tempAnim = currentAnim->GetFrame();
+	}
+	else{
+		//continue drawing last frame
+		SDL_BlitSurface(playerModel, tempAnim, scene->getScreen(), player->getPlayerPosition());
+	}
 	if(currentState == DIALOGUE){
 		std::cout << "Hey..someones talking to you" << std::endl;
 	}
