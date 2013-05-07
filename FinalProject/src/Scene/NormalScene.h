@@ -4,8 +4,13 @@
 class NormalScene : public Scene{
 	private:
 		SDL_Surface *playerModel, *tempMap;
+<<<<<<< HEAD
 		SDL_Rect playerModelRectSrc, playerModelRectDest, mapRect;
 		Uint32 currentTick, lastTick, currentFrame;
+=======
+		SDL_Rect playerModelRectSrc, playerModelRectDest, tempMapRect;
+		Animation *playerAnimUp, *playerAnimDown, *playerAnimLeft, *playerAnimRight, *currentAnim;
+>>>>>>> origin/master
 	public:
 		NormalScene();
 		//void eventHandler(SDL_Event& event, int& gameState);

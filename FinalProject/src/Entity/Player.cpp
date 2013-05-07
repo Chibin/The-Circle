@@ -2,7 +2,7 @@
 #include "../Manager/LevelManager.h"
 Player::Player(){
 	//STR,DEX,INT
-	setStats(10,7,5);
+	setStats(10,7,5,3,2,2);
 	Name = "Player";
 	SDL_Color fgColor = {255,255,255};
 	SDL_Color fgColor1 = {255,255,0};
@@ -19,7 +19,7 @@ SDL_Surface** Player::getPlayerText(){
 
 void Player::move(Tiles *tiles[]){
 	//Move the dot left or right
-	box.x += xVel;
+	rect.x += xVel;
 
 	//If the dot went too far to the left or right or touched a wall
 	/*if( ( box.x < 0 ) || ( 2*box.x > LevelManager::getInstance().getWidth()) || touches_wall( box, tiles ) )
@@ -29,7 +29,7 @@ void Player::move(Tiles *tiles[]){
 	}
 	*/
 	//Move the dot up or down
-	box.y += yVel;
+	rect.y += yVel;
 	/*
 	//If the dot went too far up or down or touched a wall
 	if( ( box.y < 0 ) || ( 2*box.y  > LevelManager::getInstance().getHeight() ) || touches_wall( box, tiles ) )
@@ -54,9 +54,14 @@ void Player::setType(Player::PlayerType _type){
 }
 
 int Player::getPositionX(){
-	return x;
+	return rect.x;
 }
 
 int Player::getPositionY(){
-	return y;
+	return rect.y;
+}
+
+void Player::move(int x, int y){
+	rect.x += x;
+	rect.y += y;
 }

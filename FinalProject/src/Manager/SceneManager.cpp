@@ -15,6 +15,7 @@ SceneManager::SceneManager(){
 		exit(-1);
 	}
 	SDL_WM_SetCaption( "Tales of Breakers - Pre-alpha v.01a", NULL );
+	SDL_EnableKeyRepeat(50 ,SDL_DEFAULT_REPEAT_INTERVAL);
 	currentScene = new OpeningScene();
 	gameScene = OPENINGMENU;
 }

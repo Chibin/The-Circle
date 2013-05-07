@@ -8,13 +8,13 @@
 class Entity{
 protected:
 	struct status{
-		int HP, MP, STR, DEF, SPD, INT, DEX, MAXHP, MAXMP;
+		int HP, MP, STR, CON, DEX, AGI, INT, LCK, PDEF, MDEF, ACU, MAXHP, MAXMP, CRIT, EVA, SPD;
 	};
 	status stats;
 	//current level
 	int level;
 	int gold; //or whatever our currency is
-	int	experience;
+	int	experience, maxExperience;
 	std::string Name;
 	TTF_Font* font;
 public:
@@ -27,7 +27,8 @@ public:
 	void setSPD(int _SPD);
 	void setDEX(int _DEX);
 	void setINT(int _INT);
-	void setStats(int _STR,int _DEX,int _INT);
+	void setLCK(int _LCK);
+	void setStats(int _STR,int _CON, int _DEX,int _AGI, int _INT, int _LCK);
 	virtual void setName(std::string _Name);
 	std::string getName();
 	int getHP();
@@ -36,6 +37,7 @@ public:
 	int getDEF();
 	int getSPD();
 	int getINT();
+	int fetLCK();
 	status getStats();
 };
 
