@@ -9,6 +9,6 @@ int main(int argc, char *argv[]){
 	//FreeConsole();
 	GameManager::getInstance().GameLoop();
 	
-	
+	std::cout << "Game exited..." << std::endl;
 	return 0;
 }

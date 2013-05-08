@@ -8,7 +8,7 @@ using namespace std;
 #include "../Manager/GameManager.h"
 #include "../Entity//Player.h"
 #include "../Manager/SceneManager.h"
-
+#include "../Manager/LevelManager.h"
 
 class Scene{
 	private:
@@ -18,6 +18,7 @@ class Scene{
 		SceneManager::GameScene type;
 		Player* player;
 		SceneManager* scene;
+		LevelManager* level;
 		//SDL_Surface* screen;
 		Scene();
 		SDL_Surface *load_imageWhite( std::string file );

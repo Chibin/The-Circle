@@ -61,6 +61,27 @@
     <Filter Include="Resource Files\Levels">
       <UniqueIdentifier>{b31dbdef-f564-456e-a692-6f63a477709a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utility\Base64">
+      <UniqueIdentifier>{40180ba9-975e-462d-a63b-2567f304239f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility\TinyXML">
+      <UniqueIdentifier>{dd8942b1-0188-43e9-b89e-a0b778265401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility\Zlib">
+      <UniqueIdentifier>{81adcacf-12a4-419b-be9a-6cbad1e6756b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{b6ba5f81-ea25-4f08-8981-614a677686d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\zlib">
+      <UniqueIdentifier>{8cddab07-b7de-4136-aae9-4433e57549b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\tinyxml">
+      <UniqueIdentifier>{9732f96d-4ade-4719-917e-b23cc25d81fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\base64">
+      <UniqueIdentifier>{995398ce-7352-4c8f-96a3-217683523cc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Fonts\Viner Hand Itc.ttf">
@@ -192,6 +213,105 @@
     <ClCompile Include="..\src\Scene\Scene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\inffast.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\infback.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\gzwrite.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\gzread.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\gzlib.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\gzclose.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\deflate.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\crc32.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\compress.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\adler32.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\zutil.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\uncompr.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\trees.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\inftrees.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\zlib\inflate.c">
+      <Filter>Source Files\Utility\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\tinyxml\tinyxml.cpp">
+      <Filter>Source Files\Utility\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\tinyxml\tinystr.cpp">
+      <Filter>Source Files\Utility\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\tinyxml\tinyxmlparser.cpp">
+      <Filter>Source Files\Utility\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\tinyxml\tinyxmlerror.cpp">
+      <Filter>Source Files\Utility\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\base64\base64.cpp">
+      <Filter>Source Files\Utility\base64</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxPolygon.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxObjectGroup.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxObject.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxMap.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxLayer.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxImageLayer.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxImage.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxEllipse.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxUtil.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxTileset.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxTile.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxPropertySet.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\TmxPolyline.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Scene\Scene.h">
@@ -250,6 +370,48 @@
     </ClInclude>
     <ClInclude Include="..\src\Utility\RapidXML\rapidxml_utils.hpp">
       <Filter>Header Files\Utility\rapidxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\zlib\inflate.h">
+      <Filter>Header Files\Utility\Zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\zlib\inffixed.h">
+      <Filter>Header Files\Utility\Zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\zlib\inffast.h">
+      <Filter>Header Files\Utility\Zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\zlib\gzguts.h">
+      <Filter>Header Files\Utility\Zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\zlib\deflate.h">
+      <Filter>Header Files\Utility\Zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\zlib\crc32.h">
+      <Filter>Header Files\Utility\Zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\zlib\zutil.h">
+      <Filter>Header Files\Utility\Zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\zlib\zlib.h">
+      <Filter>Header Files\Utility\Zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\zlib\zconf.h">
+      <Filter>Header Files\Utility\Zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\zlib\trees.h">
+      <Filter>Header Files\Utility\Zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\zlib\inftrees.h">
+      <Filter>Header Files\Utility\Zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\tinyxml\tinystr.h">
+      <Filter>Header Files\Utility\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\tinyxml\tinyxml.h">
+      <Filter>Header Files\Utility\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\base64\base64.h">
+      <Filter>Header Files\Utility\Base64</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

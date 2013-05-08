@@ -1,5 +1,5 @@
 #include "NormalScene.h"
-#include "../Manager/GameManager.h"
+
 NormalScene::NormalScene(){
 	type = SceneManager::NORMAL;
 	std::cout << "Entering Normal Screen..." << std::endl;
@@ -13,6 +13,7 @@ NormalScene::NormalScene(){
 	//	std::cout << "from a save." << std::endl;;
 	//}
 	//else{
+	level->loadMap("../levels/testLevel.tmx");
 	tempMap = SDL_LoadBMP("../levels/map.bmp");
 	mapRect.x = scene->getWindowWidth()/2 - tempMap->w/2;
 	mapRect.y = scene->getWindowHeight()/2 - tempMap->h/2;
