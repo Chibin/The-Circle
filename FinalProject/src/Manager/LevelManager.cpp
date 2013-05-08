@@ -57,7 +57,6 @@ void LevelManager::loadMap(char* mapName){
 	printf("...Done!\n");
 	levelWidth = currentMap->GetLayer(0)->GetWidth();
 	levelHeight = currentMap->GetLayer(0)->GetHeight();
-
 }
 void LevelManager::renderMapCollision(){
 	int colAmount = currentMap->GetTileset(0)->GetImage()->GetWidth()/currentMap->GetTileWidth(); 
@@ -90,18 +89,31 @@ void LevelManager::renderMapCollision(){
 bool LevelManager::checkWalk(const int& _x,const int& _y){
 	int colAmount = currentMap->GetTileset(0)->GetImage()->GetWidth()/currentMap->GetTileWidth(); 
 	//grab the collision layer
-	const Tmx::Layer *layer = currentMap->GetLayer(2);
-	for (int x = 0; x < layer->GetWidth(); ++x) 
-	{
-		for (int y = 0; y < layer->GetHeight(); ++y) 
-		{
-			if(layer->GetTileId(x,y)==0){
-				std::cout << "free to walk on" << std::endl;
-				player->move(_x,_y);
-				return true;
-			}
-		}
+	//get current spot of player on map and check if the attempted motion will walk out of the tile
+	int playerX = player->getPositionX()%currentMap->GetTileWidth();
+	int playerY = player->getPositionY()%currentMap->GetTileHeight();
+	//if he is still within a tile, let him walk freely, else check for condition
+	if(playerX+_x >0 && playerX+_x <currentMap->GetTileWidth() && playerY+_y >0 && playerY+_y <currentMap->GetTileHeight()){
+		player->move(_x,_y);
+		return false;
 	}
+	const Tmx::Layer *layer = currentMap->GetLayer(2);
+	//check what id is the tile where the is player on
+	playerX = (player->getPositionX()+_x)/currentMap->GetTileWidth();
+	playerY = (player->getPositionY()+ _y)/currentMap->GetTileHeight();
+	int id = layer->GetTileId(playerX-1,playerY-1);
+	//player is moving in a vertical direction. check if there is a collision
+
+	if(layer->GetTileId(playerX+1,playerY+1)==0)
+		player->move(_x,_y);
+
+	//if(layer->GetTileId(0,0)==0){
+	//std::cout << "free to walk on" << std::endl;
+	//player->move(_x,_y);
+	//	return true;
+	//}
+
+
 	return false;
 }
 

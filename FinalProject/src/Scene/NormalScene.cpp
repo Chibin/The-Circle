@@ -175,6 +175,7 @@ void NormalScene::display(){
 	//SDL_FillRect(scene->getScreen(),NULL,0x221122);
 	//level->renderMapCollision();
 	level->renderMap();
+	level->renderMapCollision();
 	//SDL_BlitSurface(tempMap,NULL,scene->getScreen(),&mapRect);	
 	currentTick = SDL_GetTicks();
 	if(currentTick - lastTick > 150)
@@ -191,7 +192,7 @@ void NormalScene::display(){
 	if(currentState == DIALOGUE){
 		std::cout << "Hey..someones talking to you" << std::endl;
 	}
-	level->renderMapCollision();
+	
 	SDL_Flip(scene->getScreen());
 }
 void NormalScene::disposeResources(){
