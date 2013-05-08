@@ -6,6 +6,8 @@ LevelManager& LevelManager::getInstance(){
 	return instance;
 }
 LevelManager::LevelManager(){
+	scene = &SceneManager::getInstance();
+	game = &GameManager::getInstance();
 	levelName = "";
 	totalTiles = totalSprites = levelWidth =  levelHeight = 0;
 }
@@ -25,6 +27,7 @@ int LevelManager::getTotalSprites(){
 int LevelManager::getTotalTiles(){
 	return totalTiles;
 }
+
 void LevelManager::loadMap(char* mapName){
 	//make sure to delete old map before continuing
 	if(currentMap !=0)
@@ -32,7 +35,7 @@ void LevelManager::loadMap(char* mapName){
 
 	std::string buf = mapName;
 	currentMap = new Tmx::Map();
-	
+
 	printf("\n\t\tStatus:\n\t\t\tParsing file now...");
 	currentMap->ParseFile("../levels/"+buf);
 	printf("...Done!\n");
@@ -122,3 +125,18 @@ void LevelManager::loadMap(char* mapName){
 
 }
 
+void LevelManager::renderMap(){
+	for (int i = 0; i < currentMap->GetNumLayers(); ++i) 
+	{
+		const Tmx::Layer *layer = currentMap->GetLayer(i);
+		for (int x = 0; x < layer->GetWidth(); ++x) 
+		{
+			for (int y = 0; y < layer->GetHeight(); ++y) 
+			{
+
+			}
+		}
+
+
+	}
+}
