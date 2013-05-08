@@ -61,20 +61,22 @@ void BattleScene::eventHandler(SDL_Event& event){
 						else if(battleMenu == RUN)
 							battleMenu = ITEM;
 						if(battleMenu == isMagic)
-							cout << "MAGIC" << endl;
+							bManager->magicUp();
 						break;
 					case SDLK_DOWN:
 						if(battleMenu == ITEM)
 							battleMenu = RUN;
 						else if(battleMenu == FIGHT)
 							battleMenu = MAGIC;
+						if(battleMenu == isMagic)
+							bManager->magicDown();
 						break;
 					case SDLK_LEFT:
 						if(battleMenu == ITEM)
 							battleMenu = FIGHT;
 						else if(battleMenu == RUN)
 							battleMenu = MAGIC;
-						if(battleMenu == isFight)
+						if(battleMenu == isFight || battleMenu == magicTargetSelect)
 							bManager->moveLeft();
 						break;
 					case SDLK_RIGHT:
@@ -82,7 +84,7 @@ void BattleScene::eventHandler(SDL_Event& event){
 							battleMenu = ITEM;
 						else if(battleMenu == MAGIC)
 							battleMenu = RUN;
-						if(battleMenu == isFight)
+						if(battleMenu == isFight || battleMenu == magicTargetSelect)
 							bManager->moveRight();
 						break;
 					case SDLK_RETURN:
@@ -99,9 +101,13 @@ void BattleScene::eventHandler(SDL_Event& event){
 						else if(battleMenu == endPhase)
 							bManager->battlePhaseUpdate(battleMenu);
 						break;
-					case SDLK_x:
-						if(battleMenu == isFight || battleMenu == isMagic)
+					case SDLK_x: //basically a cancel action command, goes back to the previous state
+						if(battleMenu == isFight)
 							battleMenu = FIGHT;
+						else if(battleMenu == isMagic)
+							battleMenu = MAGIC;
+						else if(battleMenu == magicTargetSelect)
+							battleMenu = isMagic;
 						break;
 					case SDLK_ESCAPE:
 						scene->setGameScene(SceneManager::NORMAL);

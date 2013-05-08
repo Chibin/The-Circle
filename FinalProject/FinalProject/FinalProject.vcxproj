@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Libraries\SDL-devel-1.2.15-VC\SDL-1.2.15\include;C:\Libraries\SDL_image-devel-1.2.12-VC\SDL_image-1.2.12\include;C:\Libraries\SDL_ttf-devel-2.0.11-VC\SDL_ttf-2.0.11\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Libraries\SDL-devel-1.2.15-VC\SDL-1.2.15\include;C:\Libraries\SDL_image-devel-1.2.12-VC\SDL_image-1.2.12\include;C:\Libraries\SDL_ttf-devel-2.0.11-VC\SDL_ttf-2.0.11\include;C:\Users\Maru\Documents\GitHub\The-Circle\FinalProject\includes;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

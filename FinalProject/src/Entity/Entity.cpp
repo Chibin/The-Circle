@@ -26,5 +26,5 @@ int Entity::getSTR(){return stats.STR;}
 int Entity::getDEF(){return stats.PDEF;}
 int Entity::getSPD(){return stats.SPD;}
 int Entity::getINT(){return stats.INT;}
+void Entity::learnMagicAbility(Magic mSkill){mAbilities.push_back(mSkill);}
 Entity::status Entity::getStats(){return stats;}
-
