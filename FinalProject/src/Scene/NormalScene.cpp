@@ -1,4 +1,5 @@
 #include "NormalScene.h"
+#include "../src/Entity/NPC.h"
 
 NormalScene::NormalScene(){
 	type = SceneManager::NORMAL;
