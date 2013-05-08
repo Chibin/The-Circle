@@ -1,6 +1,8 @@
 #ifndef NORMALSCENE_H_
 #define NORMALSCENE_H_
 #include "Scene.h"
+#include <vector>
+
 class NormalScene : public Scene{
 	private:
 		enum PLayerState

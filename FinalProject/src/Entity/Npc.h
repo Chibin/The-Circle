@@ -1,13 +1,21 @@
 #ifndef NPC_H
 #define NPC_H
-#include "Entity.h"
+#include "Entity.h" // for Entity
+#include "../Scene/Scene.h" // for Animation
+#include "SDL_image.h"
+#include <string> // for name
+
 class NPC : public Entity
 {
 protected:
+	std::string npcName;
 	SDL_Surface* npcImage;
 	SDL_Rect npcRect;
+	Animation *npcUp, *npcDown, *npcLeft, *npcRight, *currentAnimation;
 public:
 	NPC();
+	virtual SDL_Rect* getPosition();
+	virtual void setFrames();
 	~NPC();
 };
 

@@ -1,5 +1,4 @@
 #include "NormalScene.h"
-#include "../src/Entity/NPC.h"
 
 NormalScene::NormalScene(){
 	type = SceneManager::NORMAL;
@@ -33,6 +32,7 @@ NormalScene::NormalScene(){
 		playerModel = load_imageWhite("../Images/normal/femaleModel.bmp");
 
 	}
+	
 	std::cout << "Done!" << std::endl;
 
 	/*******************************************************************************/
