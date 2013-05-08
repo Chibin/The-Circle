@@ -97,7 +97,7 @@ bool LevelManager::checkWalk(const int& _x,const int& _y){
 		player->move(_x,_y);
 		return false;
 	}
-	const Tmx::Layer *layer = currentMap->GetLayer(2);
+	const Tmx::Layer *layer = currentMap->GetLayer(3);
 	//check what id is the tile where the is player on
 	playerX = (player->getPositionX()+_x)/currentMap->GetTileWidth();
 	playerY = (player->getPositionY()+ _y)/currentMap->GetTileHeight();
@@ -107,13 +107,7 @@ bool LevelManager::checkWalk(const int& _x,const int& _y){
 	if(layer->GetTileId(playerX+1,playerY+1)==0)
 		player->move(_x,_y);
 
-	//if(layer->GetTileId(0,0)==0){
-	//std::cout << "free to walk on" << std::endl;
-	//player->move(_x,_y);
-	//	return true;
-	//}
-
-
+	
 	return false;
 }
 
