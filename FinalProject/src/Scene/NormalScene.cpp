@@ -13,10 +13,10 @@ NormalScene::NormalScene(){
 	//	std::cout << "from a save." << std::endl;;
 	//}
 	//else{
-	level->loadMap("../levels/testLevel.tmx");
-	tempMap = SDL_LoadBMP("../levels/map.bmp");
-	mapRect.x = scene->getWindowWidth()/2 - tempMap->w/2;
-	mapRect.y = scene->getWindowHeight()/2 - tempMap->h/2;
+	level->loadMap("testLevel");
+	//tempMap = SDL_LoadBMP("../levels/map.bmp");
+//	mapRect.x = scene->getWindowWidth()/2 - tempMap->w/2;
+//	mapRect.y = scene->getWindowHeight()/2 - tempMap->h/2;
 	//}
 	std::cout << "Done!" << std::endl;
 	/*******************************************************************************/
@@ -94,22 +94,26 @@ void NormalScene::eventHandler(SDL_Event& event){
 	if( keystate[SDLK_UP]){
 		currentAnim = playerAnimUp;
 		currentAnim->NextFrame();
-		player->move(0,-velocity);
+		level->checkWalk(0,-velocity);
+		//player->move(0,-velocity);
 	}
 	else if( keystate[SDLK_DOWN]){
 		currentAnim = playerAnimDown;
 		currentAnim->NextFrame();
-		player->move(0,velocity);
+		level->checkWalk(0,velocity);
+		//player->move(0,velocity);
 	}
 	else if( keystate[SDLK_LEFT]){
 		currentAnim = playerAnimLeft;
 		currentAnim->NextFrame();
-		player->move(-velocity,0);
+		level->checkWalk(-velocity,0);
+		//player->move(-velocity,0);
 	}
 	else if( keystate[SDLK_RIGHT]){
 		currentAnim = playerAnimRight;
 		currentAnim->NextFrame();
-		player->move(velocity,0);
+		level->checkWalk(velocity,0);
+		//player->move(velocity,0);
 	}
 	//Runs through all the queued events
 	//Note: we can create our own events
@@ -168,8 +172,10 @@ void NormalScene::eventHandler(SDL_Event& event){
 }
 void NormalScene::display(){
 	//SDL_Delay(125);
-	SDL_FillRect(scene->getScreen(),NULL,0x221122);
-	SDL_BlitSurface(tempMap,NULL,scene->getScreen(),&mapRect);	
+	//SDL_FillRect(scene->getScreen(),NULL,0x221122);
+	//level->renderMapCollision();
+	level->renderMap();
+	//SDL_BlitSurface(tempMap,NULL,scene->getScreen(),&mapRect);	
 	currentTick = SDL_GetTicks();
 	if(currentTick - lastTick > 150)
 	{
@@ -185,12 +191,13 @@ void NormalScene::display(){
 	if(currentState == DIALOGUE){
 		std::cout << "Hey..someones talking to you" << std::endl;
 	}
+	level->renderMapCollision();
 	SDL_Flip(scene->getScreen());
 }
 void NormalScene::disposeResources(){
 
 	SDL_FreeSurface(playerModel);
-	SDL_FreeSurface(tempMap);
+	//SDL_FreeSurface(tempMap);
 	delete playerAnimUp;
 	delete playerAnimDown;
 	delete playerAnimLeft;

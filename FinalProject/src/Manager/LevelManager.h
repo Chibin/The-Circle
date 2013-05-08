@@ -5,16 +5,17 @@
 #include "../Utility/Tmx.h"
 #include "SceneManager.h"
 #include "GameManager.h"
-
+#include "../Entity/Player.h"
 class LevelManager{
 private:
 	SceneManager* scene;
 	GameManager* game;
-
+	SDL_Surface *mapImage;
 	//level name
 	std::string levelName;
 	//map holder
 	Tmx::Map *currentMap;
+	Player* player;
 	//Current Level size
 	int levelWidth, levelHeight;
 	//total amount of tiles and unique sprites
@@ -33,7 +34,8 @@ public:
 	int getTotalTiles();
 	void loadMap(char *);
 	void renderMap();
-
+	void renderMapCollision();
+	bool checkWalk(const int& x,const int& y);
 };
 
 #endif
