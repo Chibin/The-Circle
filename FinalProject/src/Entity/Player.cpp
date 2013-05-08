@@ -6,9 +6,9 @@ Player::Player(){
 	Name = "Player";
 	SDL_Color fgColor = {255,255,255};
 	SDL_Color fgColor1 = {255,255,0};
-	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",25);
-	playerText[0] = TTF_RenderText_Blended(font,getName().c_str(),fgColor);
-	playerText[1] = TTF_RenderText_Blended(font,getName().c_str(),fgColor1);
+	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
+	playerText[0] = TTF_RenderText_Blended(font,getName().c_str(),fgColor1);
+	playerText[1] = TTF_RenderText_Blended(font,getName().c_str(),fgColor);
 
 }
 

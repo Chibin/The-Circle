@@ -16,7 +16,7 @@ protected:
 	int level;
 	int gold; //or whatever our currency is
 	int	experience, maxExperience;
-	std::vector<Magic> skills;
+	std::vector<Magic> mAbilities;
 	std::string Name;
 	TTF_Font* font;
 public:
@@ -40,6 +40,9 @@ public:
 	int getSPD();
 	int getINT();
 	int getLCK();
+	void forgetAllMagicAbilities(){mAbilities.clear();}
+	void learnMagicAbility(Magic mSkill);
+	std::vector<Magic> getMagicAbilities(){return mAbilities;}
 	status getStats();
 };
 #endif

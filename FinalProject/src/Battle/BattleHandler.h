@@ -10,6 +10,8 @@
 #include "../Entity/Mob.h"
 #include "../Entity/Player.h"
 #include "../Manager/SceneManager.h"
+#include "../Entity/Entity.h"
+#include "../Entity/Magic.h"
 
 static bool compare_SPD(Mob* first, Mob* second){
 	return (first->getSPD() > second->getSPD());
@@ -19,9 +21,9 @@ static bool compareEntity_SPD(Entity* first, Entity* second){
 }
 class BattleHandler{
 	private:
-		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isMagic,isItem,isRun, battleEnd,battlePhase,endPhase};
+		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isMagic,isItem,isRun,magicTargetSelect, battlePhase,magicBattlePhase,endPhase,battleEnd};
 		enum battleCondition{MUTAL,PREEMPTIVE,FLANKED};
-		int mobSelected, bpLoopCheck;
+		int mobSelected, bpLoopCheck,magicSelected;
 		Player* player;
 		SceneManager* scene;
 		bool playerDead;
@@ -33,15 +35,23 @@ class BattleHandler{
 		void loadMobs(std::vector<Mob*>* _mobs);
 		//Selected Actions
 		void displayItems();
+		void MagicMenu();
 		bool startFight(int& battleMenu,enum battleCondition condition);
 		void run(int& battleMenu);
 		//BattleCalculations
-		void battleLog(std::vector<Entity*>* inOrder, string mobAttacked, enum battleCondition condition);
+		void battleLog(std::vector<Entity*>* inOrder, string mobAttacked, enum battleCondition condition,int battleMenu);
+		void MagicBattlePhase(Magic selectedMagic,std::vector<Entity*>* inOrder);
+		void magicDamage(Magic selectedMagic,std::vector<Entity*>* inOrder);
+		void magicHeal(Magic selectedMagic,std::vector<Entity*>* inOrder);
+		void magicDebuff(Magic selectedMagic,std::vector<Entity*>* inOrder);
+		void magicBuff(Magic selectedMagic,std::vector<Entity*>* inOrder);
 		//Modifier for the battle display via incrementing a counter
 		void battlePhaseUpdate(int& battleMenu);
 		//Battle Displays
 		void battleDisplayUpdate(int& battleMenu);
 		void monsterSelectDisplay(int& battleMenu);
+		void magicSelectDisplay();
+		void magicMenuDisplay();
 		void battlePhaseDisplay(int& battleMenu);	
 		void endPhaseDisplay(int& battleMenu);
 		//Sets players and monsters in turn order for battle phase
@@ -51,6 +61,9 @@ class BattleHandler{
 		//Monster selection
 		void moveLeft();
 		void moveRight();
+		//Magic Selection
+		void magicUp();
+		void magicDown();
 		//Flow state of battle
 		void battleHandler(int& battleMenu);
 };
