@@ -5,17 +5,24 @@ BattleHandler::BattleHandler(){
 	endBattleText.clear();
 	player = &Player::getInstance();
 	scene = &SceneManager::getInstance();
+	magicMenuTrigger = false;
 	mobSelected = 0;
 	magicSelected = 0;
+	prevmagicSelected = 0;
 	playerDead = false;
+	drawingText = false; 
+	drawingComplete = false;
 	player->forgetAllMagicAbilities();
 	PowHammer newMagic;	FireBall newMagic2; FirstAid newMagic3;
-	AngelFeathers newMagic4; DemonFang newMagic5;
+	AngelFeathers newMagic4; DemonFang newMagic5; DumDog newMagic6;
+	ParaBall newMagic7;
 	player->learnMagicAbility((Magic)newMagic);
 	player->learnMagicAbility((Magic)newMagic2);
 	player->learnMagicAbility((Magic)newMagic3);
 	player->learnMagicAbility((Magic)newMagic4);
 	player->learnMagicAbility((Magic)newMagic5);
+	player->learnMagicAbility((Magic)newMagic6);
+	player->learnMagicAbility((Magic)newMagic7);
 }
 void BattleHandler::loadMobs(std::vector<Mob*>* _mobs){
 	mobs = _mobs;
@@ -41,6 +48,7 @@ bool BattleHandler::startFight(int& battleMenu, enum battleCondition condition){
 		mobSelected = mobs->size()-1;
 	string mobAttacked = (*mobs)[mobSelected]->getName();
 	std::vector<Entity*>* inOrder = new std::vector<Entity*>();
+	prevPhase = battleMenu;
 	turnOrder(inOrder);
 	battleLog(inOrder,mobAttacked,condition,battleMenu);
 	if(mobs->size() == 0)
@@ -83,7 +91,6 @@ void BattleHandler::run(int& battleMenu){
 			battleMenu = battlePhase;
 			//commence attack of mob here
 			startFight(battleMenu,FLANKED);
-
 		}
 	}
 	bpLoopCheck = -1;
@@ -230,7 +237,6 @@ void BattleHandler::magicDamage(Magic selectedMagic,std::vector<Entity*>* inOrde
 		default:
 			break;
 	}
-
 }
 void BattleHandler::magicHeal(Magic selectedMagic,std::vector<Entity*>* inOrder){
 	SDL_Surface* temp;
@@ -243,6 +249,7 @@ void BattleHandler::magicHeal(Magic selectedMagic,std::vector<Entity*>* inOrder)
 			temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
 			battleText.push_back(temp);
 			player->setHP(player->getHP()+selectedMagic.getMagicDamage());
+			cout << player->getHP() << endl;
 			break;
 		}
 		case Magic::AOE:
@@ -250,7 +257,6 @@ void BattleHandler::magicHeal(Magic selectedMagic,std::vector<Entity*>* inOrder)
 		default:
 			break;
 	}
-
 }
 void BattleHandler::magicBuff(Magic selectedMagic,std::vector<Entity*>* inOrder){
 	switch(selectedMagic.getMagicTargetType()){
@@ -272,12 +278,17 @@ void BattleHandler::magicDebuff(Magic selectedMagic,std::vector<Entity*>* inOrde
 		default:
 			break;
 	}
-
 }
 
 //Modifier for the battle display via incrementing a counter
 void BattleHandler::battlePhaseUpdate(int& battleMenu){
-	bpLoopCheck++;
+	if(drawingComplete){
+		drawingText = false;
+		bpLoopCheck++;
+	}
+	else if(drawingText){
+		drawingComplete = true;
+	}
 }
 //For Display
 void BattleHandler::battleDisplayUpdate(int& battleMenu){
@@ -341,27 +352,58 @@ void BattleHandler::magicSelectDisplay(){
 		SDL_FreeSurface(temp);
 	}
 }
+int BattleHandler::indexScrollDeteminer(int& startingIndex, int currentIndex, int scrollLimit){
+	if(currentIndex >= startingIndex+scrollLimit)
+		return startingIndex++;
+	else if(currentIndex < startingIndex && startingIndex >= 0)
+		return startingIndex--;
+	return startingIndex;
+}
 void BattleHandler::magicMenuDisplay(){
-	int x = 0, y = 0;
+	int x = 0, y = 0,  j = 0, scrollLimit =5;
 	SDL_Rect* mobRect = new SDL_Rect[player->getMagicAbilities().size()];
-	for(int i = 0; i < (int)player->getMagicAbilities().size(); i++){
-		mobRect[i].x = 315; mobRect[i].y = 405+i*35;
+	for(int i = indexScrollDeteminer(prevmagicSelected,magicSelected,scrollLimit) ; i < (int)player->getMagicAbilities().size() && j < 5; i++){
+		mobRect[i].x = 315; mobRect[i].y = 405+j*35;
 		if(magicSelected == i)
 			SDL_BlitSurface(player->getMagicAbilities()[i].getMagicTextImage()[0],NULL,scene->getScreen(),&mobRect[i]);
 		else
 			SDL_BlitSurface(player->getMagicAbilities()[i].getMagicTextImage()[1],NULL,scene->getScreen(),&mobRect[i]);
+		j++;
 	}
+}
+void BattleHandler::textScrollDisplay(std::vector<SDL_Surface*> &textVector,int index,bool& drawingText,bool& drawingComplete, SDL_Rect startPos){
+	if(!drawingText){
+			drawingText = true; drawingComplete = false;
+			textScroller.x = 0; textScroller.y = 0;
+			textScroller.w = 0;
+			textScroller.h = textVector[index]->h;
+		}
+		if(textScroller.w >= textVector[index]->w && drawingComplete == false){
+			drawingComplete = true;
+		}
+		else if(!drawingComplete){
+				textScroller.w++;
+				SDL_BlitSurface(textVector[index],&textScroller,scene->getScreen(),&startPos);
+		}
+		else
+				SDL_BlitSurface(textVector[index],NULL,scene->getScreen(),&startPos);
 }
 void BattleHandler::battlePhaseDisplay(int& battleMenu){
 	SDL_Rect bText;
 	bText.x = 50;
 	bText.y = 400;
-	if(bpLoopCheck < (int)battleText.size())
-		SDL_BlitSurface(battleText[bpLoopCheck],NULL,scene->getScreen(),&bText);
+	if(bpLoopCheck == -1)
+		bpLoopCheck = 0;
+	if(bpLoopCheck < (int)battleText.size()){
+		textScrollDisplay(battleText,bpLoopCheck,drawingText,drawingComplete,bText);
+	}
 	else{
 		for(int i = 0; i < (int)battleText.size(); i++)
 			SDL_FreeSurface(battleText[i]);
-		battleMenu = FIGHT;
+		if(prevPhase == magicTargetSelect)
+			battleMenu = MAGIC;
+		else
+			battleMenu = FIGHT;
 		if(playerDead){
 			battleMenu = battleEnd;
 			cout << "Revived with 10 HP" << endl;
@@ -385,8 +427,10 @@ void BattleHandler::endPhaseDisplay(int& battleMenu){
 		battleMenu = battlePhase;
 		return;
 	}
+	if(bpLoopCheck == -1)
+		bpLoopCheck = 0;
 	if(bpLoopCheck < (int)endBattleText.size())
-		SDL_BlitSurface(endBattleText[bpLoopCheck],NULL,scene->getScreen(),&bText);
+			textScrollDisplay(endBattleText,bpLoopCheck,drawingText,drawingComplete,bText);
 	else{
 		for(int i = 0; i < (int)endBattleText.size(); i++)
 			SDL_FreeSurface(endBattleText[i]);
@@ -398,6 +442,7 @@ void BattleHandler::endPhaseDisplay(int& battleMenu){
 			SDL_FreeSurface(endBattleText[i]);
 		battleMenu = battleEnd;
 		endBattleText.clear();
+		bpLoopCheck = -1;
 	}
 }
 
@@ -453,7 +498,6 @@ void BattleHandler::battleHandler(int& battleMenu){
 			if(!startFight(battleMenu,MUTAL)){
 				//call EXP EVENT?
 				battleMenu = endPhase;
-				cout << "BATTLE SHOULD END" << endl;
 			}
 			break;
 		case isMagic:
@@ -463,13 +507,11 @@ void BattleHandler::battleHandler(int& battleMenu){
 			if(!startFight(battleMenu,MUTAL)){
 				//call EXP EVENT?
 				battleMenu = endPhase;
-				cout << "BATTLE SHOULD END" << endl;
 			}
 			break;
 		case battlePhase:
 			break;
 		case endPhase:
-			cout <<" END OF BATTLE" << endl;
 			break;
 		case battleEnd:
 			break;
