@@ -97,6 +97,13 @@ bool LevelManager::checkWalk(const int& _x,const int& _y){
 		player->move(_x,_y);
 		return false;
 	}
+	//check if player is within screen
+	printf("old postion: %d,%d. new position: %d, %d.\n",(player->getPositionX()), (player->getPositionY()),(player->getPositionX()+_x ), (player->getPositionY()+_y));
+	if((player->getPositionX()+_x ) > 780 ){
+		printf("off screen\n");
+		return false;
+	}
+
 	const Tmx::Layer *layer = currentMap->GetLayer(3);
 	//check what id is the tile where the is player on
 	playerX = (player->getPositionX()+_x)/currentMap->GetTileWidth();
