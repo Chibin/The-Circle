@@ -98,15 +98,15 @@ bool LevelManager::checkWalk(const int& _x,const int& _y){
 		return false;
 	}
 	//check if player is within screen
-	printf("old postion: %d,%d. new position: %d, %d.\n",(player->getPositionX()), (player->getPositionY()),(player->getPositionX()+_x ), (player->getPositionY()+_y));
+	//printf("old postion: %d,%d. new position: %d, %d.\n",(player->getPositionX()), (player->getPositionY()),(player->getPositionX()+_x ), (player->getPositionY()+_y));
 	if((player->getPositionX()+_x ) > 780 ){
-		printf("off screen\n");
+		//printf("off screen\n");
 		return false;
 	}
 
 	const Tmx::Layer *layer = currentMap->GetLayer(3);
 	//check what id is the tile where the is player on
-	playerX = (player->getPositionX()+_x)/currentMap->GetTileWidth();
+	playerX = (player->getPositionX())/currentMap->GetTileWidth();
 	playerY = (player->getPositionY()+ _y)/currentMap->GetTileHeight();
 	int id = layer->GetTileId(playerX-1,playerY-1);
 	//player is moving in a vertical direction. check if there is a collision

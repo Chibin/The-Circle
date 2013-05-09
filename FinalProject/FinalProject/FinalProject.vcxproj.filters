@@ -312,6 +312,9 @@
     <ClCompile Include="..\src\Utility\TmxPolyline.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Scene\EventScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Scene\Scene.h">
@@ -412,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Utility\base64\base64.h">
       <Filter>Header Files\Utility\Base64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\EventScene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
