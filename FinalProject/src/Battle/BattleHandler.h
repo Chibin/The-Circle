@@ -30,6 +30,11 @@ class BattleHandler{
 		TTF_Font* font;
 		std::vector<SDL_Surface*> battleText,endBattleText;
 		std::vector<Mob*>* mobs;
+		int prevPhase, prevmagicSelected;
+		bool magicMenuTrigger;
+		bool drawingText;
+		bool drawingComplete;
+		SDL_Rect textScroller;
 	public:
 		BattleHandler();
 		void loadMobs(std::vector<Mob*>* _mobs);
@@ -47,6 +52,9 @@ class BattleHandler{
 		void magicBuff(Magic selectedMagic,std::vector<Entity*>* inOrder);
 		//Modifier for the battle display via incrementing a counter
 		void battlePhaseUpdate(int& battleMenu);
+		void textScrollDisplay(std::vector<SDL_Surface*>& textVector,int index,bool& drawingText,bool& drawingComplete,SDL_Rect startPos);
+		//Determines the start index for magic and item menu to be drawn
+		int indexScrollDeteminer(int& startingIndex, int currentIndex, int scrollLimit);
 		//Battle Displays
 		void battleDisplayUpdate(int& battleMenu);
 		void monsterSelectDisplay(int& battleMenu);

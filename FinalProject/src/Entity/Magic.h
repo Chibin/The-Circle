@@ -40,7 +40,7 @@ class Magic{
 		}
 		void setMagicTextImage(){
 			TTF_Font* font;
-			font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
+			font = TTF_OpenFont("../Fonts/Manga temple.ttf",30); //used to be 30 for manga temple
 			SDL_Color fgColor = {255,255,0};
 			magicTextImage[0] =TTF_RenderText_Blended(font,MagicName.c_str(),fgColor);
 			fgColor.b = 255;
@@ -97,6 +97,27 @@ class PowHammer : public Magic{
 		setMagicTextImage();
 	}
 };
+class ParaBall : public Magic{
+public:
+	ParaBall(){
+		setMagicType(DAMAGE);
+		setTargetType(SINGLE);
+		setMagicDamage(20);
+		setMagicName("Para Ball");
+		setMagicTextImage();
+	}
+};
+class DumDog : public Magic{ //non-sense skill for john lusby
+public:
+	DumDog(){
+		setMagicType(HEAL);
+		setTargetType(SINGLE);
+		setMagicDamage(-20);  //inflicts damage to one's self
+		setMagicName("Dum Dog");
+		setMagicTextImage();
+	};
+};
+
 class FirstAid: public Magic{
 	public:
 		FirstAid(){
@@ -111,6 +132,15 @@ class FirstAid: public Magic{
 class Item{
 	private:
 	public:
-
+		enum itemActiveOn{BATTLE,NORMAL,BATTLE_NORMAL};
+		enum itemType{CONSUMABLE,EQUIPMENT,ETC};
+		enum itemEffect{HEAL,DAMAGE,BUFF,DEBUFF};
+		Item(){}
+protected:
+};
+class Equipment : public Item{
+	public:
+		
+	private:
 };
 #endif
