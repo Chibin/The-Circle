@@ -14,10 +14,11 @@ protected:
 	Animation *npcUp, *npcDown, *npcLeft, *npcRight, *currentAnimation;
 public:
 	NPC();
-	virtual SDL_Rect* getRect();
-	virtual SDL_Surface* getSurface();
-	virtual Animation* getAnimation();
-	virtual void setFrames();
+	virtual SDL_Rect* getRect(void);
+	virtual SDL_Surface* getSurface(void);
+	virtual Animation* getAnimation(void);
+	virtual void setFrames(void);
+	SDL_Surface* load_imageBlue(std::string file); // function to load images with blue/transparent background
 	~NPC(){}
 };
 

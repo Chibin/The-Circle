@@ -10,28 +10,28 @@ NPC::NPC(){
 	setFrames(); // set the frames
 }
 
-SDL_Rect* NPC::getRect()
+SDL_Rect* NPC::getRect(void)
 {
 	return &npcRect; // dereference to return a point to the npcRect
 }
 
-SDL_Surface* NPC::getSurface()
+SDL_Surface* NPC::getSurface(void)
 {
 	return npcImage;
 }
 
-Animation* NPC::getAnimation()
+Animation* NPC::getAnimation(void)
 {
 	return currentAnimation;
 }
 
-void NPC::setFrames()
+void NPC::setFrames(void)
 {
 	// initialize animations
 	npcUp = new Animation;
 	npcDown = new Animation;
 	npcLeft = new Animation;
-	npcRight = new Animation;
+	npcRight = new Animation; 
 
 	npcUp->Init(3); // 3 frames per direction
 	npcDown->Init(3);
@@ -56,25 +56,57 @@ void NPC::setFrames()
 	npcLeft->SetFrame(2, 48, 96, 24, 32);
 	// current Animation
 	currentAnimation = npcDown; // so that it is facing the screen
+	currentAnimation->NextFrame();
 }
 
 NPC_girl1::NPC_girl1()
 {
 	npcName = "NPC Girl"; // non original name
 	// should load image
-	SDL_Surface* tempSurface = IMG_Load("../Images/npc/girl1.bmp");
-	npcImage = SDL_DisplayFormatAlpha(tempSurface);
-	SDL_FreeSurface(tempSurface);
-	SDL_SetColorKey( npcImage, SDL_SRCCOLORKEY, SDL_MapRGB( npcImage->format, 0xf8, 0xf8, 0xf8 ) );
+	//SDL_Surface* tempSurface = IMG_Load("../Images/npc/girl1.bmp");
+	//npcImage = SDL_DisplayFormatAlpha(tempSurface);
+	//SDL_FreeSurface(tempSurface);
+	npcImage = load_imageBlue("../Images/npc/girl1.bmp");
+	//SDL_SetColorKey( npcImage, SDL_SRCCOLORKEY, SDL_MapRGB( npcImage->format, 0xff, 0xff, 0xff ) );
 	setFrames();
 }
 
 NPC_guy1::NPC_guy1()
 {
 	npcName = "NPC Guy";
-	SDL_Surface* tempSurface = IMG_Load("../Images/npc/guy1.png");
-	npcImage = SDL_DisplayFormatAlpha(tempSurface);
-	SDL_FreeSurface(tempSurface);
-	SDL_SetColorKey( npcImage, SDL_SRCCOLORKEY, SDL_MapRGB( npcImage->format, 0xf8, 0xf8, 0xf8 ) );
+	npcImage =  SDL_LoadBMP("../Images/npc/guy1.bmp");
+	SDL_SetColorKey( npcImage, SDL_SRCCOLORKEY, SDL_MapRGB( npcImage->format, 0xff, 0xff, 0xff ) );
 	setFrames();
+}
+
+SDL_Surface* NPC::load_imageBlue( std::string file )
+{
+	//The image that's loaded
+	SDL_Surface* loadedImage = NULL;
+
+	//The optimized surface that will be used
+	SDL_Surface* optimizedImage = NULL;
+
+	//Load the image
+	loadedImage = IMG_Load( file.c_str() );
+
+	//If the image loaded
+	if( loadedImage != NULL )
+	{
+		//Create an optimized surface
+		optimizedImage = SDL_DisplayFormat( loadedImage );
+
+		//Free the old surface
+		SDL_FreeSurface( loadedImage );
+
+		//If the surface was optimized
+		if( optimizedImage != NULL )
+		{
+			//Color key surface
+			SDL_SetColorKey( optimizedImage, SDL_SRCCOLORKEY, SDL_MapRGB( optimizedImage->format, 0, 0, 0xff ) );
+		}
+	}
+
+	//Return the optimized surface
+	return optimizedImage;
 }
