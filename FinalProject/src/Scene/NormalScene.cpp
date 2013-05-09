@@ -131,6 +131,9 @@ void NormalScene::eventHandler(SDL_Event& event){
 					break;
 				case SDLK_RIGHT:
 					break;
+				case SDLK_k:
+					scene->setGameScene(SceneManager::EVENT);
+					break;
 				case SDLK_c:
 					std::cout << "Starting a battle for no reason at all!" << std::endl;
 					scene->setGameScene(SceneManager::BATTLE);

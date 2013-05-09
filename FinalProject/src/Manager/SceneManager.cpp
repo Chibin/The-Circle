@@ -4,6 +4,7 @@
 #include "../Scene/OpeningScene.h"
 #include "../Scene/NormalScene.h"
 #include "../Scene/NewCharacterScene.h"
+#include "../Scene/EventScene.h"
 
 SceneManager::SceneManager(){
 	winHeight = 600;
@@ -51,6 +52,9 @@ void SceneManager::sceneHandler(GameScene _gameScene){
 			break;
 		case CHARACTERCREATION:
 			currentScene = new NewCharScreen();
+			break;
+		case EVENT:
+			currentScene = new EventScene();
 			break;
 		default:
 			cerr << "SCENE DOES NOT EXIST" << endl;

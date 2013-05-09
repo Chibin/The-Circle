@@ -10,7 +10,7 @@ class Scene;
 class SceneManager{
 public:
 	//Different Game Scene
-	enum GameScene{NORMAL,MENU,BATTLE,OPENINGMENU, CHARACTERCREATION};
+	enum GameScene{NORMAL,MENU,BATTLE,OPENINGMENU, CHARACTERCREATION, EVENT};
 	//Instance of SceneManager
 	static SceneManager& getInstance();	
 	//handle the events

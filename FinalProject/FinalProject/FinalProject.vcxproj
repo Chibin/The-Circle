@@ -120,6 +120,7 @@
     <ClCompile Include="..\src\Manager\LevelManager.cpp" />
     <ClCompile Include="..\src\Manager\SceneManager.cpp" />
     <ClCompile Include="..\src\Scene\BattleScene.cpp" />
+    <ClCompile Include="..\src\Scene\EventScene.cpp" />
     <ClCompile Include="..\src\Scene\NewCharacterScene.cpp" />
     <ClCompile Include="..\src\Scene\NormalScene.cpp" />
     <ClCompile Include="..\src\Scene\OpeningScene.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="..\src\Manager\LevelManager.h" />
     <ClInclude Include="..\src\Manager\SceneManager.h" />
     <ClInclude Include="..\src\Scene\BattleScene.h" />
+    <ClInclude Include="..\src\Scene\EventScene.h" />
     <ClInclude Include="..\src\Scene\NewCharacterScene.h" />
     <ClInclude Include="..\src\Scene\NormalScene.h" />
     <ClInclude Include="..\src\Scene\OpeningScene.h" />
