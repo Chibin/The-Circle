@@ -36,6 +36,7 @@ public:
 	void renderMap();
 	void renderMapCollision();
 	bool checkWalk(const int& x,const int& y);
+	bool checkEvent(const int& x,const int& y);
 };
 
 #endif

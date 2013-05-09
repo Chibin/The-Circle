@@ -13,7 +13,7 @@ NormalScene::NormalScene(){
 	//	std::cout << "from a save." << std::endl;;
 	//}
 	//else{
-	level->loadMap("testLevel");
+	level->loadMap("testLevel2");
 	//tempMap = SDL_LoadBMP("../levels/map.bmp");
 //	mapRect.x = scene->getWindowWidth()/2 - tempMap->w/2;
 //	mapRect.y = scene->getWindowHeight()/2 - tempMap->h/2;
@@ -94,24 +94,28 @@ void NormalScene::eventHandler(SDL_Event& event){
 	if( keystate[SDLK_UP]){
 		currentAnim = playerAnimUp;
 		currentAnim->NextFrame();
+		level->checkEvent(0,-velocity);
 		level->checkWalk(0,-velocity);
 		//player->move(0,-velocity);
 	}
 	else if( keystate[SDLK_DOWN]){
 		currentAnim = playerAnimDown;
 		currentAnim->NextFrame();
+		level->checkEvent(0,velocity);
 		level->checkWalk(0,velocity);
 		//player->move(0,velocity);
 	}
 	else if( keystate[SDLK_LEFT]){
 		currentAnim = playerAnimLeft;
 		currentAnim->NextFrame();
+		level->checkEvent(-velocity,0);
 		level->checkWalk(-velocity,0);
 		//player->move(-velocity,0);
 	}
 	else if( keystate[SDLK_RIGHT]){
 		currentAnim = playerAnimRight;
 		currentAnim->NextFrame();
+		level->checkEvent(velocity,0);
 		level->checkWalk(velocity,0);
 		//player->move(velocity,0);
 	}
