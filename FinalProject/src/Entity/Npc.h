@@ -14,21 +14,25 @@ protected:
 	Animation *npcUp, *npcDown, *npcLeft, *npcRight, *currentAnimation;
 public:
 	NPC();
-	virtual SDL_Rect* getPosition();
+	virtual SDL_Rect* getRect();
+	virtual SDL_Surface* getSurface();
+	virtual Animation* getAnimation();
 	virtual void setFrames();
-	~NPC();
+	~NPC(){}
 };
 
 class NPC_girl1 : public NPC
 {
+public:
 	NPC_girl1();
-	~NPC_girl1();
+	~NPC_girl1(){}
 };
 
 class NPC_guy1 : public NPC
 {
+public:
 	NPC_guy1();
-	~NPC_guy1();
+	~NPC_guy1(){}
 };
 
 #endif

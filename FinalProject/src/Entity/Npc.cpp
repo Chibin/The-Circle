@@ -10,14 +10,29 @@ NPC::NPC(){
 	setFrames(); // set the frames
 }
 
-SDL_Rect* NPC::getPosition()
+SDL_Rect* NPC::getRect()
 {
 	return &npcRect; // dereference to return a point to the npcRect
+}
+
+SDL_Surface* NPC::getSurface()
+{
+	return npcImage;
+}
+
+Animation* NPC::getAnimation()
+{
+	return currentAnimation;
 }
 
 void NPC::setFrames()
 {
 	// initialize animations
+	npcUp = new Animation;
+	npcDown = new Animation;
+	npcLeft = new Animation;
+	npcRight = new Animation;
+
 	npcUp->Init(3); // 3 frames per direction
 	npcDown->Init(3);
 	npcLeft->Init(3);
@@ -47,9 +62,10 @@ NPC_girl1::NPC_girl1()
 {
 	npcName = "NPC Girl"; // non original name
 	// should load image
-	SDL_Surface* tempSurface = IMG_Load("../Images/npc/girl1.png");
+	SDL_Surface* tempSurface = IMG_Load("../Images/npc/girl1.bmp");
 	npcImage = SDL_DisplayFormatAlpha(tempSurface);
 	SDL_FreeSurface(tempSurface);
+	SDL_SetColorKey( npcImage, SDL_SRCCOLORKEY, SDL_MapRGB( npcImage->format, 0xf8, 0xf8, 0xf8 ) );
 	setFrames();
 }
 
@@ -59,5 +75,6 @@ NPC_guy1::NPC_guy1()
 	SDL_Surface* tempSurface = IMG_Load("../Images/npc/guy1.png");
 	npcImage = SDL_DisplayFormatAlpha(tempSurface);
 	SDL_FreeSurface(tempSurface);
+	SDL_SetColorKey( npcImage, SDL_SRCCOLORKEY, SDL_MapRGB( npcImage->format, 0xf8, 0xf8, 0xf8 ) );
 	setFrames();
 }

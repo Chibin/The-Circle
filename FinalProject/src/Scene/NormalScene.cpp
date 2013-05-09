@@ -32,7 +32,16 @@ NormalScene::NormalScene(){
 		playerModel = load_imageWhite("../Images/normal/femaleModel.bmp");
 
 	}
-	
+	// NPCs
+	npcVector.push_back(new NPC_girl1);
+	npcVector.push_back(new NPC_guy1);
+	SDL_Rect* tempRect = npcVector[0]->getRect();
+	tempRect->x = scene->getWindowWidth()/4;
+	tempRect->y = scene->getWindowHeight()/4;
+	tempRect = npcVector[1]->getRect();
+	tempRect->x = scene->getWindowWidth()*3/4;
+	tempRect->y = scene->getWindowHeight()*3/4;
+
 	std::cout << "Done!" << std::endl;
 
 	/*******************************************************************************/
@@ -192,6 +201,11 @@ void NormalScene::display(){
 	}
 	if(currentState == DIALOGUE){
 		std::cout << "Hey..someones talking to you" << std::endl;
+	}
+	// draw NPCs
+	for(int i=0; i<(int)npcVector.size(); i++)
+	{
+		SDL_BlitSurface(npcVector[i]->getSurface(), npcVector[i]->getAnimation()->GetFrame(), scene->getScreen(), npcVector[i]->getRect());
 	}
 	level->renderMapCollision();
 	SDL_Flip(scene->getScreen());

@@ -1,7 +1,8 @@
 #ifndef NORMALSCENE_H_
 #define NORMALSCENE_H_
 #include "Scene.h"
-#include <vector>
+#include <vector> // for npc
+#include "../src/Entity/NPC.h"// npc
 
 class NormalScene : public Scene{
 	private:
@@ -14,6 +15,8 @@ class NormalScene : public Scene{
 		Animation *playerAnimUp, *playerAnimDown, *playerAnimLeft, *playerAnimRight, *currentAnim;
 		PLayerState currentState;
 		int velocity,currentTick, lastTick;
+		// vector of NPC pointers
+		vector<NPC*> npcVector;
 	public:
 		NormalScene();
 		//void eventHandler(SDL_Event& event, int& gameState);
