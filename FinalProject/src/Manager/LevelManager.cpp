@@ -166,3 +166,8 @@ void LevelManager::renderMap(){
 		}
 	}
 }
+
+void LevelManager::loadNPC()
+{
+
+}
