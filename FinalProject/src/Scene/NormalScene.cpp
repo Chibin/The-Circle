@@ -19,20 +19,10 @@ NormalScene::NormalScene(){
 //	mapRect.y = scene->getWindowHeight()/2 - tempMap->h/2;
 	//}
 	std::cout << "Done!" << std::endl;
-<<<<<<< HEAD
+
 	/*******************************************************************************/
 	/* ***************************CHARACTER*****************************************/
 	/*******************************************************************************/
-
-	std::cout << "\tLoading Character..." ;
-	if(player->getType()==0){
-		playerModel = load_imageWhite("../Images/normal/maleModel.bmp");	
-
-	}
-	else{
-		playerModel = load_imageWhite("../Images/normal/femaleModel.bmp");
-
-	}
 	// NPCs
 	npcVector.push_back(new NPC_girl1);
 	npcVector.push_back(new NPC_guy1);
@@ -42,14 +32,6 @@ NormalScene::NormalScene(){
 	tempRect = npcVector[1]->getRect();
 	tempRect->x = scene->getWindowWidth()*3/4;
 	tempRect->y = scene->getWindowHeight()*3/4;
-
-	std::cout << "Done!" << std::endl;
-
-	/*******************************************************************************/
-	/* ***************************ANIMATION*****************************************/
-	/*******************************************************************************/
-=======
->>>>>>> origin/master
 
 	/*******************************************************************************/
 	/*****************************SET SETTINGS**************************************/
