@@ -1,6 +1,7 @@
 #include <iostream>
 #include "GameManager.h"
 #include "SceneManager.h"
+#include "../Entity/Player.h"
 using namespace std;
 
 GameManager& GameManager::getInstance(){
@@ -68,7 +69,7 @@ Save and Load game
 void GameManager::loadGame()
 {
 	std::cout << "Loading game..." << std::endl;
-	didLoad = true;
+	Player::getInstance().setPlayer(didLoad = true);
 	sManager->setGameScene(SceneManager::BATTLE);
 
 	std::cout << "Loading Done!" << std::endl;

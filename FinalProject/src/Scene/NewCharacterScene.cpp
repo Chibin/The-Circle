@@ -276,14 +276,14 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 				case SDLK_z:
 					if(continued){
 						std::cout << "\nCharacter Created...";
-						Player::getInstance().setStats(editStats[0],editStats[1],editStats[2],editStats[3],editStats[4],editStats[5]);
+						player->setStats(editStats[0],editStats[1],editStats[2],editStats[3],editStats[4],editStats[5]);
 						if(selected){
 							std::cout << "Player created Llyod" << std::endl;
-							Player::getInstance().setType(Player::LLYOD);
+							player->setType(Player::LLYOD);
 						}
 						else{
 							std::cout << "Player created Natilia" << std::endl;
-							Player::getInstance().setType(Player::NATILIA);
+							player->setType(Player::NATILIA);
 						}
 						std::cout << "Starting Stats:\n\t STR: " << editStats[0] << std::endl;
 						std::cout << "\t CON: " << editStats[1] << std::endl;
@@ -297,14 +297,14 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 				case SDLK_RETURN:	
 					if(continued){
 						std::cout << "\nCharacter Created...";
-						Player::getInstance().setStats(editStats[0],editStats[1],editStats[2],editStats[3],editStats[4],editStats[5]);
+						player->setStats(editStats[0],editStats[1],editStats[2],editStats[3],editStats[4],editStats[5]);
 						if(selected){
 							std::cout << "Player created Llyod" << std::endl;
-							Player::getInstance().setType(Player::LLYOD);
+							player->setType(Player::LLYOD);
 						}
 						else{
 							std::cout << "Player created Natilia" << std::endl;
-							Player::getInstance().setType(Player::NATILIA);
+							player->setType(Player::NATILIA);
 						}
 						std::cout << "Starting Stats:\n\t STR: " << editStats[0] << std::endl;
 				std::cout << "\t CON: " << editStats[1] << std::endl;

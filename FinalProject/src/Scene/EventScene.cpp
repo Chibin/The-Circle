@@ -13,7 +13,7 @@ EventScene::EventScene(){
 	sideRight = load_imageWhite("../Images/event/male.png");
 	sideLeft = load_imageWhite("../Images/event/actor.png");
 	sideRect.x = 0;
-	sideRect.y = 350;
+	sideRect.y = 100;
 	bgRectSrc.x = 0;
 	bgRectSrc.y = 0;
 	bgRectSrc.h = bg->h;
@@ -44,6 +44,9 @@ void EventScene::eventHandler(SDL_Event& event){
 		switch(event.type){
 		case SDL_KEYDOWN:
 			switch(event.key.keysym.sym){
+			case SDLK_z:
+				scene->setGameScene(SceneManager::NORMAL);
+				break;
 			case SDLK_ESCAPE:
 				scene->setGameScene(SceneManager::NORMAL);
 				//game->setGameOver(true);
@@ -62,9 +65,10 @@ void EventScene::display(){
 
 	//SDL_FillRect(scene->getScreen(),&temp,0x221122);
 	//SDL_BlitSurface(bg, &bgRectSrc, scene->getScreen(),&bgRect);
+		SDL_BlitSurface(sideRight,NULL,scene->getScreen(),&sideRect );
 	SDL_BlitSurface(textbg,NULL, scene->getScreen(), &textbgRect);
-	SDL_BlitSurface(sideRight,NULL,scene->getScreen(),&sideRect );
-	SDL_BlitSurface(portait, &portaitRectSrc, scene->getScreen(),&portaitRect);
+	//	SDL_BlitSurface(sideRight,NULL,scene->getScreen(),&sideRect );
+//	SDL_BlitSurface(portait, &portaitRectSrc, scene->getScreen(),&portaitRect);
 	SDL_Flip(scene->getScreen());
 }
 

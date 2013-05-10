@@ -86,6 +86,21 @@ void LevelManager::renderMapCollision(){
 		}
 	}
 }
+
+bool LevelManager::checkEvent(const int& _x,const int& _y){
+	const Tmx::Layer *layer = currentMap->GetLayer(4);
+	int playerX = (player->getPositionX()+_x-4)/currentMap->GetTileWidth();
+	int playerY = (player->getPositionY()+ _y)/currentMap->GetTileHeight();
+	if(layer->GetTileId(playerX+1,playerY+1)!=0){
+		printf("EVENT!!\n");
+		currentMap->GetProperties().GetList();
+		int buff2 = layer->GetTileId(playerX+1,playerY+1);
+		int buff = layer->GetTileTilesetIndex(playerX,playerY);
+		scene->setGameScene(SceneManager::EVENT);
+	}
+	return false;
+}
+
 bool LevelManager::checkWalk(const int& _x,const int& _y){
 	int colAmount = currentMap->GetTileset(0)->GetImage()->GetWidth()/currentMap->GetTileWidth(); 
 	//grab the collision layer
@@ -106,7 +121,7 @@ bool LevelManager::checkWalk(const int& _x,const int& _y){
 
 	const Tmx::Layer *layer = currentMap->GetLayer(3);
 	//check what id is the tile where the is player on
-	playerX = (player->getPositionX())/currentMap->GetTileWidth();
+	playerX = (player->getPositionX()+_x-4)/currentMap->GetTileWidth();
 	playerY = (player->getPositionY()+ _y)/currentMap->GetTileHeight();
 	int id = layer->GetTileId(playerX-1,playerY-1);
 	//player is moving in a vertical direction. check if there is a collision
