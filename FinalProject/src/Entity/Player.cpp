@@ -1,45 +1,75 @@
 #include "Player.h"
 #include "../Manager/LevelManager.h"
+
 Player::Player(){
-	//STR,DEX,INT
-	setStats(10,7,5,3,2,2);
-	Name = "Player";
-	SDL_Color fgColor = {255,255,255};
-	SDL_Color fgColor1 = {255,255,0};
-	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
-	playerText[0] = TTF_RenderText_Blended(font,getName().c_str(),fgColor1);
-	playerText[1] = TTF_RenderText_Blended(font,getName().c_str(),fgColor);
 
+	/*******************************************************************************/
+	/* ***************************ANIMATION*****************************************/
+	/*******************************************************************************/
+
+	//setting animation
+	playerAnimUp = new Animation;
+	playerAnimDown = new Animation;
+	playerAnimLeft = new Animation;
+	playerAnimRight = new Animation;
+
+	playerAnimUp->Init(3);
+	playerAnimDown->Init(3);
+	playerAnimLeft->Init(3);
+	playerAnimRight->Init(3);
+
+	//up
+	//(frameNumber, x,y,w,h)
+	playerAnimUp->SetFrame(0, 0, 0, 24, 32);
+	playerAnimUp->SetFrame(1, 24, 0, 24, 32);
+	playerAnimUp->SetFrame(2, 48, 0, 24, 32);
+	//right
+	playerAnimRight->SetFrame(0, 0, 32, 24, 32);
+	playerAnimRight->SetFrame(1, 24, 32, 24, 32);
+	playerAnimRight->SetFrame(2, 48, 32, 24, 32);
+	//down
+	playerAnimDown->SetFrame(0, 0, 64, 24, 32);
+	playerAnimDown->SetFrame(1, 24, 64, 24, 32);
+	playerAnimDown->SetFrame(2, 48, 64, 24, 32);
+	//left
+	playerAnimLeft->SetFrame(0, 0, 96, 24, 32);
+	playerAnimLeft->SetFrame(1, 24, 96, 24, 32);
+	playerAnimLeft->SetFrame(2, 48, 96, 24, 32);
+	velocity = 4;
+	current = playerAnimDown;
+	tempAnim = playerAnimDown->GetFrame();
 }
-
-
 SDL_Surface** Player::getPlayerText(){
 	return playerText;
 }
 
-void Player::move(Tiles *tiles[]){
-	//Move the dot left or right
-	rect.x += xVel;
+void Player::setPlayer(bool isLoaded){
+	std::cout << "\tLoading Character..." ;
+	if(isLoaded){
+		//STR,DEX,INT
+		setStats(10,7,5,3,2,2);
+		Name = "Player";
+		SDL_Color fgColor = {255,255,255};
+		SDL_Color fgColor1 = {255,255,0};
+		font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
+		playerText[0] = TTF_RenderText_Blended(font,getName().c_str(),fgColor1);
+		playerText[1] = TTF_RenderText_Blended(font,getName().c_str(),fgColor);
+	}	
 
-	//If the dot went too far to the left or right or touched a wall
-	/*if( ( box.x < 0 ) || ( 2*box.x > LevelManager::getInstance().getWidth()) || touches_wall( box, tiles ) )
-	{
-	//move back
-	box.x -= xVel;    
-	}
-	*/
-	//Move the dot up or down
-	rect.y += yVel;
-	/*
-	//If the dot went too far up or down or touched a wall
-	if( ( box.y < 0 ) || ( 2*box.y  > LevelManager::getInstance().getHeight() ) || touches_wall( box, tiles ) )
-	{
-	//move back
-	box.y -= yVel;    
-	} 
-	*/
+	/*******************************************************************************/
+	/* ***************************Model*****************************************/
+	/*******************************************************************************/
+
+	SDL_Surface * loadedImage;
+	if(type == LLYOD)
+		loadedImage = SDL_LoadBMP("../Images/normal/maleModel.bmp");	
+	else
+		loadedImage = SDL_LoadBMP("../Images/normal/femaleModel.bmp");
+	model = SDL_DisplayFormat(loadedImage);
+	SDL_FreeSurface( loadedImage );
+	SDL_SetColorKey( model, SDL_SRCCOLORKEY, SDL_MapRGB( model->format, 0xff, 0xff, 0xff ) );
+	std::cout << "Done!" << std::endl;
 }
-
 Player& Player::getInstance(){
 	static Player instance;
 	return instance;
@@ -72,4 +102,47 @@ void Player::move(int x, int y){
 
 SDL_Rect* Player::getPlayerPosition(){
 	return &rect;
+}
+
+void Player::renderPlayer(){
+	SDL_BlitSurface(model,current->GetFrame(),SceneManager::getInstance().getScreen(),&rect);	
+	tempAnim = current->GetFrame();
+}
+void Player::renderLastPlayerFrame(){
+	SDL_BlitSurface(model,tempAnim,SceneManager::getInstance().getScreen(),&rect);	
+
+}
+Animation* Player::getAnimDown(){
+	return playerAnimDown;
+}
+Animation* Player::getAnimUp(){
+	return playerAnimUp;
+}
+Animation* Player::getAnimLeft(){
+	return playerAnimLeft;
+}
+Animation* Player::getAnimRight(){
+	return playerAnimRight;
+}
+int Player::getVelocity(){
+	return velocity;
+}
+void Player::setAnimState(Player::MoveState state){
+	switch(state){
+	case UP:
+		current = playerAnimUp;
+		break;
+	case DOWN:
+		current = playerAnimDown;
+		break;
+	case LEFT:
+		current = playerAnimLeft;
+		break;
+	case RIGHT:
+		current = playerAnimRight;
+		break;
+	default:
+		break;
+	}
+	current->NextFrame();
 }

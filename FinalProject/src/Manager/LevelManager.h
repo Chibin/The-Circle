@@ -6,6 +6,8 @@
 #include "SceneManager.h"
 #include "GameManager.h"
 #include "../Entity/Player.h"
+class Tmx::Map;
+class Player;
 class LevelManager{
 private:
 	SceneManager* scene;
