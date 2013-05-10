@@ -8,10 +8,9 @@ class NormalScene : public Scene{
 			DIALOGUE, ROAM, MERCHANT 
 		};
 		SDL_Surface *playerModel, *tempMap;
-		SDL_Rect mapRect, *tempAnim;
-		Animation *playerAnimUp, *playerAnimDown, *playerAnimLeft, *playerAnimRight, *currentAnim;
+		SDL_Rect mapRect;
 		PLayerState currentState;
-		int velocity,currentTick, lastTick;
+		int currentTick, lastTick;
 	public:
 		NormalScene();
 		//void eventHandler(SDL_Event& event, int& gameState);

@@ -6,6 +6,8 @@
 #include "SceneManager.h"
 #include "GameManager.h"
 #include "../Entity/Player.h"
+class Tmx::Map;
+class Player;
 class LevelManager{
 private:
 	SceneManager* scene;
@@ -36,6 +38,7 @@ public:
 	void renderMap();
 	void renderMapCollision();
 	bool checkWalk(const int& x,const int& y);
+	bool checkEvent(const int& x,const int& y);
 };
 
 #endif
