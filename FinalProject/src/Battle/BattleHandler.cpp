@@ -280,11 +280,15 @@ void BattleHandler::magicDebuff(Magic selectedMagic,std::vector<Entity*>* inOrde
 	}
 }
 
-//Modifier for the battle display via incrementing a counter
-void BattleHandler::battlePhaseUpdate(int& battleMenu){
+//Updates the text to the next text
+void BattleHandler::textUpdate(int& battleMenu){
 	if(drawingComplete){
 		drawingText = false;
-		bpLoopCheck++;
+		if(battleMenu == battlePhase && bpLoopCheck == 0)
+			battleText.erase(battleText.begin());
+		else if(battleMenu == endPhase && bpLoopCheck == 0)
+			endBattleText.erase(endBattleText.begin());
+	//	bpLoopCheck++;
 	}
 	else if(drawingText){
 		drawingComplete = true;
@@ -395,7 +399,7 @@ void BattleHandler::battlePhaseDisplay(int& battleMenu){
 	if(bpLoopCheck == -1)
 		bpLoopCheck = 0;
 	if(bpLoopCheck < (int)battleText.size()){
-		textScrollDisplay(battleText,bpLoopCheck,drawingText,drawingComplete,bText);
+		textScrollDisplay(battleText,0,drawingText,drawingComplete,bText);
 	}
 	else{
 		for(int i = 0; i < (int)battleText.size(); i++)
@@ -430,7 +434,7 @@ void BattleHandler::endPhaseDisplay(int& battleMenu){
 	if(bpLoopCheck == -1)
 		bpLoopCheck = 0;
 	if(bpLoopCheck < (int)endBattleText.size())
-			textScrollDisplay(endBattleText,bpLoopCheck,drawingText,drawingComplete,bText);
+			textScrollDisplay(endBattleText,0,drawingText,drawingComplete,bText);
 	else{
 		for(int i = 0; i < (int)endBattleText.size(); i++)
 			SDL_FreeSurface(endBattleText[i]);

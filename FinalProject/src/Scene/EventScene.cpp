@@ -1,6 +1,4 @@
 #include "EventScene.h"
-
-
 EventScene::EventScene(){
 	type = SceneManager::EVENT;
 	std::cout << "Entering Event Scene" << std::endl;
