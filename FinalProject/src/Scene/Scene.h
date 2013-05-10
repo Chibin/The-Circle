@@ -9,7 +9,9 @@ using namespace std;
 #include "../Entity//Player.h"
 #include "../Manager/SceneManager.h"
 #include "../Manager/LevelManager.h"
-
+class Player;
+class SceneManager;
+class LevelManager;
 class Scene{
 	private:
 		

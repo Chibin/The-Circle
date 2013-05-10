@@ -37,6 +37,7 @@ class BattleHandler{
 		SDL_Rect textScroller;
 	public:
 		BattleHandler();
+		void resetDrawingTextBool();
 		void loadMobs(std::vector<Mob*>* _mobs);
 		//Selected Actions
 		void displayItems();
@@ -50,8 +51,8 @@ class BattleHandler{
 		void magicHeal(Magic selectedMagic,std::vector<Entity*>* inOrder);
 		void magicDebuff(Magic selectedMagic,std::vector<Entity*>* inOrder);
 		void magicBuff(Magic selectedMagic,std::vector<Entity*>* inOrder);
-		//Modifier for the battle display via incrementing a counter
-		void battlePhaseUpdate(int& battleMenu);
+		//Updates the text to the next text
+		void textUpdate(int& battleMenu);
 		void textScrollDisplay(std::vector<SDL_Surface*>& textVector,int index,bool& drawingText,bool& drawingComplete,SDL_Rect startPos);
 		//Determines the start index for magic and item menu to be drawn
 		int indexScrollDeteminer(int& startingIndex, int currentIndex, int scrollLimit);

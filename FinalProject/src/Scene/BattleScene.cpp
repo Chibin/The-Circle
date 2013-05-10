@@ -90,16 +90,16 @@ void BattleScene::eventHandler(SDL_Event& event){
 					case SDLK_RETURN:
 						bManager->battleHandler(battleMenu);
 						if(battleMenu == battlePhase)
-							bManager->battlePhaseUpdate(battleMenu);
+							bManager->textUpdate(battleMenu);
 						else if(battleMenu == endPhase)
-							bManager->battlePhaseUpdate(battleMenu);
+							bManager->textUpdate(battleMenu);
 						break;
 					case SDLK_z:
 						bManager->battleHandler(battleMenu);
 						if(battleMenu == battlePhase)
-							bManager->battlePhaseUpdate(battleMenu);
+							bManager->textUpdate(battleMenu);
 						else if(battleMenu == endPhase)
-							bManager->battlePhaseUpdate(battleMenu);
+							bManager->textUpdate(battleMenu);
 						break;
 					case SDLK_x: //basically a cancel action command, goes back to the previous state
 						if(battleMenu == isFight)

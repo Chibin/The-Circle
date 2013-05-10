@@ -1,8 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Entity.h"
-#include "Player.h"
-#include "Tiles.h"
+#include "../Scene/Scene.h"
+class Animation;
 class Player: public Entity{
 
 public:
@@ -10,32 +10,41 @@ public:
 	{
 		LLYOD, NATILIA
 	};
+	enum MoveState{
+		UP,DOWN,LEFT,RIGHT
+	};
 	//intialized the character
+	//getter
 	static Player& getInstance();
-
-	//takes key presses and adjust player velocity
-	void move(Tiles *tiles[] );
-	//show the player on screen
-	void show();
-	//set the camera on the player
-	void setCamera();
-	void touchObject();
-	void setType(PlayerType);
 	int getPositionX();
 	int getPositionY();
 	PlayerType getType();
 	SDL_Surface** getPlayerText();
-	void move(int x, int y);
 	SDL_Rect* getPlayerPosition();
+	Animation* getAnimRight();
+	Animation* getAnimLeft();
+	Animation* getAnimUp();
+	Animation* getAnimDown();
+	int getVelocity();
+	//setter
+	void setType(PlayerType);
+	void move(int x, int y);
+	void setCamera();
 	void setPosition(int,int);
+	void setPlayer(bool);
+	void setAnimState(MoveState);
+	//misc
+	void show();
+	void renderPlayer();
+	void renderLastPlayerFrame();
 private:
+	SDL_Surface* model;
 	PlayerType type;
+	Animation *current,*playerAnimUp, *playerAnimDown, *playerAnimLeft, *playerAnimRight;
 	//Collision Box
-	SDL_Rect rect;
+	SDL_Rect rect, *tempAnim;;
 	//experience points
 	int currentXP, maxXP;
-	//the x and y offeset of the character
-	//int x , y;
 	//The velocity of the character
 	int xVel, yVel;
 	Player();
@@ -43,6 +52,6 @@ private:
 	//disable copy constructors
 	Player(Player const& copy);
 	Player& operator = (Player const& copy);
-
+	int velocity,currentTick, lastTick;
 };
 #endif

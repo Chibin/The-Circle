@@ -2,9 +2,10 @@
 
 Scene::Scene(){
 	game = &GameManager::getInstance();
-	player = &Player::getInstance();
 	scene = &SceneManager::getInstance();
 	level = &LevelManager::getInstance();
+	player = &Player::getInstance();
+
 }
 
 void Scene::apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL )
@@ -120,7 +121,7 @@ void Animation::Init( int number_of_frames )
 
 	// record how many frames we have in total
 	NumberOfFrames = number_of_frames - 1;  // -1 because arrays start counting from 0 not 1
-	
+
 	// set the current frame
 	CurrentFrame = 0;
 }
@@ -151,4 +152,3 @@ void Animation::LastFrame(void)
 	CurrentFrame--; // step back one frame
 	if(CurrentFrame < 0) CurrentFrame = NumberOfFrames; // if we underrun the list set to top
 }
-	

@@ -312,6 +312,9 @@
     <ClCompile Include="..\src\Entity\NPC.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Scene\EventScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Scene\Scene.h">
@@ -412,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Entity\NPC.h">
       <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\EventScene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

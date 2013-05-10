@@ -13,12 +13,13 @@ NormalScene::NormalScene(){
 	//	std::cout << "from a save." << std::endl;;
 	//}
 	//else{
-	level->loadMap("testLevel");
+	level->loadMap("testLevel2");
 	//tempMap = SDL_LoadBMP("../levels/map.bmp");
 //	mapRect.x = scene->getWindowWidth()/2 - tempMap->w/2;
 //	mapRect.y = scene->getWindowHeight()/2 - tempMap->h/2;
 	//}
 	std::cout << "Done!" << std::endl;
+<<<<<<< HEAD
 	/*******************************************************************************/
 	/* ***************************CHARACTER*****************************************/
 	/*******************************************************************************/
@@ -47,36 +48,9 @@ NormalScene::NormalScene(){
 	/*******************************************************************************/
 	/* ***************************ANIMATION*****************************************/
 	/*******************************************************************************/
+=======
+>>>>>>> origin/master
 
-	//there will be three frames these animation are 24w x 32h
-	std::cout << "\tLoading Animation..." ;
-	playerAnimUp = new Animation;
-	playerAnimDown = new Animation;
-	playerAnimLeft = new Animation;
-	playerAnimRight = new Animation;
-
-	playerAnimUp->Init(3);
-	playerAnimDown->Init(3);
-	playerAnimLeft->Init(3);
-	playerAnimRight->Init(3);
-	//up
-	//(frameNumber, x,y,w,h)
-	playerAnimUp->SetFrame(0, 0, 0, 24, 32);
-	playerAnimUp->SetFrame(1, 24, 0, 24, 32);
-	playerAnimUp->SetFrame(2, 48, 0, 24, 32);
-	//right
-	playerAnimRight->SetFrame(0, 0, 32, 24, 32);
-	playerAnimRight->SetFrame(1, 24, 32, 24, 32);
-	playerAnimRight->SetFrame(2, 48, 32, 24, 32);
-	//down
-	playerAnimDown->SetFrame(0, 0, 64, 24, 32);
-	playerAnimDown->SetFrame(1, 24, 64, 24, 32);
-	playerAnimDown->SetFrame(2, 48, 64, 24, 32);
-	//left
-	playerAnimLeft->SetFrame(0, 0, 96, 24, 32);
-	playerAnimLeft->SetFrame(1, 24, 96, 24, 32);
-	playerAnimLeft->SetFrame(2, 48, 96, 24, 32);
-	std::cout << "Done!" << std::endl;
 	/*******************************************************************************/
 	/*****************************SET SETTINGS**************************************/
 	/*******************************************************************************/
@@ -89,40 +63,35 @@ NormalScene::NormalScene(){
 		std::cout << "Setting player position to x: " << player->getPositionX() << ", y: " << player->getPositionY() << std::endl;
 		player->setPosition( player->getPositionX(),player->getPositionY());
 	}
-	//playerModelRect.x = player->getPositionX();
-	//playerModelRect.y = player->getPositionY();
-	currentAnim = playerAnimDown;
-	velocity = 4;
 	lastTick = 0;
 	currentTick = 0;
-	tempAnim = playerAnimDown->GetFrame();
 	currentState = ROAM;
 	std::cout << "Finished Loading!" << std::endl << std::endl;
 }
 void NormalScene::eventHandler(SDL_Event& event){
 	Uint8* keystate =SDL_GetKeyState(NULL);
 	if( keystate[SDLK_UP]){
-		currentAnim = playerAnimUp;
-		currentAnim->NextFrame();
-		level->checkWalk(0,-velocity);
+		player->setAnimState(Player::UP);
+		level->checkEvent(0,-player->getVelocity());
+		level->checkWalk(0,-player->getVelocity());
 		//player->move(0,-velocity);
 	}
 	else if( keystate[SDLK_DOWN]){
-		currentAnim = playerAnimDown;
-		currentAnim->NextFrame();
-		level->checkWalk(0,velocity);
+		player->setAnimState(Player::DOWN);
+		level->checkEvent(0,player->getVelocity());
+		level->checkWalk(0,player->getVelocity());
 		//player->move(0,velocity);
 	}
 	else if( keystate[SDLK_LEFT]){
-		currentAnim = playerAnimLeft;
-		currentAnim->NextFrame();
-		level->checkWalk(-velocity,0);
+		player->setAnimState(Player::LEFT);
+		level->checkEvent(-player->getVelocity(),0);
+		level->checkWalk(-player->getVelocity(),0);
 		//player->move(-velocity,0);
 	}
 	else if( keystate[SDLK_RIGHT]){
-		currentAnim = playerAnimRight;
-		currentAnim->NextFrame();
-		level->checkWalk(velocity,0);
+		player->setAnimState(Player::RIGHT);
+		level->checkEvent(player->getVelocity(),0);
+		level->checkWalk(player->getVelocity(),0);
 		//player->move(velocity,0);
 	}
 	//Runs through all the queued events
@@ -140,6 +109,9 @@ void NormalScene::eventHandler(SDL_Event& event){
 				case SDLK_LEFT:
 					break;
 				case SDLK_RIGHT:
+					break;
+				case SDLK_k:
+					scene->setGameScene(SceneManager::EVENT);
 					break;
 				case SDLK_c:
 					std::cout << "Starting a battle for no reason at all!" << std::endl;
@@ -181,23 +153,17 @@ void NormalScene::eventHandler(SDL_Event& event){
 
 }
 void NormalScene::display(){
-	//SDL_Delay(125);
-	//SDL_FillRect(scene->getScreen(),NULL,0x221122);
-	//level->renderMapCollision();
 	level->renderMap();
-	
-	//SDL_BlitSurface(tempMap,NULL,scene->getScreen(),&mapRect);	
 	currentTick = SDL_GetTicks();
 	if(currentTick - lastTick > 150)
 	{
 		lastTick = currentTick;
 		//update animation and draw new frame
-		SDL_BlitSurface(playerModel, currentAnim->GetFrame(), scene->getScreen(), player->getPlayerPosition());
-		tempAnim = currentAnim->GetFrame();
+		player->renderPlayer();
 	}
 	else{
 		//continue drawing last frame
-		SDL_BlitSurface(playerModel, tempAnim, scene->getScreen(), player->getPlayerPosition());
+		player->renderLastPlayerFrame();
 	}
 	if(currentState == DIALOGUE){
 		std::cout << "Hey..someones talking to you" << std::endl;
@@ -211,12 +177,5 @@ void NormalScene::display(){
 	SDL_Flip(scene->getScreen());
 }
 void NormalScene::disposeResources(){
-
-	SDL_FreeSurface(playerModel);
-	//SDL_FreeSurface(tempMap);
-	delete playerAnimUp;
-	delete playerAnimDown;
-	delete playerAnimLeft;
-	delete playerAnimRight;
 
 }
