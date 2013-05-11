@@ -62,10 +62,41 @@ EventScene::EventScene(){
 	textbgRect.y = 400;	
 	count = 0;
 	menuCount = 0;
-	font = TTF_OpenFont("../Fonts/coolvetica.ttf",20);	
+	font = TTF_OpenFont("../Fonts/	.ttf",20);	
 	//TTF_SetFontStyle(font, TTF_STYLE_BOLD);
 	printf("Resources loaded!\n");
 	currentType = MERCHANT;
+
+
+	SDL_Color black = {0,0,0}, yellow = {255,255,0};
+	string txt = "Merchant";
+	font = TTF_OpenFont("../Fonts/coolvetica.ttf",25);	
+	name = TTF_RenderText_Blended( font, txt.c_str(), black );
+
+	font = TTF_OpenFont("../Fonts/coolvetica.ttf",20);	
+	txt = "Hi!~ Welcome to the item shop.";
+	enter = TTF_RenderText_Blended( font, txt.c_str(), black );
+	txt = "Take your time.";
+	wait = TTF_RenderText_Blended( font, txt.c_str(), black );
+	txt = "What are you looking for?";
+	buy = TTF_RenderText_Blended( font, txt.c_str(), black );
+	txt = "I'll buy anything! Just for you!";
+	sell = TTF_RenderText_Blended( font, txt.c_str(), black );
+	txt = "Please come again!~";
+	bye = TTF_RenderText_Blended( font, txt.c_str(), black );
+
+	font = TTF_OpenFont("../Fonts/coolvetica.ttf",24);	
+	txt = "Buy";
+	buys[0] = TTF_RenderText_Blended( font, txt.c_str(), black );
+	buys[1] = TTF_RenderText_Blended( font, txt.c_str(), yellow );
+	txt = "Sell";
+
+	sells[0] = TTF_RenderText_Blended( font, txt.c_str(), black );
+	sells[1] = TTF_RenderText_Blended( font, txt.c_str(), yellow );
+	txt = "Exit";
+
+	exit[0] = TTF_RenderText_Blended( font, txt.c_str(), black );
+	exit[1] = TTF_RenderText_Blended( font, txt.c_str(), yellow );
 }
 
 void EventScene::eventHandler(SDL_Event& event){
@@ -206,9 +237,7 @@ void EventScene::eventHandler(SDL_Event& event){
 
 void EventScene::display(){
 	SDL_Surface *text;
-	SDL_Color black = {0,0,0}, yellow = {255,255,0};
 	SDL_FillRect(scene->getScreen(),NULL,0x221122);
-
 
 	if(currentType == MERCHANT){
 		//set picture for the girl
@@ -226,26 +255,22 @@ void EventScene::display(){
 		SDL_BlitSurface(sideRight,&merchantGirl,scene->getScreen(),&sideRect );
 		//draw the dialouge background
 		SDL_BlitSurface(textbg,NULL, scene->getScreen(), &textbgRect);
-		font = TTF_OpenFont("../Fonts/coolvetica.ttf",25);	
-		string txt = "Merchant";
-		text	= TTF_RenderText_Blended( font, txt.c_str(), black );
+		text = name;
 		SDL_Rect temp;
 		temp.x = 10;
 		temp.y = 413;
 		//draw title for merchant
 		SDL_BlitSurface(text, NULL, scene->getScreen(),&temp);
 		if(count == 0)
-			txt = "Hi!~ Welcome to the item shop.";
+			text = enter;
 		if(count == 1) 
-			txt = "Take your time.";
+			text = wait;
 		if(count == 2)
-			txt = "What are you looking for?";
+			text = buy;
 		if(count == 3)
-			txt = "I'll buy anything! Just for you!";
+			text = sell;
 		if(count == 4)
-			txt = "Please come again!~";
-		font = TTF_OpenFont("../Fonts/coolvetica.ttf",20);	
-		text = TTF_RenderText_Blended( font, txt.c_str(), black );
+			text = bye;
 		temp.x = 10;
 		temp.y = 450;
 		//draw dialouge text
@@ -253,27 +278,23 @@ void EventScene::display(){
 		//drawing the menu
 		if(count > 0 && count < 4){
 			SDL_BlitSurface(menu, NULL, scene->getScreen(),&menuRect);
-			font = TTF_OpenFont("../Fonts/coolvetica.ttf",24);	
-			txt = "Buy";
 			if(menuCount != 0)
-				text = TTF_RenderText_Blended( font, txt.c_str(), black );
+				text = buys[0];
 			else
-				text = TTF_RenderText_Blended( font, txt.c_str(), yellow );
+				text = buys[1];
 			temp.x = 15;
 			temp.y = 10;
 			SDL_BlitSurface(text, NULL, scene->getScreen(),&temp);
-			txt = "Sell";
 			if(menuCount != 1)
-				text = TTF_RenderText_Blended( font, txt.c_str(), black );
+				text = sells[0];
 			else
-				text = TTF_RenderText_Blended( font, txt.c_str(), yellow );
+				text = sells[1];
 			temp.y = 30;
 			SDL_BlitSurface(text, NULL, scene->getScreen(),&temp);
-			txt = "Exit";
 			if(menuCount != 2)
-				text = TTF_RenderText_Blended( font, txt.c_str(), black );
+				text = exit[0];
 			else
-				text = TTF_RenderText_Blended( font, txt.c_str(), yellow );
+				text = exit[1];
 			temp.y = 120;
 			SDL_BlitSurface(text, NULL, scene->getScreen(),&temp);
 		}
@@ -289,5 +310,20 @@ void EventScene::disposeResources(){
 	SDL_FreeSurface(portait);
 	SDL_FreeSurface (textbg);
 	SDL_FreeSurface(sideRight);
+	SDL_FreeSurface(sideLeft);
+	SDL_FreeSurface(menu);
+	SDL_FreeSurface(itemListBG);
+	SDL_FreeSurface(enter);
+	SDL_FreeSurface(wait);
+	SDL_FreeSurface(buy);
+	SDL_FreeSurface(sell);
+	SDL_FreeSurface(bye);
+	SDL_FreeSurface(name);
+	SDL_FreeSurface(buys[0]);
+	SDL_FreeSurface(buys[1]);
+	SDL_FreeSurface(sells[0]);
+	SDL_FreeSurface(sells[1]);
+	SDL_FreeSurface(exit[0]);
+	SDL_FreeSurface(exit[1]);
 	std::cout << "Cleaning Finished!" << std::endl << std::endl;
 }
