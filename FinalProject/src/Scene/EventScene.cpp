@@ -119,6 +119,40 @@ void EventScene::eventHandler(SDL_Event& event){
 					break;
 				}
 				break;
+			case SDLK_RETURN:
+				switch(currentType)
+				{
+				case MERCHANT:
+					//count++;
+					switch(count){
+					case 0:
+						count++;
+						break;
+					case 1:
+						if(menuCount == 0){
+							printf("I want to buy something....\n");
+							count = 2;
+						}
+						if(menuCount == 1){
+							printf("I want to sell something...\n");
+							count= 3;
+						}
+						if(menuCount == 2)
+							count = 4;
+
+						break;
+					case 4:
+						scene->setGameScene(SceneManager::NORMAL);
+					default:
+						break;
+					}
+					break;
+				case SWITCHLEVEL:
+					break;
+				default:
+					break;
+				}
+				break;
 			case SDLK_UP:
 				switch(currentType)
 				{
@@ -148,7 +182,16 @@ void EventScene::eventHandler(SDL_Event& event){
 				}
 				break;
 			case SDLK_ESCAPE:
-				scene->setGameScene(SceneManager::NORMAL);
+				switch(currentType)
+				{
+				case MERCHANT:
+					if(count == 2 || count == 3)
+						count = 1;
+					break;
+				default:
+					break;
+				}
+				break;
 				//game->setGameOver(true);
 				break;
 			default:
