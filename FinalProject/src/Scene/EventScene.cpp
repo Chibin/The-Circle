@@ -62,7 +62,7 @@ EventScene::EventScene(){
 	textbgRect.y = 400;	
 	count = 0;
 	menuCount = 0;
-	font = TTF_OpenFont("../Fonts/	.ttf",20);	
+	font = TTF_OpenFont("../Fonts/coolvetica.ttf",20);	
 	//TTF_SetFontStyle(font, TTF_STYLE_BOLD);
 	printf("Resources loaded!\n");
 	currentType = MERCHANT;
