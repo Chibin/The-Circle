@@ -5,7 +5,7 @@ class NormalScene : public Scene{
 	private:
 		enum PLayerState
 		{
-			DIALOGUE, ROAM, MERCHANT 
+			DIALOGUE, ROAM, EVENT 
 		};
 		SDL_Surface *playerModel, *tempMap;
 		SDL_Rect mapRect;

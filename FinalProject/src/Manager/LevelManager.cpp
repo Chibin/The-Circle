@@ -58,11 +58,13 @@ void LevelManager::loadMap(char* mapName){
 	levelWidth = currentMap->GetLayer(0)->GetWidth();
 	levelHeight = currentMap->GetLayer(0)->GetHeight();
 }
-void LevelManager::renderMapCollision(){
+
+//0 = base tile, 1 = secondary tiles, 2 = collision objects, 3 = collision tiles, 4 = event tiles
+void LevelManager::renderMapLayer(int layerID){
 	int colAmount = currentMap->GetTileset(0)->GetImage()->GetWidth()/currentMap->GetTileWidth(); 
 	SDL_Rect srcRect;
 	SDL_Rect buffRect;
-	const Tmx::Layer *layer = currentMap->GetLayer(2);
+	const Tmx::Layer *layer = currentMap->GetLayer(layerID);
 	for (int x = 0; x < layer->GetWidth(); ++x) 
 	{
 		for (int y = 0; y < layer->GetHeight(); ++y) 
@@ -102,67 +104,64 @@ bool LevelManager::checkEvent(const int& _x,const int& _y){
 }
 
 bool LevelManager::checkWalk(const int& _x,const int& _y){
-	int colAmount = currentMap->GetTileset(0)->GetImage()->GetWidth()/currentMap->GetTileWidth(); 
-	//grab the collision layer
+
+	SDL_Rect* playerBox = player->getPlayerPosition();
 	//get current spot of player on map and check if the attempted motion will walk out of the tile
-	int playerX = player->getPositionX()%currentMap->GetTileWidth();
-	int playerY = player->getPositionY()%currentMap->GetTileHeight();
-	//if he is still within a tile, let him walk freely, else check for condition
-	if(playerX+_x >0 && playerX+_x <currentMap->GetTileWidth() && playerY+_y >0 && playerY+_y <currentMap->GetTileHeight()){
-		player->move(_x,_y);
-		return false;
-	}
+	int playerX = 0;
+	int playerY = 0;
+	int playerX2 = 0;
+	int playerY2 = 0;
 	//check if player is within screen
-	//printf("old postion: %d,%d. new position: %d, %d.\n",(player->getPositionX()), (player->getPositionY()),(player->getPositionX()+_x ), (player->getPositionY()+_y));
-	if((player->getPositionX()+_x ) > 780 ){
-		//printf("off screen\n");
+	if((playerBox->x+ playerBox->w +_x ) > 800 ){
 		return false;
 	}
-
-	const Tmx::Layer *layer = currentMap->GetLayer(3);
-	//check what id is the tile where the is player on
-	playerX = (player->getPositionX()+_x-4)/currentMap->GetTileWidth();
-	playerY = (player->getPositionY()+ _y)/currentMap->GetTileHeight();
-	int id = layer->GetTileId(playerX-1,playerY-1);
-	//player is moving in a vertical direction. check if there is a collision
-
-	if(layer->GetTileId(playerX+1,playerY+1)==0)
-		player->move(_x,_y);
-
-	
-	return false;
-}
-
-void LevelManager::renderMap(){
-
-	//get the number of columns
-	int colAmount = currentMap->GetTileset(0)->GetImage()->GetWidth()/currentMap->GetTileWidth(); 
-	SDL_Rect srcRect;
-	SDL_Rect buffRect;
-	for (int i = 0; i < 2; ++i) 
-	{
-		const Tmx::Layer *layer = currentMap->GetLayer(i);
-		for (int x = 0; x < layer->GetWidth(); ++x) 
-		{
-			for (int y = 0; y < layer->GetHeight(); ++y) 
-			{
-				if(layer->GetTileId(x,y)==0)
-					continue;
-				//get the id of the tile and mod it by the colAmount to get the number in that row
-				//
-				int colNum = (layer->GetTileId(x,y)%colAmount)-1;
-				int rowNum = (layer->GetTileId(x,y)/colAmount-1);
-				srcRect.x = ((layer->GetTileId(x,y)%colAmount)) * currentMap->GetTileWidth() ;
-				srcRect.y = (layer->GetTileId(x,y)/colAmount)* currentMap->GetTileHeight();
-				srcRect.h = currentMap->GetTileHeight();
-				srcRect.w = currentMap->GetTileWidth();
-				buffRect.x = x * currentMap->GetTileWidth();
-				buffRect.y = y * currentMap->GetTileHeight();
-				buffRect.h = currentMap->GetTileHeight();
-				buffRect.w = currentMap->GetTileWidth();
-				SDL_BlitSurface(mapImage,&srcRect,scene->getScreen(),&buffRect);	
-
-			}
-		}
+	if((playerBox->y+ playerBox->h +_y ) > 600 ){
+		return false;
 	}
+	const Tmx::Layer *layer = currentMap->GetLayer(3);
+
+	//check what id is the tile where the is player on
+	//player is moving to the left
+	//printf("Player is currently on tile(%d,%d) position(%d,%d)\n", (playerBox->x/currentMap->GetTileWidth()), (playerBox->y/currentMap->GetTileHeight()),playerBox->x, playerBox->y);
+	
+	if(_y ==0 && _x < 0){	
+		playerX = (playerBox->x + _x + playerBox->w / 4)/ currentMap->GetTileWidth();
+		playerX2 = (playerBox->x + _x + playerBox->w / 4)/ currentMap->GetTileWidth();
+		playerY = (playerBox->y + (playerBox->h - playerBox->h/4 ) + _y) / currentMap->GetTileHeight();
+		playerY2 = (playerBox->y + playerBox->h / 2 + _y) / currentMap->GetTileHeight();
+	}
+	//player is moving to the right
+	if(_y==0 && _x>0){
+		playerX = (playerBox->x + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
+		playerX2 = (playerBox->x + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
+		playerY = (playerBox->y + playerBox->h - 8) /currentMap->GetTileHeight();
+		playerY2 = (playerBox->y + playerBox->h / 2) / currentMap->GetTileHeight();
+		//ayerY = (playerBox->y + playerBox->h / 4) /currentMap->GetTileHeight();
+	}
+	//player moving up
+	if(_x==0 && _y < 0){
+		playerX = (playerBox->x + _x + playerBox->w / 4)/ currentMap->GetTileWidth();	
+		playerX2 = (playerBox->x + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
+		playerY = (playerBox->y + playerBox->h / 2 + _y) / currentMap->GetTileHeight();
+		playerY2 = (playerBox->y + playerBox->h / 2 + _y) / currentMap->GetTileHeight();
+	}
+	//player moving down
+	if(_x==0 && _y > 0){
+		playerX = (playerBox->x + _x + playerBox->w / 4)/ currentMap->GetTileWidth();
+		playerY = (playerBox->y + playerBox->h)/currentMap->GetTileHeight();
+		playerX2 = (playerBox->x + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
+		playerY2 = (playerBox->y + playerBox->h / 2) / currentMap->GetTileHeight();
+	}
+	//printf("walking to tile(%d,%d)\n", playerX,playerY);
+	//if(layer->GetTileId(playerX,playerY)==0 )
+	if(layer->GetTileId(playerX,playerY)==0 && layer->GetTileId(playerX2,playerY2)==0 ){
+		player->move(_x,_y);
+		//printf("Player is going to tile(%d,%d) position(%d,%d)\n", ((playerBox->x+_x)/currentMap->GetTileWidth()), ((playerBox->y+_y)/currentMap->GetTileHeight()),playerBox->x + _x, playerBox->y + _y);
+	}
+	//else{
+		//printf("Colliding with tile id:%d\n",layer->GetTileId(playerX,playerY));
+	//}
+
+
+	return false;
 }
