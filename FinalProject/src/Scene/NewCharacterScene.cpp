@@ -312,6 +312,7 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 						std::cout << "\t AGI: " << editStats[3] << std::endl;
 						std::cout << "\t INT: " << editStats[4] << std::endl;
 						std::cout << "\t LUK: " << editStats[5] << std::endl;
+						Player::getInstance().setPlayer(false);
 						scene->setGameScene(SceneManager::NORMAL);
 					}
 

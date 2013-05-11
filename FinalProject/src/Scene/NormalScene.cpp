@@ -114,7 +114,7 @@ void NormalScene::display(){
 	
 	level->renderMapLayer(0);
 	level->renderMapLayer(1);
-	level->renderMapLayer(2);
+	//level->renderMapLayer(2);
 	//level->renderMapLayer(3);
 	//level->renderMapLayer(4);
 	currentTick = SDL_GetTicks();
@@ -131,7 +131,7 @@ void NormalScene::display(){
 	if(currentState == DIALOGUE){
 		std::cout << "Hey..someones talking to you" << std::endl;
 	}
-	//level->renderMapLayer(2);
+		level->renderMapLayer(2);
 	//draws where collision should be at
 	//level->renderMapLayer(3);
 	//draws where events should happen

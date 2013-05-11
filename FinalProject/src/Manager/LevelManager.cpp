@@ -48,7 +48,7 @@ void LevelManager::loadMap(char* mapName){
 	currentMap = new Tmx::Map();
 
 	SDL_Surface* loadedImage = IMG_Load(temp2);
-	mapImage =SDL_DisplayFormatAlpha(loadedImage);
+	mapImage = SDL_DisplayFormatAlpha(loadedImage);
 	SDL_FreeSurface( loadedImage );
 	//SDL_SetColorKey( mapImage, SDL_SRCCOLORKEY, SDL_MapRGB( mapImage->format, 0xff, 0xff, 0xff ) );
 
