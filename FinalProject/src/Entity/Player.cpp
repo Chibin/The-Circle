@@ -115,18 +115,22 @@ SDL_Rect* Player::getPlayerPosition(){
 void Player::renderPlayer(){
 	int x = SceneManager::getInstance().getWindowWidth();
 	int y = SceneManager::getInstance().getWindowHeight();
+		int cameraX = SceneManager::getInstance().getCamera()->x ;
+	int cameraY = SceneManager::getInstance().getCamera()->y ;
 	SDL_Rect move = rect;
-	move.x = (rect.x + x/2) % 800;
-	move.y = (rect.y + y/2) % 600;
+	move.x = x/2;
+	move.y = y/2;;
 	SDL_BlitSurface(model,current->GetFrame(),SceneManager::getInstance().getScreen(),&move);	
 	tempAnim = current->GetFrame();
 }
 void Player::renderLastPlayerFrame(){
 	int x = SceneManager::getInstance().getWindowWidth();
 	int y = SceneManager::getInstance().getWindowHeight();
+	int cameraX = SceneManager::getInstance().getCamera()->x ;
+	int cameraY = SceneManager::getInstance().getCamera()->y ;
 	SDL_Rect move = rect;
-	move.x = (rect.x + x/2) % 800;
-	move.y = (rect.y + y/2) % 600;
+	move.x = x/2;
+	move.y = y/2;
 	SDL_BlitSurface(model,tempAnim,SceneManager::getInstance().getScreen(),&move);	
 
 }

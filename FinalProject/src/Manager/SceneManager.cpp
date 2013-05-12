@@ -128,5 +128,5 @@ void SceneManager::setCamera(){
     {
         camera.y = LevelManager::getInstance().getHeight() - camera.h;    
     }    
-
+		printf("Camera x: %d, y: %d\n", camera.x,camera.y);
 }

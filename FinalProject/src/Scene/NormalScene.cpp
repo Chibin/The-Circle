@@ -31,7 +31,7 @@ NormalScene::NormalScene(){
 	std::cout << "\tPlacing Character on map.\n\t\tResult: " ;
 	if(player->getPositionX() == 0 && player->getPositionY()  == 0){
 		std::cout << "don't know position... setting position to center of map" << std::endl;
-		player->setPosition(900,900);
+		player->setPosition(900,600);
 		//player->setPosition(level->getWidth()/2 - 12,level->getHeight()/2 +100);
 		//player->setPosition((int)scene->getWindowWidth()/2 - 12, (int)scene->getWindowHeight()/2 - 16);
 		scene->setCamera();
