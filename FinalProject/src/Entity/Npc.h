@@ -4,6 +4,7 @@
 #include "../Scene/Scene.h" // for Animation
 #include "SDL_image.h"
 #include <string> // for name
+#include <vector>
 
 class Animation;
 
@@ -11,11 +12,14 @@ class NPC : public Entity
 {
 protected:
 	std::string npcName;
+	vector<std::string> speach;
 	SDL_Surface* npcImage;
 	SDL_Rect npcRect;
 	Animation *npcUp, *npcDown, *npcLeft, *npcRight, *currentAnimation;
 public:
 	NPC();
+	string getName(void);
+	string speak(void);
 	virtual SDL_Rect* getRect(void);
 	virtual SDL_Surface* getSurface(void);
 	virtual Animation* getAnimation(void);
