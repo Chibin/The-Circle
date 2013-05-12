@@ -34,10 +34,14 @@ public:
 	int getHeight();
 	int getTotalSprites();
 	int getTotalTiles();
-	void loadMap(char *);
+	void loadMap(char*);
 	void renderMapLayer(int);
 	bool checkWalk(const int& x,const int& y);
 	bool checkEvent(const int& x,const int& y);
 };
 
+
+class MapLayer{
+
+};
 #endif

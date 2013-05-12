@@ -25,6 +25,8 @@ public:
 	Animation* getAnimLeft();
 	Animation* getAnimUp();
 	Animation* getAnimDown();
+	int getMapOffsetX();
+	int getMapOffsetY();
 	int getVelocity();
 	//setter
 	void setType(PlayerType);
@@ -47,6 +49,7 @@ private:
 	int currentXP, maxXP;
 	//The velocity of the character
 	int xVel, yVel;
+	int mapOffsetX, mapOffsetY;
 	Player();
 	SDL_Surface* playerText[2];
 	//disable copy constructors

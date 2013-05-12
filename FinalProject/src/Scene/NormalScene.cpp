@@ -18,7 +18,9 @@ NormalScene::NormalScene(){
 	std::cout << "\tPlacing Character on map.\n\t\tResult: " ;
 	if(player->getPositionX() == 0 && player->getPositionY()  == 0){
 		std::cout << "don't know position... setting position to center of map" << std::endl;
+		//player->setPosition(level->getWidth()/2 - 12,level->getHeight()/2 +100);
 		player->setPosition(scene->getWindowWidth()/2 - 12,scene->getWindowHeight()/2 - 16);
+		scene->setCamera();
 	}
 	else{
 		std::cout << "Setting player position to x: " << player->getPositionX() << ", y: " << player->getPositionY() << std::endl;
@@ -78,7 +80,8 @@ void NormalScene::eventHandler(SDL_Event& event){
 
 					break;
 				case SDLK_ESCAPE:
-					scene->setGameScene(SceneManager::OPENINGMENU);
+					scene->setGameScene(SceneManager::CHARINFO);
+					//scene->setGameScene(SceneManager::OPENINGMENU);
 					//game->setGameOver(true);
 					break;
 				default:

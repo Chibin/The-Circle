@@ -94,6 +94,8 @@ int Player::getPositionY(){
 void Player::setPosition(int x, int y){
 	rect.x = x;
 	rect.y = y;
+	mapOffsetX = x;
+	mapOffsetY = y;
 }
 void Player::move(int x, int y){
 	rect.x += x;
@@ -145,4 +147,11 @@ void Player::setAnimState(Player::MoveState state){
 		break;
 	}
 	current->NextFrame();
+}
+
+int Player::getMapOffsetX(){
+return mapOffsetX;
+}
+int Player::getMapOffsetY(){
+return mapOffsetY;
 }
