@@ -70,6 +70,8 @@ void BattleScene::eventHandler(SDL_Event& event){
 							battleMenu = ITEM;
 						if(battleMenu == isMagic)
 							bManager->magicUp();
+						else if(battleMenu == isItem)
+							bManager->itemUp();
 						break;
 					case SDLK_DOWN:
 						if(battleMenu == ITEM)
@@ -78,13 +80,15 @@ void BattleScene::eventHandler(SDL_Event& event){
 							battleMenu = MAGIC;
 						if(battleMenu == isMagic)
 							bManager->magicDown();
+						else if(battleMenu == isItem)
+							bManager->itemDown();
 						break;
 					case SDLK_LEFT:
 						if(battleMenu == ITEM)
 							battleMenu = FIGHT;
 						else if(battleMenu == RUN)
 							battleMenu = MAGIC;
-						if(battleMenu == isFight || battleMenu == magicTargetSelect)
+						if(battleMenu == isFight || battleMenu == magicTargetSelect || battleMenu == itemTargetSelect)
 							bManager->moveLeft();
 						break;
 					case SDLK_RIGHT:
@@ -92,22 +96,14 @@ void BattleScene::eventHandler(SDL_Event& event){
 							battleMenu = ITEM;
 						else if(battleMenu == MAGIC)
 							battleMenu = RUN;
-						if(battleMenu == isFight || battleMenu == magicTargetSelect)
+						if(battleMenu == isFight || battleMenu == magicTargetSelect || battleMenu == itemTargetSelect)
 							bManager->moveRight();
 						break;
 					case SDLK_RETURN:
 						bManager->battleHandler(battleMenu);
-						if(battleMenu == battlePhase)
-							bManager->textUpdate(battleMenu);
-						else if(battleMenu == endPhase)
-							bManager->textUpdate(battleMenu);
 						break;
 					case SDLK_z:
 						bManager->battleHandler(battleMenu);
-						if(battleMenu == battlePhase)
-							bManager->textUpdate(battleMenu);
-						else if(battleMenu == endPhase)
-							bManager->textUpdate(battleMenu);
 						break;
 					case SDLK_x: //basically a cancel action command, goes back to the previous state
 						if(battleMenu == isFight)
@@ -118,7 +114,7 @@ void BattleScene::eventHandler(SDL_Event& event){
 							battleMenu = isMagic;
 						else if(battleMenu == isItem)
 							battleMenu = ITEM;
-						else if(battleMenu == itemSelect)
+						else if(battleMenu == itemTargetSelect)
 							battleMenu = isItem;
 						break;
 					case SDLK_ESCAPE:

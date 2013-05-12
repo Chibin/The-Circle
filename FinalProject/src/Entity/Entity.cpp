@@ -30,16 +30,22 @@ int Entity::getINT(){return stats.INT;}
 int Entity::getMaxHP(){return stats.MAXHP;}
 int Entity::getMaxMP(){return stats.MAXMP;}
 void Entity::learnMagicAbility(Magic mSkill){mAbilities.push_back(mSkill);}
+void Entity::useItem(int itemToUse){
+	if(bag[itemToUse].getItemAmount() > 1)
+		bag[itemToUse].setItemAmount(bag[itemToUse].getItemAmount() - 1);
+	else
+		bag.erase(bag.begin()+itemToUse);
+}
 void Entity::storeItem(Item newItem){ 
+	bool isThere = false;
 	for(unsigned int i = 0; i < bag.size(); i++)
 		if(bag[i].getItemName() == newItem.getItemName() && bag[i].getItemType() != Item::EQUIPMENT){
 			bag[i].setItemAmount(bag[i].getItemAmount()+1);
 			bag[i].freeAmountTextImage();
 			bag[i].setItemAmountTextImage();
+			isThere = true;
 		}
-		else
-			bag.push_back(newItem);
-	if(bag.size() == 0)
+	if(!isThere)
 		bag.push_back(newItem);
 }
 Entity::status Entity::getStats(){return stats;}

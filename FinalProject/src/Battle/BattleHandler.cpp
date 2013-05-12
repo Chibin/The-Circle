@@ -28,26 +28,64 @@ BattleHandler::BattleHandler(){
 	//temporary items
 	player->dropAllItems();
 	Potion item1;
+	WoodenStick item2;
+	Herb item3;
 	player->storeItem((Item)item1);
-	player->storeItem((Item)item1);
+	player->storeItem((Item)item2);
+	player->storeItem((Item)item3);
 	font = TTF_OpenFont("../Fonts/coolvetica.ttf",30);
 }
 void BattleHandler::loadMobs(std::vector<Mob*>* _mobs){
 	mobs = _mobs;
 }
+//interupts
+bool BattleHandler::HasMP(){
+	if(player->getMP() < player->getMagicAbilities()[magicSelected].getMPCost()){
+		battleText.clear();
+		SDL_Surface* temp;
+		SDL_Color fgColor = {255,200,0};
+		std::ostringstream oss;
+		oss << "Not enough MP.";
+		temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
+		battleText.push_back(temp);
+		bpLoopCheck = -1;
+		return false;
+	}
+	else return true;
+}
+
+bool BattleHandler::isUsableItem(){
+	if(player->getBag()[itemSelected].getItemType() == Item::EQUIPMENT){
+		battleText.clear();
+		SDL_Surface* temp;
+		SDL_Color fgColor = {255,200,0};
+		std::ostringstream oss;
+		oss << "Cannot use during battle.";
+		temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
+		battleText.push_back(temp);
+		bpLoopCheck = -1;
+		return false;
+	}
+	else return true;
+}
 
 //Selected Actions
 void BattleHandler::displayItems(){
 }
-void BattleHandler::MagicMenu(){
-	if(player->getMagicAbilities().size() == 0)
-		cout <<"PLAYER HAS NO ABILITIES" << endl;
-	else{
-		cout << player->getMagicAbilities()[0].getMagicName() << endl;
-		cout << player->getMagicAbilities()[0].getMagicDamage() << endl;
-		cout << "displaying Magic" << endl;
+bool BattleHandler::HasMagic(){
+	if(player->getMagicAbilities().size() == 0){
+		battleText.clear();
+		SDL_Surface* temp;
+		SDL_Color fgColor = {255,200,0};
+		std::ostringstream oss;
+		oss << player->getName() << " has no abilities.";
+		temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
+		battleText.push_back(temp);
+		bpLoopCheck = -1;
+		//SDL_FreeSurface(temp);
+		return false;
 	}
-
+	else return true;
 }
 bool BattleHandler::startFight(int& battleMenu, enum battleCondition condition){
 	if(mobs->size()  == 0)
@@ -135,6 +173,11 @@ void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked,
 					Magic selectedMagic = player->getMagicAbilities()[magicSelected];
 					MagicBattlePhase(selectedMagic,inOrder);
 				}
+				else if(battleMenu == itemTargetSelect){
+					Item selectedItem = player->getBag()[itemSelected];
+					player->useItem(itemSelected);
+					ItemBattlePhase(selectedItem,inOrder);
+				}
 			}
 		}
 		else{
@@ -173,8 +216,42 @@ void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked,
 	}
 }
 
+//Item
+void BattleHandler::ItemBattlePhase(Item selectedItem,std::vector<Entity*>* inOrder){
+	switch(selectedItem.getItemType()){
+		case Item::HEAL:
+			itemHeal(selectedItem,inOrder);
+			break;
+		case Item::DAMAGE:
+			break;
+		default:
+			break;
+	}
+
+
+}
+
+void BattleHandler::itemHeal(Item selectedItem,std::vector<Entity*>* inOrder){
+	SDL_Surface* temp;
+	SDL_Color fgColor = {0,255,50};
+	switch(selectedItem.getItemTargetType()){
+		case Item::SINGLE:{
+		  std::ostringstream oss;
+		  oss << player->getName() << " healed " << player->getName() << " for " << selectedItem.getHealAmount() << " health!";
+		  temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
+		  battleText.push_back(temp);
+		  player->setHP(player->getHP()+selectedItem.getHealAmount());
+		  }
+		  break;
+		case Item::AOE:
+		  break;
+		default:
+		  break;
+	}
+}
+//Magic
 void BattleHandler::MagicBattlePhase(Magic selectedMagic,std::vector<Entity*>* inOrder){
-	player->setMP(player->getMP()-5);
+	player->setMP(player->getMP()-selectedMagic.getMPCost());
 	switch(selectedMagic.getMagicType()){
 		case Magic::DAMAGE:
 			magicDamage(selectedMagic,inOrder);
@@ -293,7 +370,6 @@ void BattleHandler::textUpdate(int& battleMenu){
 			battleText.erase(battleText.begin());
 		else if(battleMenu == endPhase && bpLoopCheck == 0)
 			endBattleText.erase(endBattleText.begin());
-		//	bpLoopCheck++;
 	}
 	else if(drawingText){
 		drawingComplete = true;
@@ -301,7 +377,7 @@ void BattleHandler::textUpdate(int& battleMenu){
 }
 //For Display
 void BattleHandler::battleDisplayUpdate(int& battleMenu){
-	if(battleMenu == isFight || battleMenu == battlePhase)
+	if(battleMenu == isFight || battleMenu == battlePhase && prevPhase != MAGIC && prevPhase != ITEM && prevPhase != FIGHT && prevPhase != isMagic && prevPhase != isItem)
 		monsterSelectDisplay(battleMenu);
 	else if(battleMenu == isMagic){
 		magicMenuDisplay();
@@ -312,7 +388,7 @@ void BattleHandler::battleDisplayUpdate(int& battleMenu){
 	else if(battleMenu == magicTargetSelect){
 		magicSelectDisplay();
 	}
-	else if(battleMenu == itemSelect){
+	else if(battleMenu == itemTargetSelect){
 		itemSelectDisplay();
 	}
 	if(battleMenu == battlePhase){
@@ -346,7 +422,7 @@ void BattleHandler::itemMenuDisplay(){
 	for(int i = indexScrollDeteminer(previtemSelected,itemSelected,scrollLimit) ; i < (int)player->getBag().size() && j < 5; i++){
 		mobRect[i].x = 210; mobRect[i].y = 365+j*40;
 		amountLoc.x = 390; amountLoc.y = mobRect[i].y;
-		if(magicSelected == i){
+		if(itemSelected == i){
 			SDL_BlitSurface(player->getBag()[i].getItemTextImage()[0],NULL,scene->getScreen(),&mobRect[i]);
 			if(player->getBag()[i].getItemAmount() > 1)
 				SDL_BlitSurface(player->getBag()[i].getItemAmountTextImage()[0],NULL,scene->getScreen(),&amountLoc);
@@ -357,11 +433,30 @@ void BattleHandler::itemMenuDisplay(){
 		}
 		j++;
 	}
-
 }
 
 void BattleHandler::itemSelectDisplay(){
-
+	int x = 50, y = 0;
+	SDL_Rect* mobRect = new SDL_Rect[mobs->size()];
+	Item selectedItem = player->getBag()[itemSelected];
+	if(selectedItem.isItemUsable() && selectedItem.isItemDamage()){
+		for(int i = 0; i < (int)mobs->size(); i++){
+			mobRect[i].x = x+50; mobRect[i].y = 150;
+			if(mobSelected == i)
+				SDL_BlitSurface((*mobs)[i]->getEnemyText()[0],NULL,scene->getScreen(),&mobRect[i]);
+			else
+				SDL_BlitSurface((*mobs)[i]->getEnemyText()[1],NULL,scene->getScreen(),&mobRect[i]);
+			x += (*mobs)[i]->getEnemyText()[0]->w+50;
+		}
+	}
+	else if(selectedItem.isItemUsable() && (selectedItem.getItemActive() == Item::BATTLE_NORMAL || selectedItem.getItemActive() == Item::BATTLE) ){
+		mobRect[0].x = 0+50; mobRect[0].y = 150;
+		SDL_Surface* temp;
+		SDL_Color fgColor = {255,255,0};
+		temp = TTF_RenderText_Blended(font,player->getName().c_str(), fgColor);
+		SDL_BlitSurface(temp,NULL,scene->getScreen(),&mobRect[0]);
+		SDL_FreeSurface(temp);
+	}
 }
 
 void BattleHandler::magicSelectDisplay(){
@@ -518,6 +613,15 @@ void BattleHandler::magicDown(){
 	if(magicSelected < (int)player->getMagicAbilities().size()-1)
 		magicSelected++;
 }
+//Item Selectedion
+void BattleHandler::itemUp(){
+	if(itemSelected > 0)
+		itemSelected--;
+}
+void BattleHandler::itemDown(){
+	if(itemSelected < (int)player->getBag().size()-1)
+		itemSelected++;
+}
 //Flow State of battle
 void BattleHandler::battleHandler(int& battleMenu){
 	switch(battleMenu){
@@ -525,8 +629,11 @@ void BattleHandler::battleHandler(int& battleMenu){
 			battleMenu = isFight;
 			break;
 		case MAGIC:
-			battleMenu = isMagic;
-			MagicMenu();
+			prevPhase = MAGIC;
+			if(HasMagic())
+				battleMenu = isMagic;
+			else
+				battleMenu = battlePhase;
 			break;
 		case ITEM:
 			battleMenu = isItem;
@@ -541,7 +648,11 @@ void BattleHandler::battleHandler(int& battleMenu){
 			}
 			break;
 		case isMagic:
-			battleMenu = magicTargetSelect;
+			prevPhase = isMagic;
+			if(HasMP())
+				battleMenu = magicTargetSelect;
+			else
+				battleMenu = battlePhase;
 			break;
 		case magicTargetSelect:
 			if(!startFight(battleMenu,MUTAL)){
@@ -550,14 +661,23 @@ void BattleHandler::battleHandler(int& battleMenu){
 			}
 			break;
 		case isItem:
-			battleMenu = itemSelect;
+			prevPhase = isItem;
+			if(isUsableItem())
+				battleMenu = itemTargetSelect;
+			else
+				battleMenu = battlePhase;
 			break;
-		case itemSelect:
-			//call itemStartevent?
+		case itemTargetSelect:
+			if(!startFight(battleMenu,MUTAL)){
+				//call EXP EVENT?
+				battleMenu = endPhase;
+			}
 			break;
 		case battlePhase:
+			textUpdate(battleMenu);
 			break;
 		case endPhase:
+			textUpdate(battleMenu);
 			break;
 		case battleEnd:
 			break;

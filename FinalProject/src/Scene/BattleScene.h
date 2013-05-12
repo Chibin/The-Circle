@@ -12,7 +12,7 @@ class BattleScene : public Scene{
 		SDL_Rect fightLoc, runLoc, itemLoc, magicLoc, bgBattleMenuLoc;
 		SDL_Rect itemMagicMenuLoc, textBoxLoc, charInfoLoc;
 		int fightVal, runVal,itemVal,magicVal;
-		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isMagic,isItem,isRun,magicTargetSelect,itemSelect,battlePhase,magicBattlePhase,endPhase,battleEnd};
+		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isMagic,isItem,isRun,magicTargetSelect,itemTargetSelect,battlePhase,magicBattlePhase,endPhase,battleEnd};
 		BattleHandler* bManager;
 		int battleMenu;
 	public:

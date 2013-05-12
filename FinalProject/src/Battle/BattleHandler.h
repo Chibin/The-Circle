@@ -21,7 +21,7 @@ static bool compareEntity_SPD(Entity* first, Entity* second){
 }
 class BattleHandler{
 	private:
-		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isMagic,isItem,isRun,magicTargetSelect,itemSelect,battlePhase,magicBattlePhase,endPhase,battleEnd};
+		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isMagic,isItem,isRun,magicTargetSelect,itemTargetSelect,battlePhase,magicBattlePhase,endPhase,battleEnd};
 		enum battleCondition{MUTAL,PREEMPTIVE,FLANKED};
 		int mobSelected, bpLoopCheck,magicSelected,itemSelected;
 		Player* player;
@@ -39,14 +39,19 @@ class BattleHandler{
 		BattleHandler();
 		void resetDrawingTextBool();
 		void loadMobs(std::vector<Mob*>* _mobs);
+		//Interupts
+		bool isUsableItem();
+		bool HasMP();
+		bool HasMagic();
 		//Selected Actions
 		void displayItems();
-		void MagicMenu();
 		bool startFight(int& battleMenu,enum battleCondition condition);
 		void run(int& battleMenu);
 		//BattleCalculations
 		void battleLog(std::vector<Entity*>* inOrder, string mobAttacked, enum battleCondition condition,int battleMenu);
 		void MagicBattlePhase(Magic selectedMagic,std::vector<Entity*>* inOrder);
+		void ItemBattlePhase(Item selectedItem,std::vector<Entity*>* inOrder);
+		void itemHeal(Item selectedItem,std::vector<Entity*>* inOrder);
 		void magicDamage(Magic selectedMagic,std::vector<Entity*>* inOrder);
 		void magicHeal(Magic selectedMagic,std::vector<Entity*>* inOrder);
 		void magicDebuff(Magic selectedMagic,std::vector<Entity*>* inOrder);
@@ -75,6 +80,9 @@ class BattleHandler{
 		//Magic Selection
 		void magicUp();
 		void magicDown();
+		//Item Selection
+		void itemUp();
+		void itemDown();
 		//Flow state of battle
 		void battleHandler(int& battleMenu);
 };

@@ -48,6 +48,7 @@ public:
 	void dropAllItems(){bag.clear();}
 	void learnMagicAbility(Magic mSkill);
 	void storeItem(Item newItem);
+	void useItem(int itemToUse);
 	std::vector<Item> getBag(){return bag;}
 	std::vector<Magic> getMagicAbilities(){return mAbilities;}
 	status getStats();

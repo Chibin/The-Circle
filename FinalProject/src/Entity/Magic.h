@@ -13,7 +13,7 @@ class Magic{
 		SDL_Rect magicLoc;
 		enum magicType mType;
 		enum targetType tType;
-		int magicDamage, MagicCost;
+		int magicDamage, MPCost;
 		std::string MagicName;
 	public:
 		Magic(){}
@@ -21,6 +21,7 @@ class Magic{
 		magicType getMagicType(){return mType;}	
 		void setTargetType(enum targetType _tType){	tType = _tType;}
 		targetType getMagicTargetType(){return tType;}
+		void setMPCost(int _MPCost){ MPCost = _MPCost;}
 		void setMagicDamage(int mDamage){magicDamage = mDamage;}
 		void setMagicName(std::string Name){MagicName = Name;}
 		void setTextLocation(Sint16 x, Sint16 y){magicLoc.x = x;	magicLoc.y = y;}
@@ -34,6 +35,7 @@ class Magic{
 			TTF_CloseFont(font);
 		}
 		int getMagicDamage(){return magicDamage;}
+		int getMPCost(){return MPCost;}
 		std::string getMagicName(){return MagicName;	}
 		SDL_Surface** getMagicTextImage(){return magicTextImage;	}
 };
@@ -44,6 +46,7 @@ public:
 			setMagicType(DAMAGE);
 			setTargetType(SINGLE);
 			setMagicDamage(10);
+			setMPCost(5);
 			setMagicName("Demon Fang");
 			setMagicTextImage();
 		}
@@ -54,6 +57,7 @@ class FireBall: public Magic{
 			setMagicType(DAMAGE);
 			setTargetType(SINGLE);
 			setMagicDamage(10);
+			setMPCost(5);
 			setMagicName("FireBall");
 			setMagicTextImage();
 		}
@@ -64,6 +68,7 @@ class AngelFeathers : public Magic{
 		setMagicType(DAMAGE);
 		setTargetType(AOE);
 		setMagicDamage(10);
+		setMPCost(15);
 		setMagicName("Angel Feathers");
 		setMagicTextImage();
 	}
@@ -74,6 +79,7 @@ class PowHammer : public Magic{
 		setMagicType(DAMAGE);
 		setTargetType(SINGLE);
 		setMagicDamage(8);
+		setMPCost(3);
 		setMagicName("Pow Hammer");
 		setMagicTextImage();
 	}
@@ -84,6 +90,7 @@ public:
 		setMagicType(DAMAGE);
 		setTargetType(SINGLE);
 		setMagicDamage(20);
+		setMPCost(8);
 		setMagicName("Para Ball");
 		setMagicTextImage();
 	}
@@ -94,6 +101,7 @@ public:
 		setMagicType(HEAL);
 		setTargetType(SINGLE);
 		setMagicDamage(-20);  //inflicts damage to one's self
+		setMPCost(0);
 		setMagicName("Dum Dog");
 		setMagicTextImage();
 	};
@@ -105,6 +113,7 @@ class FirstAid: public Magic{
 		setMagicType(HEAL);
 		setTargetType(SINGLE);
 		setMagicDamage(8);
+		setMPCost(3);
 		setMagicName("First Aid");
 		setMagicTextImage();
 		}
