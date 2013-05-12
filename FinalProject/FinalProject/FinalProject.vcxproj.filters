@@ -198,9 +198,6 @@
     <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Entity\Npc.cpp">
-      <Filter>Source Files\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Manager\LevelManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
@@ -312,6 +309,9 @@
     <ClCompile Include="..\src\Utility\TmxPolyline.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Entity\NPC.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\Scene\EventScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
@@ -352,9 +352,6 @@
     </ClInclude>
     <ClInclude Include="..\src\Battle\BattleHandler.h">
       <Filter>Header Files\Battle</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Entity\Npc.h">
-      <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Manager\LevelManager.h">
       <Filter>Header Files\Manager</Filter>
@@ -418,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Utility\base64\base64.h">
       <Filter>Header Files\Utility\Base64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entity\NPC.h">
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Scene\EventScene.h">
       <Filter>Header Files\Scene</Filter>

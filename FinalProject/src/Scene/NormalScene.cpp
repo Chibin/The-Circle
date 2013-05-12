@@ -13,13 +13,26 @@ NormalScene::NormalScene(){
 	std::cout << "Done!" << std::endl;
 
 	/*******************************************************************************/
+	/* ***************************CHARACTER*****************************************/
+	/*******************************************************************************/
+	// NPCs
+	/*npcVector.push_back(new NPC_girl1);
+	npcVector.push_back(new NPC_guy1);
+	SDL_Rect* tempRect = npcVector[0]->getRect();
+	tempRect->x = (Sint16)scene->getWindowWidth()/4;
+	tempRect->y = (Sint16)scene->getWindowHeight()/4;
+	tempRect = npcVector[1]->getRect();
+	tempRect->x = (Sint16)scene->getWindowWidth()*3/4;
+	tempRect->y = (Sint16)scene->getWindowHeight()*3/4;
+	*/
+	/*******************************************************************************/
 	/*****************************SET SETTINGS**************************************/
 	/*******************************************************************************/
 	std::cout << "\tPlacing Character on map.\n\t\tResult: " ;
 	if(player->getPositionX() == 0 && player->getPositionY()  == 0){
 		std::cout << "don't know position... setting position to center of map" << std::endl;
 		//player->setPosition(level->getWidth()/2 - 12,level->getHeight()/2 +100);
-		player->setPosition(scene->getWindowWidth()/2 - 12,scene->getWindowHeight()/2 - 16);
+		player->setPosition((int)scene->getWindowWidth()/2 - 12, (int)scene->getWindowHeight()/2 - 16);
 		scene->setCamera();
 	}
 	else{
@@ -99,14 +112,22 @@ void NormalScene::eventHandler(SDL_Event& event){
 			switch(event.type){
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym){
+				default:
+					break;
 				}
+			default:
+				break;
 			}
 			break;
 		case EVENT:
 			switch(event.type){
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym){
+				default:
+					break;
 				}
+			default:
+				break;
 			}
 			break;
 		}
@@ -120,6 +141,7 @@ void NormalScene::display(){
 	//level->renderMapLayer(2);
 	//level->renderMapLayer(3);
 	//level->renderMapLayer(4);
+	level->renderNPC(); // render NPCs layer
 	currentTick = SDL_GetTicks();
 	if(currentTick - lastTick > 150)
 	{
@@ -134,7 +156,8 @@ void NormalScene::display(){
 	if(currentState == DIALOGUE){
 		std::cout << "Hey..someones talking to you" << std::endl;
 	}
-		level->renderMapLayer(2);
+
+	level->renderMapLayer(2);
 	//draws where collision should be at
 	//level->renderMapLayer(3);
 	//draws where events should happen
