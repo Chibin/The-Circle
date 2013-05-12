@@ -15,7 +15,7 @@ class NormalScene : public Scene{
 		PLayerState currentState;
 		int currentTick, lastTick;
 		// vector of NPC pointers
-		vector<NPC*> npcVector;
+		//vector<NPC*> npcVector;
 
 	public:
 		NormalScene();

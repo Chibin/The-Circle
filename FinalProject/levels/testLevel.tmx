@@ -163,18 +163,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="NPC" width="50" height="38">
-  <object gid="2684" x="530" y="223"/>
-  <object gid="2684" x="552" y="176"/>
-  <object gid="2684" x="536" y="172"/>
-  <object gid="2684" x="547" y="196"/>
-  <object gid="2684" x="507" y="187"/>
-  <object gid="2684" x="558" y="191"/>
-  <object name="girl1" gid="2684" x="539" y="196"/>
-  <object gid="2684" x="546" y="184"/>
-  <object name="guy1" gid="2680" x="701" y="370"/>
-  <object gid="2584" x="538" y="193"/>
- </objectgroup>
  <layer name="collision" width="50" height="38">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,622,622,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -217,6 +205,18 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup name="NPC" width="50" height="38">
+  <object gid="2684" x="530" y="223"/>
+  <object gid="2684" x="552" y="176"/>
+  <object gid="2684" x="536" y="172"/>
+  <object gid="2684" x="547" y="196"/>
+  <object gid="2684" x="507" y="187"/>
+  <object gid="2684" x="558" y="191"/>
+  <object name="girl1" gid="2684" x="539" y="196"/>
+  <object gid="2684" x="546" y="184"/>
+  <object name="guy1" gid="2680" x="701" y="370"/>
+  <object gid="2584" x="538" y="193"/>
+ </objectgroup>
  <layer name="Event" width="50" height="38" visible="0">
   <properties>
    <property name="hasEvent" value="1"/>

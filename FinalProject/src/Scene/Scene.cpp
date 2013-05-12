@@ -43,7 +43,7 @@ void Scene::SetSurfaceAlpha (SDL_Surface *surface, Uint8 alpha)
 				Uint8 r, g, b, a;
 				SDL_GetRGBA( *pixel_ptr, fmt, &r, &g, &b, &a );
 				// Set the pixel with the new alpha.
-				*pixel_ptr = SDL_MapRGBA( fmt, (Sint16)r, (Sint16)g, (Sint16)b, scale * a );
+				*pixel_ptr = SDL_MapRGBA( fmt, (Sint16)r, (Sint16)g, (Sint16)b, (Uint8)scale * a );
 			}
 			SDL_UnlockSurface(surface);
 

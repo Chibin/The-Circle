@@ -16,7 +16,7 @@ NormalScene::NormalScene(){
 	/* ***************************CHARACTER*****************************************/
 	/*******************************************************************************/
 	// NPCs
-	npcVector.push_back(new NPC_girl1);
+	/*npcVector.push_back(new NPC_girl1);
 	npcVector.push_back(new NPC_guy1);
 	SDL_Rect* tempRect = npcVector[0]->getRect();
 	tempRect->x = (Sint16)scene->getWindowWidth()/4;
@@ -24,7 +24,7 @@ NormalScene::NormalScene(){
 	tempRect = npcVector[1]->getRect();
 	tempRect->x = (Sint16)scene->getWindowWidth()*3/4;
 	tempRect->y = (Sint16)scene->getWindowHeight()*3/4;
-
+	*/
 	/*******************************************************************************/
 	/*****************************SET SETTINGS**************************************/
 	/*******************************************************************************/
@@ -115,6 +115,8 @@ void NormalScene::eventHandler(SDL_Event& event){
 				default:
 					break;
 				}
+			default:
+				break;
 			}
 			break;
 		case EVENT:
@@ -124,6 +126,8 @@ void NormalScene::eventHandler(SDL_Event& event){
 				default:
 					break;
 				}
+			default:
+				break;
 			}
 			break;
 		}
