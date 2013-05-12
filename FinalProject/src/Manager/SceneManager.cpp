@@ -5,7 +5,8 @@
 #include "../Scene/NormalScene.h"
 #include "../Scene/NewCharacterScene.h"
 #include "../Scene/EventScene.h"
-
+#include "../Scene/CharInfoScene.h"
+#include "../Manager/LevelManager.h"
 SceneManager::SceneManager(){
 	winHeight = 600;
 	winWidth = 800;
@@ -18,7 +19,12 @@ SceneManager::SceneManager(){
 	SDL_WM_SetCaption( "Tales of Breakers - Pre-alpha v.01a", NULL );
 	SDL_EnableKeyRepeat(50 ,125);
 	currentScene = new OpeningScene();
+	player = &Player::getInstance();
 	gameScene = OPENINGMENU;
+	camera.h = winHeight;
+	camera.w = winWidth;
+	camera.x = 0;
+	camera.y = 0;
 }
 SceneManager& SceneManager::getInstance(){
 	static SceneManager instance;
@@ -56,6 +62,9 @@ void SceneManager::sceneHandler(GameScene _gameScene){
 		case EVENT:
 			currentScene = new EventScene();
 			break;
+		case CHARINFO:
+			currentScene = new CharInfoScene();
+			break;
 		default:
 			cerr << "SCENE DOES NOT EXIST" << endl;
 			break;
@@ -83,9 +92,40 @@ SDL_Surface* SceneManager::getScreen(){
 SceneManager::GameScene SceneManager::getGameScene(){
 	return gameScene;
 }
+
+SDL_Rect* SceneManager::getCamera(){
+	return &camera;
+}
+
 /*************************
 Setters
 **************************/
 void SceneManager::setGameScene(SceneManager::GameScene _gameScene){
 	gameScene = _gameScene;
+}
+void SceneManager::updateCamera(float x, float y){
+	camera.x += x;
+	camera.y += y;
+}
+void SceneManager::setCamera(){
+	camera.x =  (player->getPositionX() + 8) - winWidth/2;
+	camera.y = (player->getPositionY() + 16) - winHeight/2;
+
+	if( camera.x < 0 )
+	{
+		camera.x = 0;    
+	}
+	if( camera.y < 0 )
+	{
+		camera.y = 0;    
+	}
+	if( camera.x > LevelManager::getInstance().getWidth() - camera.w )
+    {
+        camera.x = LevelManager::getInstance().getWidth() - camera.w;    
+    }
+    if( camera.y > LevelManager::getInstance().getHeight() - camera.h )
+    {
+        camera.y = LevelManager::getInstance().getHeight() - camera.h;    
+    }    
+
 }

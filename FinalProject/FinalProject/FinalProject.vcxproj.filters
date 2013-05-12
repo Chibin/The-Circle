@@ -82,6 +82,12 @@
     <Filter Include="Source Files\Utility\base64">
       <UniqueIdentifier>{995398ce-7352-4c8f-96a3-217683523cc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utility\Parser">
+      <UniqueIdentifier>{a11b4886-7e2f-46b2-8447-d15e3e6e4871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility\Parser">
+      <UniqueIdentifier>{f4f22980-3cea-4acf-9d1d-d838128e55de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Fonts\Viner Hand Itc.ttf">
@@ -315,6 +321,12 @@
     <ClCompile Include="..\src\Scene\EventScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Utility\Parser\Parser.cpp">
+      <Filter>Source Files\Utility\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene\CharInfoScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Scene\Scene.h">
@@ -417,6 +429,12 @@
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Scene\EventScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\Parser\Parser.h">
+      <Filter>Header Files\Utility\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\CharInfoScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
