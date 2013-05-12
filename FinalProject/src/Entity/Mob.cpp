@@ -1,11 +1,11 @@
 #include "Mob.h"
 
 Mob::Mob(){
-	setHP(20);
 	setSTR(1);
 	setDEF(1);
 	setSPD(9);
 	setINT(1);
+	setStats(1,10,10,10, 1, 1);
 	Name = "The Game";
 	TTF_Font* font;
 	SDL_Color fgColor = {255,255,0};

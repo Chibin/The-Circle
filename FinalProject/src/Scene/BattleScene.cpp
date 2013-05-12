@@ -32,7 +32,7 @@ BattleScene::BattleScene(){
 	magicLoc.x = 25; magicLoc.y = 535;
 	itemLoc.x = 165; itemLoc.y = 485;
 	runLoc.x = 165; runLoc.y = 535;
-	charInfoLoc.x = 0; charInfoLoc.y = 0;
+	charInfoLoc.x = 0+594; charInfoLoc.y = 0;
 	//player = &Player::getInstance(); //just added this to test the battle sequence
 	bManager = new BattleHandler();
 	loadMobs();
@@ -52,7 +52,6 @@ void BattleScene::loadMobs(){
 	temp3->setName("Mob3");
 	mobs->push_back(temp2);
 	mobs->push_back(temp3);
-	//player->setStats(10,10,10,10,10,10);
 	bManager->loadMobs(mobs);
 }
 
@@ -140,13 +139,13 @@ void BattleScene::displayCharacterInfo(){
 	std::ostringstream oss;
 	oss << player->getName();
 	temp = TTF_RenderText_Blended(tempFont,oss.str().c_str(),fgColor);
-	tempLoc.x = 10; tempLoc.y = 0;
+	tempLoc.x = 10+594; tempLoc.y = 0;
 	SDL_BlitSurface(temp,NULL,scene->getScreen(),&tempLoc);
 	SDL_FreeSurface(temp);
 	oss.str("");
 	oss << "HP: ";
 	temp = TTF_RenderText_Blended(tempFont,oss.str().c_str(),fgColor);
-	tempLoc.x = 10; tempLoc.y = 30;
+	tempLoc.x = 10+594; tempLoc.y = 30;
 	SDL_BlitSurface(temp,NULL,scene->getScreen(),&tempLoc);
 	//change color of HP	
 	oss.str("");
@@ -164,20 +163,20 @@ void BattleScene::displayCharacterInfo(){
 		fgColor.g = 255; fgColor.g = 255; fgColor.b = 255;
 	}
 	temp = TTF_RenderText_Blended(tempFont,oss.str().c_str(),fgColor);
-	tempLoc.x = 90; tempLoc.y = 30;
+	tempLoc.x = 90+594; tempLoc.y = 30;
 	SDL_BlitSurface(temp,NULL,scene->getScreen(),&tempLoc);
 	SDL_FreeSurface(temp);
 	fgColor.r = 255; fgColor.g = 255; fgColor.b = 255;
 	oss.str("");
 	oss << "MP: ";
 	temp = TTF_RenderText_Blended(tempFont,oss.str().c_str(),fgColor);
-	tempLoc.x = 10; tempLoc.y = 60;
+	tempLoc.x = 10+594; tempLoc.y = 60;
 	SDL_BlitSurface(temp,NULL,scene->getScreen(),&tempLoc);
 	//change color of HP	
 	oss.str("");
 	oss << player->getMP() << "/" << player->getMaxMP();
 	if(player->getMP() == player->getMaxMP()){
-		fgColor.r = 0; fgColor.g = 50; fgColor.b = 255;
+		fgColor.r = 0; fgColor.g = 100; fgColor.b = 255;
 	}
 	else if(player->getMP() <= player->getMaxMP()/4){
 		fgColor.g = 255; fgColor.g = 50; fgColor.b = 0;
@@ -189,7 +188,7 @@ void BattleScene::displayCharacterInfo(){
 		fgColor.r = 0; fgColor.g = 255; fgColor.b = 126;
 	}
 	temp = TTF_RenderText_Blended(tempFont,oss.str().c_str(),fgColor);
-	tempLoc.x = 90; tempLoc.y = 60;
+	tempLoc.x = 90+594; tempLoc.y = 60;
 	temp = TTF_RenderText_Blended(tempFont,oss.str().c_str(),fgColor);
 	SDL_BlitSurface(temp,NULL,scene->getScreen(),&tempLoc);
 	SDL_FreeSurface(temp);
@@ -220,12 +219,12 @@ void BattleScene::display(){
 	SDL_BlitSurface(textMagic[magicVal],NULL,scene->getScreen(),&magicLoc);
 	SDL_BlitSurface(textItem[itemVal],NULL,scene->getScreen(),&itemLoc);
 	SDL_BlitSurface(textRun[runVal],NULL,scene->getScreen(),&runLoc);
+	displayCharacterInfo();
 	if(battleMenu == isMagic || battleMenu == isItem)
 		SDL_BlitSurface(bgItemMagicMenu,NULL,scene->getScreen(),&itemMagicMenuLoc);
 	else if(battleMenu == battlePhase || battleMenu == endPhase)
 		SDL_BlitSurface(textBox,NULL,scene->getScreen(),&textBoxLoc);
 	bManager->battleDisplayUpdate(battleMenu);
-	displayCharacterInfo();
 	SDL_Flip(scene->getScreen());
 }
 BattleScene::~BattleScene(){

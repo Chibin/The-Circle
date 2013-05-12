@@ -1,6 +1,6 @@
 #include "Entity.h"
 Entity::Entity(){};
-void Entity::setHP(int _HP){ stats.HP = _HP >= stats.MAXHP? stats.MAXHP : _HP;}
+void Entity::setHP(int _HP){ stats.HP = _HP < 0 ? 0 : _HP >= stats.MAXHP? stats.MAXHP : _HP;}
 void Entity::setMP(int _MP){stats.MP = _MP;}
 void Entity::setSTR(int _STR){ stats.STR = _STR;}
 void Entity::setDEF(int _DEF){ stats.PDEF = _DEF;}
