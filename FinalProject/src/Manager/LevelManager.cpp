@@ -52,7 +52,7 @@ void LevelManager::loadMap(char* mapName){
 	mapImage = SDL_DisplayFormatAlpha(loadedImage);
 	SDL_FreeSurface( loadedImage );
 	//SDL_SetColorKey( mapImage, SDL_SRCCOLORKEY, SDL_MapRGB( mapImage->format, 0xff, 0xff, 0xff ) );
-
+	levelName = mapName;
 	printf("\n\t\tStatus:\n\t\t\tParsing file now...");
 	currentMap->ParseFile(temp1);
 	printf("...Done!\n");
@@ -97,10 +97,28 @@ bool LevelManager::checkEvent(const int& _x,const int& _y){
 	int playerY = (player->getPositionY()+ _y)/currentMap->GetTileHeight();
 	if(layer->GetTileId(playerX+1,playerY+1)!=0){
 		printf("EVENT!!\n");
-		currentMap->GetProperties().GetList();
+		printf("EventID: %d\n", layer->GetTileId(playerX+1,playerY+1));
 		int buff2 = layer->GetTileId(playerX+1,playerY+1);
 		int buff = layer->GetTileTilesetIndex(playerX,playerY);
-		scene->setGameScene(SceneManager::EVENT);
+		if(layer->GetTileId(playerX+1,playerY+1) == 26){
+			scene->setGameScene(SceneManager::EVENT);
+			return true;
+		}
+		if (layer->GetTileId(playerX+1,playerY+1) == 27){
+			printf("Switch scene here\n");
+			loadMap("testLevel2a");
+			scene->setGameScene(SceneManager::NORMAL);
+			player->setPosition(20,player->getPositionY());
+			return true;
+		}
+		if(levelName == "testLevel2a"){
+			if(layer->GetTileId(playerX+1,playerY+1) == 28){
+				printf("Switch scene here\n");
+				loadMap("testLevel2");
+				scene->setGameScene(SceneManager::NORMAL);
+				player->setPosition(799,player->getPositionY());
+			}
+		}
 	}
 	return false;
 }
