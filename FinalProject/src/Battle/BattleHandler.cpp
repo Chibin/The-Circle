@@ -175,7 +175,8 @@ void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked,
 				}
 				else if(battleMenu == itemTargetSelect){
 					Item selectedItem = player->getBag()[itemSelected];
-					player->useItem(itemSelected);
+					if(player->isUsedItemRemoved(itemSelected))
+						itemSelected = 0;
 					ItemBattlePhase(selectedItem,inOrder);
 				}
 			}
@@ -539,6 +540,8 @@ void BattleHandler::battlePhaseDisplay(int& battleMenu){
 			SDL_FreeSurface(battleText[i]);
 		if(prevPhase == magicTargetSelect)
 			battleMenu = MAGIC;
+		else if(prevPhase == itemTargetSelect)
+			battleMenu = ITEM;
 		else
 			battleMenu = FIGHT;
 		if(playerDead){

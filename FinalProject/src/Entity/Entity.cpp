@@ -30,11 +30,15 @@ int Entity::getINT(){return stats.INT;}
 int Entity::getMaxHP(){return stats.MAXHP;}
 int Entity::getMaxMP(){return stats.MAXMP;}
 void Entity::learnMagicAbility(Magic mSkill){mAbilities.push_back(mSkill);}
-void Entity::useItem(int itemToUse){
-	if(bag[itemToUse].getItemAmount() > 1)
+bool Entity::isUsedItemRemoved(int itemToUse){
+	if(bag[itemToUse].getItemAmount() > 1){
 		bag[itemToUse].setItemAmount(bag[itemToUse].getItemAmount() - 1);
-	else
+		return false;
+	}
+	else{
 		bag.erase(bag.begin()+itemToUse);
+		return true;
+	}
 }
 void Entity::storeItem(Item newItem){ 
 	bool isThere = false;
