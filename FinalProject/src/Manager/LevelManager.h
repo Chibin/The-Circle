@@ -5,10 +5,11 @@
 #include "../Utility/Tmx.h"
 #include "SceneManager.h"
 #include "GameManager.h"
-#include "../Entity/Player.h"
-#include "../Entity/NPC.h"
+//#include "../Entity/Player.h"
+//#include "../Entity/NPC.h"
 class Tmx::Map;
 class Player;
+class NPC;
 class LevelManager{
 private:
 	SceneManager* scene;
