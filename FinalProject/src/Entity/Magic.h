@@ -40,7 +40,7 @@ class Magic{
 		}
 		void setMagicTextImage(){
 			TTF_Font* font;
-			font = TTF_OpenFont("../Fonts/Manga temple.ttf",30); //used to be 30 for manga temple
+			font = TTF_OpenFont("../Fonts/coolvetica.ttf",35); //used to be 30 for manga temple
 			SDL_Color fgColor = {255,255,0};
 			magicTextImage[0] =TTF_RenderText_Blended(font,MagicName.c_str(),fgColor);
 			fgColor.b = 255;

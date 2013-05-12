@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_image.h>
+#include <queue>
 using namespace std;
 #include "../Manager/GameManager.h"
 #include "../Entity//Player.h"
@@ -44,6 +45,18 @@ public:
 	void NextFrame(void);
 	void LastFrame(void);
 	friend class Scene;
+};
+
+class textAnimation{
+	public:
+		textAnimation();
+		void drawNextFrame();
+		bool isLastFrame();
+	private:
+		std::queue<SDL_Surface*> textList;
+		SDL_Rect textPos;
+		SDL_Rect textAnimator;
+
 };
 
 

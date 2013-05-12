@@ -30,6 +30,7 @@ public:
 	void setDEX(int _DEX);
 	void setINT(int _INT);
 	void setLCK(int _LCK);
+	void setMaxMP(int _MaxMP);
 	void setStats(int _STR,int _CON, int _DEX,int _AGI, int _INT, int _LCK);
 	virtual void setName(std::string _Name);
 	std::string getName();
@@ -40,6 +41,8 @@ public:
 	int getSPD();
 	int getINT();
 	int getLCK();
+	int getMaxHP();
+	int getMaxMP();
 	void forgetAllMagicAbilities(){mAbilities.clear();}
 	void learnMagicAbility(Magic mSkill);
 	std::vector<Magic> getMagicAbilities(){return mAbilities;}

@@ -23,6 +23,7 @@ BattleHandler::BattleHandler(){
 	player->learnMagicAbility((Magic)newMagic5);
 	player->learnMagicAbility((Magic)newMagic6);
 	player->learnMagicAbility((Magic)newMagic7);
+	font = TTF_OpenFont("../Fonts/coolvetica.ttf",30);
 }
 void BattleHandler::loadMobs(std::vector<Mob*>* _mobs){
 	mobs = _mobs;
@@ -62,7 +63,6 @@ void BattleHandler::run(int& battleMenu){
 	int fasterMonsters = 1;
 	SDL_Surface* temp;
 	SDL_Color fgColor = {255,255,255};
-	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
 	for(int i = 0; i < (int)mobs->size();i++){
 		if(player->getSPD() < (*mobs)[i]->getSPD())
 			fasterMonsters++;
@@ -98,7 +98,6 @@ void BattleHandler::run(int& battleMenu){
 //BattleCalculations
 void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked, enum battleCondition condition,int battleMenu){
 	SDL_Surface* temp;
-	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
 	SDL_Color fgColor = {255,200,0};
 	SDL_Color deadColor = {255,50,0};
 	for(int i = 0; i < (int)inOrder->size(); i++){
@@ -168,6 +167,7 @@ void BattleHandler::battleLog(std::vector<Entity*>* inOrder, string mobAttacked,
 }
 
 void BattleHandler::MagicBattlePhase(Magic selectedMagic,std::vector<Entity*>* inOrder){
+	player->setMP(player->getMP()-5);
 	switch(selectedMagic.getMagicType()){
 		case Magic::DAMAGE:
 			magicDamage(selectedMagic,inOrder);
@@ -187,7 +187,6 @@ void BattleHandler::MagicBattlePhase(Magic selectedMagic,std::vector<Entity*>* i
 }
 void BattleHandler::magicDamage(Magic selectedMagic,std::vector<Entity*>* inOrder){
 	SDL_Surface* temp;
-	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
 	SDL_Color fgColor = {255,200,0};
 	SDL_Color deadColor = {255,50,0};
 	switch(selectedMagic.getMagicTargetType()){
@@ -240,7 +239,6 @@ void BattleHandler::magicDamage(Magic selectedMagic,std::vector<Entity*>* inOrde
 }
 void BattleHandler::magicHeal(Magic selectedMagic,std::vector<Entity*>* inOrder){
 	SDL_Surface* temp;
-	font = TTF_OpenFont("../Fonts/Manga Temple.ttf",30);
 	SDL_Color fgColor = {0,255,50};
 	switch(selectedMagic.getMagicTargetType()){
 		case Magic::SINGLE:{
@@ -316,24 +314,25 @@ void BattleHandler::battleDisplayUpdate(int& battleMenu){
 	}
 }
 void BattleHandler::monsterSelectDisplay(int& battleMenu){
-	int x = 0, y = 0;
+	int x = 50, y = 0;
 	SDL_Rect* mobRect = new SDL_Rect[mobs->size()];
 	for(int i = 0; i < (int)mobs->size(); i++){
-		mobRect[i].x = i*150; mobRect[i].y = 0;
+		mobRect[i].x = x+50; mobRect[i].y = 150;
 		if(mobSelected == i)
 			SDL_BlitSurface((*mobs)[i]->getEnemyText()[0],NULL,scene->getScreen(),&mobRect[i]);
 		else
 			SDL_BlitSurface((*mobs)[i]->getEnemyText()[1],NULL,scene->getScreen(),&mobRect[i]);
+		x += (*mobs)[i]->getEnemyText()[0]->w+50;
 	}
 }
 
 void BattleHandler::magicSelectDisplay(){
-	int x = 0, y = 0;
+	int x = 50, y = 0;
 	SDL_Rect* mobRect = new SDL_Rect[mobs->size()];
 	Magic selectedMagic = player->getMagicAbilities()[magicSelected];
 		if(selectedMagic.getMagicTargetType() == Magic::SINGLE && selectedMagic.getMagicType() == Magic::DAMAGE){
 		for(int i = 0; i < (int)mobs->size(); i++){
-			mobRect[i].x = i*150; mobRect[i].y = 0;
+			mobRect[i].x = i*150+50; mobRect[i].y = 150;
 			if(mobSelected == i)
 				SDL_BlitSurface((*mobs)[i]->getEnemyText()[0],NULL,scene->getScreen(),&mobRect[i]);
 			else
@@ -342,14 +341,13 @@ void BattleHandler::magicSelectDisplay(){
 	}
 	else if(selectedMagic.getMagicTargetType() == Magic::AOE && selectedMagic.getMagicType() == Magic::DAMAGE){
 		for(int i = 0; i < (int)mobs->size(); i++){
-			mobRect[i].x = i*150; mobRect[i].y = 0;
+			mobRect[i].x = i*150+50; mobRect[i].y = 150;
 			SDL_BlitSurface((*mobs)[i]->getEnemyText()[0],NULL,scene->getScreen(),&mobRect[i]);
 		}
 	}
 	else if(selectedMagic.getMagicTargetType() == Magic::SINGLE && selectedMagic.getMagicType() == Magic::HEAL){
-		mobRect[0].x = 0; mobRect[0].y = 0;
+		mobRect[0].x = 0+50; mobRect[0].y = 150;
 		SDL_Surface* temp;
-		font = TTF_OpenFont("../Fonts/Manga Temple.ttf",25);
 		SDL_Color fgColor = {255,255,0};
 		temp = TTF_RenderText_Blended(font,player->getName().c_str(), fgColor);
 		SDL_BlitSurface(temp,NULL,scene->getScreen(),&mobRect[0]);
@@ -367,7 +365,7 @@ void BattleHandler::magicMenuDisplay(){
 	int x = 0, y = 0,  j = 0, scrollLimit =5;
 	SDL_Rect* mobRect = new SDL_Rect[player->getMagicAbilities().size()];
 	for(int i = indexScrollDeteminer(prevmagicSelected,magicSelected,scrollLimit) ; i < (int)player->getMagicAbilities().size() && j < 5; i++){
-		mobRect[i].x = 315; mobRect[i].y = 405+j*35;
+		mobRect[i].x = 210; mobRect[i].y = 365+j*40;
 		if(magicSelected == i)
 			SDL_BlitSurface(player->getMagicAbilities()[i].getMagicTextImage()[0],NULL,scene->getScreen(),&mobRect[i]);
 		else
@@ -394,8 +392,8 @@ void BattleHandler::textScrollDisplay(std::vector<SDL_Surface*> &textVector,int 
 }
 void BattleHandler::battlePhaseDisplay(int& battleMenu){
 	SDL_Rect bText;
-	bText.x = 50;
-	bText.y = 400;
+	bText.x = 30;
+	bText.y = 490;
 	if(bpLoopCheck == -1)
 		bpLoopCheck = 0;
 	if(bpLoopCheck < (int)battleText.size()){
@@ -423,8 +421,8 @@ void BattleHandler::battlePhaseDisplay(int& battleMenu){
 }
 void BattleHandler::endPhaseDisplay(int& battleMenu){
 	SDL_Rect bText;
-	bText.x = 50;
-	bText.y = 400;
+	bText.x = 30;
+	bText.y = 490;
 	//makes sure that all the battleText are displayed
 	if(battleText.size() !=0){
 		battlePhaseDisplay(battleMenu);
