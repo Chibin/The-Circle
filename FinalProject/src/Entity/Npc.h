@@ -38,4 +38,11 @@ public:
 	~NPC_guy1(){}
 };
 
+class NPC_guyRed : public NPC
+{
+public:
+	NPC_guyRed();
+	~NPC_guyRed(){}
+};
+
 #endif

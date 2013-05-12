@@ -79,6 +79,13 @@ NPC_guy1::NPC_guy1()
 	setFrames();
 }
 
+NPC_guyRed::NPC_guyRed()
+{
+	npcName = "Red Guy";
+	npcImage = load_imageBlue("../Images/npc/guyRed.bmp");
+	setFrames();
+}
+
 SDL_Surface* NPC::load_imageBlue( std::string file )
 {
 	//The image that's loaded
