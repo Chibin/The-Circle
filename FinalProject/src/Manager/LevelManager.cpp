@@ -165,3 +165,8 @@ bool LevelManager::checkWalk(const int& _x,const int& _y){
 
 	return false;
 }
+
+void LevelManager::loadNPC(void)
+{
+
+}
