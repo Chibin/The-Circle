@@ -15,11 +15,11 @@ LevelManager::LevelManager(){
 }
 
 int LevelManager::getHeight(){
-	return levelHeight;
+	return levelHeight*16;
 }
 
 int LevelManager::getWidth(){
-	return levelWidth;
+	return levelWidth*16;
 }
 
 int LevelManager::getTotalSprites(){
@@ -59,6 +59,8 @@ void LevelManager::loadMap(char* mapName){
 	levelWidth = currentMap->GetLayer(0)->GetWidth();
 	levelHeight = currentMap->GetLayer(0)->GetHeight();
 	loadNPC();// load the NPCs
+	scene->getCamera()->x = 160;
+	scene->getCamera()->y = 160;
 }
 
 //0 = base tile, 1 = secondary tiles, 2 = collision objects, 3 = collision tiles, 4 = NPC's layer
@@ -66,19 +68,25 @@ void LevelManager::renderMapLayer(int layerID){
 	int colAmount = currentMap->GetTileset(0)->GetImage()->GetWidth()/currentMap->GetTileWidth(); 
 	SDL_Rect srcRect;
 	SDL_Rect buffRect;
+	int cameraX = scene->getCamera()->x/16;
+	int cameraY = scene->getCamera()->y/16;
+	int drawX = 0, drawY = 0;
 	const Tmx::Layer *layer = currentMap->GetLayer(layerID);
-	for (int x = 0; x < layer->GetWidth(); ++x) 
+	for (int x = 0; x < scene->getWindowWidth()/16; ++x) 
 	{
-		for (int y = 0; y < layer->GetHeight(); ++y) 
+		for (int y = 0; y < scene->getWindowHeight()/16; ++y) 
 		{
 			if(layer->GetTileId(x,y)==0)
 				continue;
 			//get the id of the tile and mod it by the colAmount to get the number in that row
 			//
-			int colNum = (layer->GetTileId(x,y)%colAmount)-1;
-			int rowNum = (layer->GetTileId(x,y)/colAmount-1);
-			srcRect.x = ((layer->GetTileId(x,y)%colAmount)) * currentMap->GetTileWidth() ;
-			srcRect.y = (layer->GetTileId(x,y)/colAmount)* currentMap->GetTileHeight();
+			drawX = cameraX + x;
+			drawY = cameraY + y;
+			//printf("start loc x: %d, y: %d\n", drawX,drawY );
+			int colNum = (layer->GetTileId(drawX,drawY)%colAmount)-1;
+			int rowNum = (layer->GetTileId(drawX,drawY)/colAmount-1);
+			srcRect.x = ((layer->GetTileId(drawX,drawY)%colAmount)) * currentMap->GetTileWidth() ;
+			srcRect.y = (layer->GetTileId(drawX,drawY)/colAmount)* currentMap->GetTileHeight();
 			srcRect.h = currentMap->GetTileHeight();
 			srcRect.w = currentMap->GetTileWidth();
 			buffRect.x = x * currentMap->GetTileWidth();
@@ -93,8 +101,11 @@ void LevelManager::renderMapLayer(int layerID){
 
 bool LevelManager::checkEvent(const int& _x,const int& _y){
 	const Tmx::Layer *layer = currentMap->GetLayer(4);
-	int playerX = (player->getPositionX()+_x-4)/currentMap->GetTileWidth();
-	int playerY = (player->getPositionY()+ _y)/currentMap->GetTileHeight();
+	//int playerX = (player->getPositionX()+_x-4)/currentMap->GetTileWidth();
+	//int playerY = (player->getPositionY()+ _y)/currentMap->GetTileHeight();
+
+	int playerX = (player->getMapOffsetX()+_x-4)/currentMap->GetTileWidth();
+	int playerY = (player->getMapOffsetY()+ _y)/currentMap->GetTileHeight();
 	if(layer->GetTileId(playerX+1,playerY+1)!=0){
 		printf("EVENT!!\n");
 		currentMap->GetProperties().GetList();
@@ -113,51 +124,54 @@ bool LevelManager::checkWalk(const int& _x,const int& _y){
 	int playerY = 0;
 	int playerX2 = 0;
 	int playerY2 = 0;
-	//check if player is within screen
-	if((playerBox->x+ playerBox->w +_x ) > 800 ){
+	//check if player is within level
+	if((player->getMapOffsetX()+ playerBox->w +_x ) > getWidth() && (player->getMapOffsetX()+ playerBox->w +_x ) < 0 ){
 		return false;
 	}
-	if((playerBox->y+ playerBox->h +_y ) > 600 ){
+	if((player->getMapOffsetY()+ playerBox->h +_y ) > getHeight() && (player->getMapOffsetY()+ playerBox->h +_y ) < 0()){
 		return false;
 	}
 	const Tmx::Layer *layer = currentMap->GetLayer(3);
 
 	//check what id is the tile where the is player on
 	//player is moving to the left
-	//printf("Player is currently on tile(%d,%d) position(%d,%d)\n", (playerBox->x/currentMap->GetTileWidth()), (playerBox->y/currentMap->GetTileHeight()),playerBox->x, playerBox->y);
+	//printf("Player is currently on tile(%d,%d) position(%d,%d)\n", (player->getMapOffsetX()/currentMap->GetTileWidth()), (playerBox->y/currentMap->GetTileHeight()),playerBox->x, playerBox->y);
 
 	if(_y ==0 && _x < 0){	
-		playerX = (playerBox->x + _x + playerBox->w / 4)/ currentMap->GetTileWidth();
-		playerX2 = (playerBox->x + _x + playerBox->w / 4)/ currentMap->GetTileWidth();
-		playerY = (playerBox->y + (playerBox->h - playerBox->h/4 ) + _y) / currentMap->GetTileHeight();
-		playerY2 = (playerBox->y + playerBox->h / 2 + _y) / currentMap->GetTileHeight();
+		playerX = (player->getMapOffsetX() + _x + playerBox->w / 4)/ currentMap->GetTileWidth();
+		playerX2 = (player->getMapOffsetX() + _x + playerBox->w / 4)/ currentMap->GetTileWidth();
+		playerY = (player->getMapOffsetY() + (playerBox->h - playerBox->h/4 ) + _y) / currentMap->GetTileHeight();
+		playerY2 = (player->getMapOffsetY() + playerBox->h / 2 + _y) / currentMap->GetTileHeight();
 	}
 	//player is moving to the right
 	if(_y==0 && _x>0){
-		playerX = (playerBox->x + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
-		playerX2 = (playerBox->x + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
-		playerY = (playerBox->y + playerBox->h - 8) /currentMap->GetTileHeight();
-		playerY2 = (playerBox->y + playerBox->h / 2) / currentMap->GetTileHeight();
+		playerX = (player->getMapOffsetX() + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
+		playerX2 = (player->getMapOffsetX() + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
+		playerY = (player->getMapOffsetY() + playerBox->h - 8) /currentMap->GetTileHeight();
+		playerY2 = (player->getMapOffsetY() + playerBox->h / 2) / currentMap->GetTileHeight();
 		//ayerY = (playerBox->y + playerBox->h / 4) /currentMap->GetTileHeight();
 	}
 	//player moving up
 	if(_x==0 && _y < 0){
-		playerX = (playerBox->x + _x + playerBox->w / 4)/ currentMap->GetTileWidth();	
-		playerX2 = (playerBox->x + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
-		playerY = (playerBox->y + playerBox->h / 2 + _y) / currentMap->GetTileHeight();
-		playerY2 = (playerBox->y + playerBox->h / 2 + _y) / currentMap->GetTileHeight();
+		playerX = (player->getMapOffsetX() + _x + playerBox->w / 4)/ currentMap->GetTileWidth();	
+		playerX2 = (player->getMapOffsetX() + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
+		playerY = (player->getMapOffsetY() + playerBox->h / 2 + _y) / currentMap->GetTileHeight();
+		playerY2 = (player->getMapOffsetY() + playerBox->h / 2 + _y) / currentMap->GetTileHeight();
 	}
 	//player moving down
 	if(_x==0 && _y > 0){
-		playerX = (playerBox->x + _x + playerBox->w / 4)/ currentMap->GetTileWidth();
-		playerY = (playerBox->y + playerBox->h)/currentMap->GetTileHeight();
-		playerX2 = (playerBox->x + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
-		playerY2 = (playerBox->y + playerBox->h / 2) / currentMap->GetTileHeight();
+		playerX = (player->getMapOffsetX() + _x + playerBox->w / 4)/ currentMap->GetTileWidth();
+		playerY = (player->getMapOffsetY() + playerBox->h)/currentMap->GetTileHeight();
+		playerX2 = (player->getMapOffsetX() + (playerBox->w - playerBox->w / 4) + _x) / currentMap->GetTileWidth();
+		playerY2 = (player->getMapOffsetY() + playerBox->h / 2) / currentMap->GetTileHeight();
 	}
 	//printf("walking to tile(%d,%d)\n", playerX,playerY);
 	//if(layer->GetTileId(playerX,playerY)==0 )
 	if(layer->GetTileId(playerX,playerY)==0 && layer->GetTileId(playerX2,playerY2)==0 ){
 		player->move(_x,_y);
+		
+		scene->updateCamera(_x,_y);
+		scene->setCamera();
 		//printf("Player is going to tile(%d,%d) position(%d,%d)\n", ((playerBox->x+_x)/currentMap->GetTileWidth()), ((playerBox->y+_y)/currentMap->GetTileHeight()),playerBox->x + _x, playerBox->y + _y);
 	}
 	//else{

@@ -109,8 +109,8 @@ void SceneManager::updateCamera(float x, float y){
 	camera.y += (Sint16)y;
 }
 void SceneManager::setCamera(){
-	camera.x = (Sint16) ((player->getPositionX() + 8) - winWidth/2);
-	camera.y = (Sint16) ((player->getPositionY() + 16) - winHeight/2);
+	camera.x = (Sint16) ((player->getMapOffsetX() + 8) - winWidth/2);
+	camera.y = (Sint16) ((player->getMapOffsetY() + 16) - winHeight/2);
 
 	if( camera.x < 0 )
 	{

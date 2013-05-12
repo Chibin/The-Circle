@@ -94,12 +94,14 @@ int Player::getPositionY(){
 void Player::setPosition(int x, int y){
 	rect.x = x;
 	rect.y = y;
-	mapOffsetX = x;
-	mapOffsetY = y;
+	//mapOffsetX = x;
+	//mapOffsetY = y;
 }
 void Player::move(int x, int y){
 	rect.x += x;
 	rect.y += y;
+	//mapOffsetX += x;
+	//mapOffsetY += y;
 }
 
 SDL_Rect* Player::getPlayerPosition(){
@@ -107,11 +109,21 @@ SDL_Rect* Player::getPlayerPosition(){
 }
 
 void Player::renderPlayer(){
-	SDL_BlitSurface(model,current->GetFrame(),SceneManager::getInstance().getScreen(),&rect);	
+		int x = SceneManager::getInstance().getWindowWidth();
+	int y = SceneManager::getInstance().getWindowHeight();
+	SDL_Rect move = rect;
+	move.x = (rect.x + x/2) % 800;
+	move.y = (rect.y + y/2) % 600;
+	SDL_BlitSurface(model,current->GetFrame(),SceneManager::getInstance().getScreen(),&move);	
 	tempAnim = current->GetFrame();
 }
 void Player::renderLastPlayerFrame(){
-	SDL_BlitSurface(model,tempAnim,SceneManager::getInstance().getScreen(),&rect);	
+	int x = SceneManager::getInstance().getWindowWidth();
+	int y = SceneManager::getInstance().getWindowHeight();
+	SDL_Rect move = rect;
+	move.x = (rect.x + x/2) % 800;
+	move.y = (rect.y + y/2) % 600;
+	SDL_BlitSurface(model,tempAnim,SceneManager::getInstance().getScreen(),&move);	
 
 }
 Animation* Player::getAnimDown(){
@@ -150,8 +162,8 @@ void Player::setAnimState(Player::MoveState state){
 }
 
 int Player::getMapOffsetX(){
-return mapOffsetX;
+	return rect.x;
 }
 int Player::getMapOffsetY(){
-return mapOffsetY;
+	return rect.y;
 }

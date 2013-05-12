@@ -334,7 +334,6 @@
  </layer>
  <objectgroup name="npc" width="100" height="70">
   <object gid="98" x="192" y="40"/>
-  <object gid="1973" x="670" y="370"/>
  </objectgroup>
  <layer name="Event" width="100" height="70">
   <properties>
