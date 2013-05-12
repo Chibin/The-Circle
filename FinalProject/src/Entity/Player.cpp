@@ -99,7 +99,11 @@ void Player::setPosition(int x, int y){
 }
 void Player::move(int x, int y){
 	rect.x += x;
+	if(rect.x < 0)
+		rect.x = 0;
 	rect.y += y;
+	if(rect.y <0)
+		rect.y =0;
 	//mapOffsetX += x;
 	//mapOffsetY += y;
 }
@@ -109,7 +113,7 @@ SDL_Rect* Player::getPlayerPosition(){
 }
 
 void Player::renderPlayer(){
-		int x = SceneManager::getInstance().getWindowWidth();
+	int x = SceneManager::getInstance().getWindowWidth();
 	int y = SceneManager::getInstance().getWindowHeight();
 	SDL_Rect move = rect;
 	move.x = (rect.x + x/2) % 800;

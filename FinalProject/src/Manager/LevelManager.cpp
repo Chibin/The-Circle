@@ -76,12 +76,14 @@ void LevelManager::renderMapLayer(int layerID){
 	{
 		for (int y = 0; y < scene->getWindowHeight()/16; ++y) 
 		{
-			if(layer->GetTileId(x,y)==0)
+			drawX = cameraX + x;
+			drawY = cameraY + y;
+			if(layer->GetTileId(drawX,cameraY)==0)
 				continue;
 			//get the id of the tile and mod it by the colAmount to get the number in that row
 			//
-			drawX = cameraX + x;
-			drawY = cameraY + y;
+			//drawX = cameraX + x;
+		//	drawY = cameraY + y;
 			//printf("start loc x: %d, y: %d\n", drawX,drawY );
 			int colNum = (layer->GetTileId(drawX,drawY)%colAmount)-1;
 			int rowNum = (layer->GetTileId(drawX,drawY)/colAmount-1);
@@ -106,12 +108,12 @@ bool LevelManager::checkEvent(const int& _x,const int& _y){
 
 	int playerX = (player->getMapOffsetX()+_x-4)/currentMap->GetTileWidth();
 	int playerY = (player->getMapOffsetY()+ _y)/currentMap->GetTileHeight();
-	if(layer->GetTileId(playerX+1,playerY+1)!=0){
-		printf("EVENT!!\n");
-		currentMap->GetProperties().GetList();
+	if(layer->GetTileId(playerX+1,playerY+1) > 0  ){
+		printf("EVENT at x:%d, y:%d, row:%d, col:%d\n", (player->getMapOffsetX()+_x-4), (player->getMapOffsetY()+ _y),playerX, playerY);
+		printf("TileID: %d\n",layer->GetTileId(playerX+1,playerY+1));
 		int buff2 = layer->GetTileId(playerX+1,playerY+1);
 		int buff = layer->GetTileTilesetIndex(playerX,playerY);
-		scene->setGameScene(SceneManager::EVENT);
+		//scene->setGameScene(SceneManager::EVENT);
 	}
 	return false;
 }
@@ -125,17 +127,17 @@ bool LevelManager::checkWalk(const int& _x,const int& _y){
 	int playerX2 = 0;
 	int playerY2 = 0;
 	//check if player is within level
-	if((player->getMapOffsetX()+ playerBox->w +_x ) > getWidth() && (player->getMapOffsetX()+ playerBox->w +_x ) < 0 ){
+	if((player->getMapOffsetX()+ playerBox->w +_x ) > getWidth() || (player->getMapOffsetX()+ playerBox->w +_x ) < 0 ){
 		return false;
 	}
-	if((player->getMapOffsetY()+ playerBox->h +_y ) > getHeight() && (player->getMapOffsetY()+ playerBox->h +_y ) < 0()){
+	if((player->getMapOffsetY()+ playerBox->h +_y ) > getHeight() || (player->getMapOffsetY()+ playerBox->h +_y ) < 0()){
 		return false;
 	}
 	const Tmx::Layer *layer = currentMap->GetLayer(3);
 
 	//check what id is the tile where the is player on
 	//player is moving to the left
-	//printf("Player is currently on tile(%d,%d) position(%d,%d)\n", (player->getMapOffsetX()/currentMap->GetTileWidth()), (playerBox->y/currentMap->GetTileHeight()),playerBox->x, playerBox->y);
+	printf("Player is currently on tile(%d,%d) position(%d,%d)\n", (player->getMapOffsetX()/currentMap->GetTileWidth()), (player->getMapOffsetY()/currentMap->GetTileHeight()),player->getMapOffsetX(), player->getMapOffsetY());
 
 	if(_y ==0 && _x < 0){	
 		playerX = (player->getMapOffsetX() + _x + playerBox->w / 4)/ currentMap->GetTileWidth();
@@ -170,7 +172,7 @@ bool LevelManager::checkWalk(const int& _x,const int& _y){
 	if(layer->GetTileId(playerX,playerY)==0 && layer->GetTileId(playerX2,playerY2)==0 ){
 		player->move(_x,_y);
 		
-		scene->updateCamera(_x,_y);
+		scene->updateCamera(_x*2,_y*2);
 		scene->setCamera();
 		//printf("Player is going to tile(%d,%d) position(%d,%d)\n", ((playerBox->x+_x)/currentMap->GetTileWidth()), ((playerBox->y+_y)/currentMap->GetTileHeight()),playerBox->x + _x, playerBox->y + _y);
 	}
