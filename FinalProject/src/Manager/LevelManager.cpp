@@ -59,7 +59,7 @@ void LevelManager::loadMap(char* mapName){
 	levelHeight = currentMap->GetLayer(0)->GetHeight();
 }
 
-//0 = base tile, 1 = secondary tiles, 2 = collision objects, 3 = collision tiles, 4 = event tiles
+//0 = base tile, 1 = secondary tiles, 2 = collision objects, 3 = collision tiles, 4 = NPC's layer
 void LevelManager::renderMapLayer(int layerID){
 	int colAmount = currentMap->GetTileset(0)->GetImage()->GetWidth()/currentMap->GetTileWidth(); 
 	SDL_Rect srcRect;
@@ -90,7 +90,7 @@ void LevelManager::renderMapLayer(int layerID){
 }
 
 bool LevelManager::checkEvent(const int& _x,const int& _y){
-	const Tmx::Layer *layer = currentMap->GetLayer(4);
+	const Tmx::Layer *layer = currentMap->GetLayer(5);//4);
 	int playerX = (player->getPositionX()+_x-4)/currentMap->GetTileWidth();
 	int playerY = (player->getPositionY()+ _y)/currentMap->GetTileHeight();
 	if(layer->GetTileId(playerX+1,playerY+1)!=0){
@@ -165,8 +165,32 @@ bool LevelManager::checkWalk(const int& _x,const int& _y){
 
 	return false;
 }
-
+// This function should use the tmx file and get the npc object layer from currentmap
+// It should then go through and add every NPC character to the level displayed.
 void LevelManager::loadNPC(void)
 {
+	const Tmx::ObjectGroup* npcGroup = currentMap->GetObjectGroup(0); // NPC is the first object group so id=0
+	for(int i=0; i < npcGroup->GetNumObjects(); ++i) // to iterate through all the objects
+	{
+		const Tmx::Object* npcObject = npcGroup->GetObject(i); // get single npc object
+		int npcIndex = -1; // temp var for easier access
+		if( npcObject->GetName() == "guy1")
+		{
+			NPCvector.push_back(new NPC_guy1);
+			npcIndex = NPCvector.size()-1;
+		}	
+		if( npcObject->GetName() == "girl1")
+		{
+			NPCvector.push_back(new NPC_girl1);
+			npcIndex = NPCvector.size()-1;
+		}
+		if(npcIndex == -1)
+			std::cout << "Oh No! ... this is a no no" << std::endl;
+
+		SDL_Rect* tempRect = NPCvector[npcIndex]->getRect(); // set the Rect coordinate for the NPC
+		tempRect->x = npcObject->GetX();
+		tempRect->y = npcObject->GetY();
+		SDL_BlitSurface(NPCvector[npcIndex]->getSurface(), NPCvector[npcIndex]->getAnimation()->GetFrame(), scene->getScreen(), NPCvector[npcIndex]->getRect());
+	}
 
 }

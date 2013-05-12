@@ -46,5 +46,4 @@ public:
 	friend class Scene;
 };
 
-
 #endif

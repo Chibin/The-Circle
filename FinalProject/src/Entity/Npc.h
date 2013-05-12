@@ -5,6 +5,8 @@
 #include "SDL_image.h"
 #include <string> // for name
 
+class Animation;
+
 class NPC : public Entity
 {
 protected:

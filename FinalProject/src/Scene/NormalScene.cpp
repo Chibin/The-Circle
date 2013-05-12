@@ -153,7 +153,7 @@ void NormalScene::display(){
 	//level->renderMapLayer(3);
 	//draws where events should happen
 	//level->renderMapLayer(4);
-
+	level->loadNPC(); // load NPCs layer
 	SDL_Flip(scene->getScreen());
 }
 void NormalScene::disposeResources(){

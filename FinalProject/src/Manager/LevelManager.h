@@ -6,6 +6,7 @@
 #include "SceneManager.h"
 #include "GameManager.h"
 #include "../Entity/Player.h"
+#include "../Entity/NPC.h"
 class Tmx::Map;
 class Player;
 class LevelManager{
@@ -38,7 +39,8 @@ public:
 	void renderMapLayer(int);
 	bool checkWalk(const int& x,const int& y);
 	bool checkEvent(const int& x,const int& y);
-	void loadNPC(void);
+	vector<NPC*> NPCvector; // vector of NPC pointer to keep track of all NPCs
+	void loadNPC(void); // add NPCs to the NPCvector and display them
 };
 
 
