@@ -1,6 +1,7 @@
 #include "LevelManager.h"
 #include <iostream>
-
+#include "../Entity/Player.h"
+#include "../Entity/Npc.h"
 LevelManager& LevelManager::getInstance(){
 	static LevelManager instance;
 	return instance;
