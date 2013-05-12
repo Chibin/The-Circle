@@ -22,8 +22,8 @@ SceneManager::SceneManager(){
 	currentScene = new OpeningScene();
 	player = &Player::getInstance();
 	gameScene = OPENINGMENU;
-	camera.h = winHeight;
-	camera.w = winWidth;
+	camera.h = (Uint16)winHeight;
+	camera.w = (Uint16)winWidth;
 	camera.x = 0;
 	camera.y = 0;
 }
@@ -105,12 +105,12 @@ void SceneManager::setGameScene(SceneManager::GameScene _gameScene){
 	gameScene = _gameScene;
 }
 void SceneManager::updateCamera(float x, float y){
-	camera.x += x;
-	camera.y += y;
+	camera.x += (Sint16)x;
+	camera.y += (Sint16)y;
 }
 void SceneManager::setCamera(){
-	camera.x =  (player->getPositionX() + 8) - winWidth/2;
-	camera.y = (player->getPositionY() + 16) - winHeight/2;
+	camera.x = (Sint16) ((player->getPositionX() + 8) - winWidth/2);
+	camera.y = (Sint16) ((player->getPositionY() + 16) - winHeight/2);
 
 	if( camera.x < 0 )
 	{
