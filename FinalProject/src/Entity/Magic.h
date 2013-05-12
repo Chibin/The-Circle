@@ -2,6 +2,7 @@
 #define MAGIC_H_
 #include <iostream>
 #include <string>
+#include "Item.h"
 class Magic{
 	private:
 	public: //enums needs ot be public, will rearange later
@@ -16,28 +17,13 @@ class Magic{
 		std::string MagicName;
 	public:
 		Magic(){}
-		void setMagicType(enum magicType _mType){
-			mType = _mType;
-		}
-		magicType getMagicType(){
-			return mType;
-		}	
-		void setTargetType(enum targetType _tType){
-			tType = _tType;
-		}
-		targetType getMagicTargetType(){
-			return tType;
-		}
-		void setMagicDamage(int mDamage){
-			magicDamage = mDamage;
-		}
-		void setMagicName(std::string Name){
-			MagicName = Name;
-		}
-		void setTextLocation(Sint16 x, Sint16 y){
-			magicLoc.x = x;
-			magicLoc.y = y;
-		}
+		void setMagicType(enum magicType _mType){mType = _mType;}
+		magicType getMagicType(){return mType;}	
+		void setTargetType(enum targetType _tType){	tType = _tType;}
+		targetType getMagicTargetType(){return tType;}
+		void setMagicDamage(int mDamage){magicDamage = mDamage;}
+		void setMagicName(std::string Name){MagicName = Name;}
+		void setTextLocation(Sint16 x, Sint16 y){magicLoc.x = x;	magicLoc.y = y;}
 		void setMagicTextImage(){
 			TTF_Font* font;
 			font = TTF_OpenFont("../Fonts/coolvetica.ttf",35); //used to be 30 for manga temple
@@ -45,16 +31,11 @@ class Magic{
 			magicTextImage[0] =TTF_RenderText_Blended(font,MagicName.c_str(),fgColor);
 			fgColor.b = 255;
 			magicTextImage[1] =TTF_RenderText_Blended(font,MagicName.c_str(),fgColor); 
+			TTF_CloseFont(font);
 		}
-		int getMagicDamage(){
-			return magicDamage;
-		}
-		std::string getMagicName(){
-			return MagicName;
-		}
-		SDL_Surface** getMagicTextImage(){
-			return magicTextImage;
-		}
+		int getMagicDamage(){return magicDamage;}
+		std::string getMagicName(){return MagicName;	}
+		SDL_Surface** getMagicTextImage(){return magicTextImage;	}
 };
 
 class DemonFang : public Magic{
@@ -127,20 +108,5 @@ class FirstAid: public Magic{
 		setMagicName("First Aid");
 		setMagicTextImage();
 		}
-};
-
-class Item{
-	private:
-	public:
-		enum itemActiveOn{BATTLE,NORMAL,BATTLE_NORMAL};
-		enum itemType{CONSUMABLE,EQUIPMENT,ETC};
-		enum itemEffect{HEAL,DAMAGE,BUFF,DEBUFF};
-		Item(){}
-protected:
-};
-class Equipment : public Item{
-	public:
-		
-	private:
 };
 #endif

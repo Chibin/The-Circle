@@ -116,6 +116,10 @@ void BattleScene::eventHandler(SDL_Event& event){
 							battleMenu = MAGIC;
 						else if(battleMenu == magicTargetSelect)
 							battleMenu = isMagic;
+						else if(battleMenu == isItem)
+							battleMenu = ITEM;
+						else if(battleMenu == itemSelect)
+							battleMenu = isItem;
 						break;
 					case SDLK_ESCAPE:
 						scene->setGameScene(SceneManager::NORMAL);

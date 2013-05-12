@@ -17,6 +17,7 @@ protected:
 	int gold; //or whatever our currency is
 	int	experience, maxExperience;
 	std::vector<Magic> mAbilities;
+	std::vector<Item> bag;
 	std::string Name;
 	TTF_Font* font;
 public:
@@ -44,7 +45,10 @@ public:
 	int getMaxHP();
 	int getMaxMP();
 	void forgetAllMagicAbilities(){mAbilities.clear();}
+	void dropAllItems(){bag.clear();}
 	void learnMagicAbility(Magic mSkill);
+	void storeItem(Item newItem);
+	std::vector<Item> getBag(){return bag;}
 	std::vector<Magic> getMagicAbilities(){return mAbilities;}
 	status getStats();
 };

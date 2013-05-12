@@ -8,7 +8,9 @@ BattleHandler::BattleHandler(){
 	magicMenuTrigger = false;
 	mobSelected = 0;
 	magicSelected = 0;
+	itemSelected = 0;
 	prevmagicSelected = 0;
+	previtemSelected = 0;
 	playerDead = false;
 	drawingText = false; 
 	drawingComplete = false;
@@ -23,6 +25,11 @@ BattleHandler::BattleHandler(){
 	player->learnMagicAbility((Magic)newMagic5);
 	player->learnMagicAbility((Magic)newMagic6);
 	player->learnMagicAbility((Magic)newMagic7);
+	//temporary items
+	player->dropAllItems();
+	Potion item1;
+	player->storeItem((Item)item1);
+	player->storeItem((Item)item1);
 	font = TTF_OpenFont("../Fonts/coolvetica.ttf",30);
 }
 void BattleHandler::loadMobs(std::vector<Mob*>* _mobs){
@@ -191,50 +198,50 @@ void BattleHandler::magicDamage(Magic selectedMagic,std::vector<Entity*>* inOrde
 	SDL_Color deadColor = {255,50,0};
 	switch(selectedMagic.getMagicTargetType()){
 		case Magic::SINGLE:{
-			std::ostringstream oss;
-			oss << player->getName() << " attacked " << (*mobs)[mobSelected]->getName() << " for " << selectedMagic.getMagicDamage() << " damage!";
-			temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
-			battleText.push_back(temp);
-			(*mobs)[mobSelected]->setHP((*mobs)[mobSelected]->getHP()-selectedMagic.getMagicDamage());
-			if((*mobs)[mobSelected]->getHP() <= 0){
-				std::ostringstream dead;
-				dead << (*mobs)[mobSelected]->getName() << " has been slain.";
-				temp = TTF_RenderText_Blended(font,dead.str().c_str(),deadColor);
-				battleText.push_back(temp);
-				for(int i = 0; i < (int)inOrder->size();i++)
-					if((*mobs)[mobSelected] == (*inOrder)[i])
-						inOrder->erase(inOrder->begin()+i);
-				delete (*mobs)[mobSelected];
-				mobs->erase(mobs->begin()+mobSelected);
-				//add to exp gained this fight
-				}
-			break;
-		}
+							   std::ostringstream oss;
+							   oss << player->getName() << " attacked " << (*mobs)[mobSelected]->getName() << " for " << selectedMagic.getMagicDamage() << " damage!";
+							   temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
+							   battleText.push_back(temp);
+							   (*mobs)[mobSelected]->setHP((*mobs)[mobSelected]->getHP()-selectedMagic.getMagicDamage());
+							   if((*mobs)[mobSelected]->getHP() <= 0){
+								   std::ostringstream dead;
+								   dead << (*mobs)[mobSelected]->getName() << " has been slain.";
+								   temp = TTF_RenderText_Blended(font,dead.str().c_str(),deadColor);
+								   battleText.push_back(temp);
+								   for(int i = 0; i < (int)inOrder->size();i++)
+									   if((*mobs)[mobSelected] == (*inOrder)[i])
+										   inOrder->erase(inOrder->begin()+i);
+								   delete (*mobs)[mobSelected];
+								   mobs->erase(mobs->begin()+mobSelected);
+								   //add to exp gained this fight
+							   }
+							   break;
+						   }
 		case Magic::AOE:{
-			for(int i = 0; i < (int)mobs->size();i++){
-				std::ostringstream oss;
-				oss << player->getName() << " attacked " << (*mobs)[i]->getName() << " for " << selectedMagic.getMagicDamage() << " damage!";
-				temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
-				battleText.push_back(temp);
-				(*mobs)[i]->setHP((*mobs)[i]->getHP()-selectedMagic.getMagicDamage());
-				if((*mobs)[i]->getHP() <= 0){
-					std::ostringstream dead;
-					dead << (*mobs)[i]->getName() << " has been slain.";
-					temp = TTF_RenderText_Blended(font,dead.str().c_str(),deadColor);
-					battleText.push_back(temp);
-					for(int j = 0; j < (int)inOrder->size();j++)
-						if((*mobs)[i] == (*inOrder)[j])
-							inOrder->erase(inOrder->begin()+j);
-					delete (*mobs)[i];
-					mobs->erase(mobs->begin()+i);
-					i--;
-					//add to exp gained this fight
-					}
-			}
-			break;
-		}
+							for(int i = 0; i < (int)mobs->size();i++){
+								std::ostringstream oss;
+								oss << player->getName() << " attacked " << (*mobs)[i]->getName() << " for " << selectedMagic.getMagicDamage() << " damage!";
+								temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
+								battleText.push_back(temp);
+								(*mobs)[i]->setHP((*mobs)[i]->getHP()-selectedMagic.getMagicDamage());
+								if((*mobs)[i]->getHP() <= 0){
+									std::ostringstream dead;
+									dead << (*mobs)[i]->getName() << " has been slain.";
+									temp = TTF_RenderText_Blended(font,dead.str().c_str(),deadColor);
+									battleText.push_back(temp);
+									for(int j = 0; j < (int)inOrder->size();j++)
+										if((*mobs)[i] == (*inOrder)[j])
+											inOrder->erase(inOrder->begin()+j);
+									delete (*mobs)[i];
+									mobs->erase(mobs->begin()+i);
+									i--;
+									//add to exp gained this fight
+								}
+							}
+							break;
+						}
 		default:
-			break;
+						break;
 	}
 }
 void BattleHandler::magicHeal(Magic selectedMagic,std::vector<Entity*>* inOrder){
@@ -242,18 +249,18 @@ void BattleHandler::magicHeal(Magic selectedMagic,std::vector<Entity*>* inOrder)
 	SDL_Color fgColor = {0,255,50};
 	switch(selectedMagic.getMagicTargetType()){
 		case Magic::SINGLE:{
-			std::ostringstream oss;
-			oss << player->getName() << " healed " << player->getName() << " for " << selectedMagic.getMagicDamage() << " health!";
-			temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
-			battleText.push_back(temp);
-			player->setHP(player->getHP()+selectedMagic.getMagicDamage());
-			cout << player->getHP() << endl;
-			break;
-		}
+							   std::ostringstream oss;
+							   oss << player->getName() << " healed " << player->getName() << " for " << selectedMagic.getMagicDamage() << " health!";
+							   temp = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
+							   battleText.push_back(temp);
+							   player->setHP(player->getHP()+selectedMagic.getMagicDamage());
+							   cout << player->getHP() << endl;
+							   break;
+						   }
 		case Magic::AOE:
-			break;
+						   break;
 		default:
-			break;
+						   break;
 	}
 }
 void BattleHandler::magicBuff(Magic selectedMagic,std::vector<Entity*>* inOrder){
@@ -286,7 +293,7 @@ void BattleHandler::textUpdate(int& battleMenu){
 			battleText.erase(battleText.begin());
 		else if(battleMenu == endPhase && bpLoopCheck == 0)
 			endBattleText.erase(endBattleText.begin());
-	//	bpLoopCheck++;
+		//	bpLoopCheck++;
 	}
 	else if(drawingText){
 		drawingComplete = true;
@@ -299,8 +306,14 @@ void BattleHandler::battleDisplayUpdate(int& battleMenu){
 	else if(battleMenu == isMagic){
 		magicMenuDisplay();
 	}
+	else if(battleMenu == isItem){
+		itemMenuDisplay();
+	}
 	else if(battleMenu == magicTargetSelect){
 		magicSelectDisplay();
+	}
+	else if(battleMenu == itemSelect){
+		itemSelectDisplay();
 	}
 	if(battleMenu == battlePhase){
 		battlePhaseDisplay(battleMenu);	
@@ -326,23 +339,50 @@ void BattleHandler::monsterSelectDisplay(int& battleMenu){
 	}
 }
 
+void BattleHandler::itemMenuDisplay(){
+	int x = 0, y = 0,  j = 0, scrollLimit =5;
+	SDL_Rect* mobRect = new SDL_Rect[player->getBag().size()];
+	SDL_Rect amountLoc;
+	for(int i = indexScrollDeteminer(previtemSelected,itemSelected,scrollLimit) ; i < (int)player->getBag().size() && j < 5; i++){
+		mobRect[i].x = 210; mobRect[i].y = 365+j*40;
+		amountLoc.x = 390; amountLoc.y = mobRect[i].y;
+		if(magicSelected == i){
+			SDL_BlitSurface(player->getBag()[i].getItemTextImage()[0],NULL,scene->getScreen(),&mobRect[i]);
+			if(player->getBag()[i].getItemAmount() > 1)
+				SDL_BlitSurface(player->getBag()[i].getItemAmountTextImage()[0],NULL,scene->getScreen(),&amountLoc);
+		}else{
+			SDL_BlitSurface(player->getBag()[i].getItemTextImage()[1],NULL,scene->getScreen(),&mobRect[i]);
+			if(player->getBag()[i].getItemAmount() > 1)
+				SDL_BlitSurface(player->getBag()[i].getItemAmountTextImage()[1],NULL,scene->getScreen(),&amountLoc);
+		}
+		j++;
+	}
+
+}
+
+void BattleHandler::itemSelectDisplay(){
+
+}
+
 void BattleHandler::magicSelectDisplay(){
 	int x = 50, y = 0;
 	SDL_Rect* mobRect = new SDL_Rect[mobs->size()];
 	Magic selectedMagic = player->getMagicAbilities()[magicSelected];
-		if(selectedMagic.getMagicTargetType() == Magic::SINGLE && selectedMagic.getMagicType() == Magic::DAMAGE){
+	if(selectedMagic.getMagicTargetType() == Magic::SINGLE && selectedMagic.getMagicType() == Magic::DAMAGE){
 		for(int i = 0; i < (int)mobs->size(); i++){
-			mobRect[i].x = i*150+50; mobRect[i].y = 150;
+			mobRect[i].x = x+50; mobRect[i].y = 150;
 			if(mobSelected == i)
 				SDL_BlitSurface((*mobs)[i]->getEnemyText()[0],NULL,scene->getScreen(),&mobRect[i]);
 			else
 				SDL_BlitSurface((*mobs)[i]->getEnemyText()[1],NULL,scene->getScreen(),&mobRect[i]);
+			x += (*mobs)[i]->getEnemyText()[0]->w+50;
 		}
 	}
 	else if(selectedMagic.getMagicTargetType() == Magic::AOE && selectedMagic.getMagicType() == Magic::DAMAGE){
 		for(int i = 0; i < (int)mobs->size(); i++){
-			mobRect[i].x = i*150+50; mobRect[i].y = 150;
+			mobRect[i].x = x+50; mobRect[i].y = 150;
 			SDL_BlitSurface((*mobs)[i]->getEnemyText()[0],NULL,scene->getScreen(),&mobRect[i]);
+			x += (*mobs)[i]->getEnemyText()[0]->w+50;
 		}
 	}
 	else if(selectedMagic.getMagicTargetType() == Magic::SINGLE && selectedMagic.getMagicType() == Magic::HEAL){
@@ -375,20 +415,20 @@ void BattleHandler::magicMenuDisplay(){
 }
 void BattleHandler::textScrollDisplay(std::vector<SDL_Surface*> &textVector,int index,bool& drawingText,bool& drawingComplete, SDL_Rect startPos){
 	if(!drawingText){
-			drawingText = true; drawingComplete = false;
-			textScroller.x = 0; textScroller.y = 0;
-			textScroller.w = 0;
-			textScroller.h = textVector[index]->h;
-		}
-		if(textScroller.w >= textVector[index]->w && drawingComplete == false){
-			drawingComplete = true;
-		}
-		else if(!drawingComplete){
-				textScroller.w++;
-				SDL_BlitSurface(textVector[index],&textScroller,scene->getScreen(),&startPos);
-		}
-		else
-				SDL_BlitSurface(textVector[index],NULL,scene->getScreen(),&startPos);
+		drawingText = true; drawingComplete = false;
+		textScroller.x = 0; textScroller.y = 0;
+		textScroller.w = 0;
+		textScroller.h = textVector[index]->h;
+	}
+	if(textScroller.w >= textVector[index]->w && drawingComplete == false){
+		drawingComplete = true;
+	}
+	else if(!drawingComplete){
+		textScroller.w++;
+		SDL_BlitSurface(textVector[index],&textScroller,scene->getScreen(),&startPos);
+	}
+	else
+		SDL_BlitSurface(textVector[index],NULL,scene->getScreen(),&startPos);
 }
 void BattleHandler::battlePhaseDisplay(int& battleMenu){
 	SDL_Rect bText;
@@ -432,7 +472,7 @@ void BattleHandler::endPhaseDisplay(int& battleMenu){
 	if(bpLoopCheck == -1)
 		bpLoopCheck = 0;
 	if(bpLoopCheck < (int)endBattleText.size())
-			textScrollDisplay(endBattleText,0,drawingText,drawingComplete,bText);
+		textScrollDisplay(endBattleText,0,drawingText,drawingComplete,bText);
 	else{
 		for(int i = 0; i < (int)endBattleText.size(); i++)
 			SDL_FreeSurface(endBattleText[i]);
@@ -460,8 +500,6 @@ void BattleHandler::turnOrder(std::vector<Entity*>* inOrder){
 void BattleHandler::inputHandler(){
 
 }
-
-
 //Monster Selection
 void BattleHandler::moveLeft(){
 	if(mobSelected > 0)
@@ -491,7 +529,7 @@ void BattleHandler::battleHandler(int& battleMenu){
 			MagicMenu();
 			break;
 		case ITEM:
-			cout << "ITEMS WHERE R U" << endl;
+			battleMenu = isItem;
 			break;
 		case RUN:
 			run(battleMenu);
@@ -510,6 +548,12 @@ void BattleHandler::battleHandler(int& battleMenu){
 				//call EXP EVENT?
 				battleMenu = endPhase;
 			}
+			break;
+		case isItem:
+			battleMenu = itemSelect;
+			break;
+		case itemSelect:
+			//call itemStartevent?
 			break;
 		case battlePhase:
 			break;

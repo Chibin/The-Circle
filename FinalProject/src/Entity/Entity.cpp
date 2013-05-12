@@ -11,7 +11,7 @@ void Entity::setStats(int _STR,int _CON, int _DEX,int _AGI, int _INT, int _LCK){
 	stats.STR = _STR;
 	stats.DEX = _DEX;
 	stats.INT = _INT;
-	stats.MAXHP = _CON*1.5;
+	stats.MAXHP = (int)(_CON*1.5);
 	stats.HP = stats.MAXHP;
 	stats.MAXMP = _INT*15;
 	stats.MP = stats.MAXMP;
@@ -30,4 +30,16 @@ int Entity::getINT(){return stats.INT;}
 int Entity::getMaxHP(){return stats.MAXHP;}
 int Entity::getMaxMP(){return stats.MAXMP;}
 void Entity::learnMagicAbility(Magic mSkill){mAbilities.push_back(mSkill);}
+void Entity::storeItem(Item newItem){ 
+	for(unsigned int i = 0; i < bag.size(); i++)
+		if(bag[i].getItemName() == newItem.getItemName() && bag[i].getItemType() != Item::EQUIPMENT){
+			bag[i].setItemAmount(bag[i].getItemAmount()+1);
+			bag[i].freeAmountTextImage();
+			bag[i].setItemAmountTextImage();
+		}
+		else
+			bag.push_back(newItem);
+	if(bag.size() == 0)
+		bag.push_back(newItem);
+}
 Entity::status Entity::getStats(){return stats;}

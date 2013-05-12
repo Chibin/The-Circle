@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\Battle\BattleHandler.h" />
     <ClInclude Include="..\src\Entity\Entity.h" />
+    <ClInclude Include="..\src\Entity\Item.h" />
     <ClInclude Include="..\src\Entity\Magic.h" />
     <ClInclude Include="..\src\Entity\Mob.h" />
     <ClInclude Include="..\src\Entity\Npc.h" />

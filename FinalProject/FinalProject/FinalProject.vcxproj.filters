@@ -425,5 +425,8 @@
     <ClInclude Include="..\src\Scene\CharInfoScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Entity\Item.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

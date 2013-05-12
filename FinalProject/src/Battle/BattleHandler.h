@@ -21,16 +21,16 @@ static bool compareEntity_SPD(Entity* first, Entity* second){
 }
 class BattleHandler{
 	private:
-		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isMagic,isItem,isRun,magicTargetSelect, battlePhase,magicBattlePhase,endPhase,battleEnd};
+		enum battleSelect{FIGHT,ITEM,RUN,MAGIC, isFight,isMagic,isItem,isRun,magicTargetSelect,itemSelect,battlePhase,magicBattlePhase,endPhase,battleEnd};
 		enum battleCondition{MUTAL,PREEMPTIVE,FLANKED};
-		int mobSelected, bpLoopCheck,magicSelected;
+		int mobSelected, bpLoopCheck,magicSelected,itemSelected;
 		Player* player;
 		SceneManager* scene;
 		bool playerDead;
 		TTF_Font* font;
 		std::vector<SDL_Surface*> battleText,endBattleText;
 		std::vector<Mob*>* mobs;
-		int prevPhase, prevmagicSelected;
+		int prevPhase, prevmagicSelected, previtemSelected;
 		bool magicMenuTrigger;
 		bool drawingText;
 		bool drawingComplete;
@@ -59,6 +59,8 @@ class BattleHandler{
 		//Battle Displays
 		void battleDisplayUpdate(int& battleMenu);
 		void monsterSelectDisplay(int& battleMenu);
+		void itemMenuDisplay();
+		void itemSelectDisplay();
 		void magicSelectDisplay();
 		void magicMenuDisplay();
 		void battlePhaseDisplay(int& battleMenu);	
