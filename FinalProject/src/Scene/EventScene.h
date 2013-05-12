@@ -4,9 +4,16 @@
 
 class EventScene : public Scene{
 private:
-	SDL_Surface *bg, *portait, *sideRight, *sideLeft, *textbg;
-	SDL_Rect bgRect, portaitRect, bgRectSrc, portaitRectSrc, sideRect, textbgRect;
+	SDL_Surface *bg, *portait, *sideRight, *sideLeft, *textbg, *menu, *itemListBG, *enter, *wait, *buy, *sell,*bye, *name, *buys[2], *sells[2], *exit[2];
+	SDL_Rect bgRect, portaitRect, bgRectSrc, portaitRectSrc, sideRect, textbgRect, merchantGirl, menuRect, itemListBGRect;
+	TTF_Font* font;
+	enum Type
+	{
+		MERCHANT = 1,SWITCHLEVEL
+	};
 
+	Type currentType;
+	int count, menuCount;
 public:
 	EventScene();
 	void eventHandler(SDL_Event& event);

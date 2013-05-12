@@ -35,8 +35,7 @@ public:
 	int getTotalSprites();
 	int getTotalTiles();
 	void loadMap(char *);
-	void renderMap();
-	void renderMapCollision();
+	void renderMapLayer(int);
 	bool checkWalk(const int& x,const int& y);
 	bool checkEvent(const int& x,const int& y);
 	void loadNPC(void);
