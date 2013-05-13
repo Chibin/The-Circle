@@ -25,7 +25,7 @@ public:
 	virtual Animation* getAnimation(void);
 	virtual void setFrames(void);
 	SDL_Surface* load_imageBlue(std::string file); // function to load images with blue/transparent background
-	~NPC(){}
+	~NPC();
 };
 
 class NPC_girl1 : public NPC

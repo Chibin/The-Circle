@@ -11,6 +11,17 @@ NPC::NPC(){
 	setFrames(); // set the frames
 }
 
+NPC::~NPC()
+{
+	speach.clear();
+	delete npcImage;
+	delete npcUp;
+	delete npcDown;
+	delete npcLeft;
+	delete npcRight;
+	delete currentAnimation;
+}
+
 SDL_Rect* NPC::getRect(void)
 {
 	return &npcRect; // dereference to return a point to the npcRect
