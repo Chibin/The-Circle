@@ -139,7 +139,7 @@ void NormalScene::display(){
 	//level->renderMapLayer(2);
 	//level->renderMapLayer(3);
 	//level->renderMapLayer(4);
-	
+	level->renderMapLayer(2);
 	currentTick = SDL_GetTicks();
 	if(currentTick - lastTick > 150)
 	{
@@ -155,7 +155,7 @@ void NormalScene::display(){
 		std::cout << "Hey..someones talking to you" << std::endl;
 	}
 
-	level->renderMapLayer(2);
+	
 	level->renderNPC(); // render NPCs layer
 	//draws where collision should be at
 	//level->renderMapLayer(3);
