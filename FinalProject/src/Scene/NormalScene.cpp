@@ -9,20 +9,15 @@ NormalScene::NormalScene(){
 	/*******************************************************************************/
 
 	
-
 	/*******************************************************************************/
 	/* ***************************CHARACTER*****************************************/
 	/*******************************************************************************/
-	// NPCs
-	/*npcVector.push_back(new NPC_girl1);
-	npcVector.push_back(new NPC_guy1);
-	SDL_Rect* tempRect = npcVector[0]->getRect();
-	tempRect->x = (Sint16)scene->getWindowWidth()/4;
-	tempRect->y = (Sint16)scene->getWindowHeight()/4;
-	tempRect = npcVector[1]->getRect();
-	tempRect->x = (Sint16)scene->getWindowWidth()*3/4;
-	tempRect->y = (Sint16)scene->getWindowHeight()*3/4;
-	*/
+	textBox = IMG_Load("../Images/npc/bgtext.png");
+	textBox = SDL_DisplayFormatAlpha(textBox);
+	textBoxRect.x = 0;
+	textBoxRect.y = 400;
+	textBoxRect.h = 100;
+	textBoxRect.w = 200;
 	/*******************************************************************************/
 	/*****************************SET SETTINGS**************************************/
 	/*******************************************************************************/
@@ -93,14 +88,11 @@ void NormalScene::eventHandler(SDL_Event& event){
 					{
 						int xdiff = abs(player->getPositionX() - level->NPCvector[i]->getRect()->x);
 						int ydiff = abs(player->getPositionY() - level->NPCvector[i]->getRect()->y);
-						if(xdiff < 5 && ydiff < 5) // some random range
+						if(xdiff < 20 && ydiff < 20) // some random range
 						{
-							//currentState = DIALOGUE; // set state to dialogue
-							SDL_Surface* textBox = IMG_Load("../Images/npc/bgtext.png");
-							textBox = SDL_DisplayFormatAlpha(textBox);
-							SDL_Rect textBoxRect;
-							textBoxRect.x = 0;
-							textBoxRect.y = 400;
+							std::cout << level->NPCvector[i]->getName() << ":\n";
+							level->speakingNPC = i;
+							currentState = DIALOGUE;
 						}
 					}
 					break;
@@ -167,7 +159,18 @@ void NormalScene::display(){
 		player->renderLastPlayerFrame();
 	}
 	if(currentState == DIALOGUE){
-		std::cout << "Hey..someones talking to you" << std::endl;
+		//std::cout << "Hey " << level->NPCvector[level->speakingNPC]->getName() << " is speaking to you." << std::endl;
+		string temp = level->NPCvector[level->speakingNPC]->speak();
+		if (temp != "-1")
+		{
+			std::cout << temp << std::endl;
+			//temp = level->NPCvector[level->speakingNPC]->speak();
+		}
+		else
+		{
+			std::cout << "---------------------------------------------------------------------\n";//std::endl;
+			currentState = ROAM;
+		}
 	}
 
 	level->renderMapLayer(2);

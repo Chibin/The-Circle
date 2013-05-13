@@ -41,6 +41,7 @@ public:
 	bool checkWalk(const int& x,const int& y);
 	bool checkEvent(const int& x,const int& y);
 	vector<NPC*> NPCvector; // vector of NPC pointer to keep track of all NPCs
+	int speakingNPC; // index of the speaking NPC
 	void loadNPC(void); // load NPCs to the NPCvector
 	void renderNPC(void);// display NPC vector
 	void clearNPC(void); // clear the NPC vector 

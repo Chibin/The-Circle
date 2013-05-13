@@ -213,6 +213,7 @@ void LevelManager::loadNPC(void)
 	{
 		const Tmx::Object* npcObject = npcGroup->GetObject(i); // get single npc object
 		int npcIndex = -1; // temp var for easier access
+		speakingNPC = -1; // initialize the index of the speaking NPC
 		//std::cout << "NPC: " << npcObject->GetName().c_str() << std::endl;
 		if( npcObject->GetName() == "guy1")
 		{

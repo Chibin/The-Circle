@@ -14,8 +14,9 @@ class NormalScene : public Scene{
 		SDL_Rect mapRect;
 		PLayerState currentState;
 		int currentTick, lastTick;
-		// vector of NPC pointers
-		//vector<NPC*> npcVector;
+		//For NPC chat box
+		SDL_Surface *textBox;
+		SDL_Rect textBoxRect;
 
 	public:
 		NormalScene();

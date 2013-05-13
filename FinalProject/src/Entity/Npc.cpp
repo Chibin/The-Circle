@@ -3,7 +3,7 @@
 NPC::NPC(){
 	setStats(1,1,1,1,1,1); // need to be set because it is still a Entity instance, but these will never be used.
 	npcName = "Default NPC";
-	speach.push_back("I don't know what kinda of NPC I am. :(");
+	//speach.push_back("I don't know what kinda of NPC I am. :(");
 	// default image - should not be used. But just in case
 	SDL_Surface* tempSurface = IMG_Load("../Images/npc/default.png");
 	npcImage = SDL_DisplayFormatAlpha(tempSurface);
@@ -49,7 +49,7 @@ std::string NPC::speak()
 	if(sentence >= speach.size()) // already said all sentences
 	{
 		sentence = 0; // reset
-		return "ENDofSPEACH"; // special return to know when speach has ended
+		return "-1"; // special return to know when speach has ended
 	}
 	return speach[sentence++];
 }
@@ -91,7 +91,7 @@ void NPC::setFrames(void)
 NPC_girl1::NPC_girl1()
 {
 	npcName = "NPC Girl"; // non original name
-	speach.push_back("Hello, Hero");
+	speach.push_back("Hello, Hero...");
 	speach.push_back("Please protect me from that scary fire head guy!");
 	// should load image
 	//SDL_Surface* tempSurface = IMG_Load("../Images/npc/girl1.bmp");
@@ -105,8 +105,8 @@ NPC_girl1::NPC_girl1()
 NPC_guy1::NPC_guy1()
 {
 	npcName = "NPC Guy";
-	speach.push_back("Hey Mr. have you ever seen a guy his head on fire?");
-	speach.push_back("Well for only 3 gold coins I'll show you someone just like that");
+	speach.push_back("Hey Mr. have you ever seen a guy with his head on fire?");
+	speach.push_back("Well for only 3 gold coins I'll show you someone just like that,");
 	speach.push_back("Fine your lose.");
 	npcImage =  SDL_LoadBMP("../Images/npc/guy1.bmp");
 	SDL_SetColorKey( npcImage, SDL_SRCCOLORKEY, SDL_MapRGB( npcImage->format, 0xff, 0xff, 0xff ) );
@@ -116,8 +116,8 @@ NPC_guy1::NPC_guy1()
 NPC_guyRed::NPC_guyRed()
 {
 	npcName = "Red Guy";
-	speach.push_back("No actually my head is not on Fire ... why do people keep asking that?");
-	speach.push_back("Careful don't fall into that well mysteriously placed hole and latter.");
+	speach.push_back("No actually my head is not on Fire! ... why do people keep asking that?");
+	speach.push_back("Careful don't fall into that mysteriously placed hole and latter.");
 	npcImage = load_imageBlue("../Images/npc/guyRed.bmp");
 	setFrames();
 }
