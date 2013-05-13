@@ -318,6 +318,9 @@
     <ClCompile Include="..\src\Scene\CharInfoScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Entity\BattleAnimations.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Scene\Scene.h">

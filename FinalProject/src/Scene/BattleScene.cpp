@@ -225,6 +225,9 @@ void BattleScene::display(){
 	else if(battleMenu == battlePhase || battleMenu == endPhase)
 		SDL_BlitSurface(textBox,NULL,scene->getScreen(),&textBoxLoc);
 	bManager->battleDisplayUpdate(battleMenu);
+	//display Animations
+	player->getBattleAnimations().drawAnimation(BattleAnimations::IDLE,scene->getScreen(),SDL_GetTicks());
+	//SDL_BlitSurface(player->getImage(BattleAnimations::IDLE),NULL,scene->getScreen(),&textBoxLoc);
 	SDL_Flip(scene->getScreen());
 }
 BattleScene::~BattleScene(){

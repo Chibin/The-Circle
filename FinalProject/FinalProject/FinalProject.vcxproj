@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Battle\BattleHandler.cpp" />
+    <ClCompile Include="..\src\Entity\BattleAnimations.cpp" />
     <ClCompile Include="..\src\Entity\Entity.cpp" />
     <ClCompile Include="..\src\Entity\Mob.cpp" />
     <ClCompile Include="..\src\Entity\NPC.cpp" />

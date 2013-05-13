@@ -20,6 +20,7 @@ protected:
 	std::vector<Item> bag;
 	std::string Name;
 	TTF_Font* font;
+	BattleAnimations bAnim;
 public:
 	// need x and y coor vars for location of the image
 	Entity();
@@ -52,5 +53,10 @@ public:
 	std::vector<Item> getBag(){return bag;}
 	std::vector<Magic> getMagicAbilities(){return mAbilities;}
 	status getStats();
+
+	//for battleAnimations
+	void setAnimation(BattleAnimations::animationState state, std::string path, int maxNumOfFrames, int r, int g, int b);
+	BattleAnimations& getBattleAnimations();
+	SDL_Surface* getImage(BattleAnimations::animationState state);
 };
 #endif
