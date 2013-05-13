@@ -48,13 +48,25 @@ void CharInfoScene::eventHandler(SDL_Event& event){
 			case SDLK_LEFT:
 				switch (currentChoice){
 				case MAIN:
+					mainMenuChoice--;
+					if(mainMenuChoice <0)
+						mainMenuChoice = 0;
 					break;
 				case ITEMS:
-
+					break;
 				}
 				break;
 
 			case SDLK_RIGHT:
+				switch (currentChoice){
+				case MAIN:
+					mainMenuChoice++;
+					if(mainMenuChoice > 3)
+						mainMenuChoice = 3;
+					break;
+				case ITEMS:
+					break;
+				}
 				break;
 			default:
 				break;
@@ -69,8 +81,28 @@ void CharInfoScene::eventHandler(SDL_Event& event){
 
 void CharInfoScene::display(){
 	//	SDL_FillRect(scene->getScreen(),NULL,0x221122);
-	SDL_BlitSurface( bg, NULL, scene->getScreen(), &bgRect);
-	SDL_BlitSurface( menuTop, NULL, scene->getScreen(), &menuTopRect);
+		SDL_BlitSurface( bg, NULL, scene->getScreen(), &bgRect);
+	switch(currentChoice){
+	case MAIN:
+		switch(mainMenuChoice){
+		case 0:
+			SDL_BlitSurface( menuTop, NULL, scene->getScreen(), &menuTopRect);
+			break;
+		case 1:
+			SDL_BlitSurface( menuTop1, NULL, scene->getScreen(), &menuTopRect);
+			break;
+		case 2:
+			SDL_BlitSurface( menuTop2, NULL, scene->getScreen(), &menuTopRect);
+			break;
+		case 3:
+			SDL_BlitSurface( menuTop3, NULL, scene->getScreen(), &menuTopRect);
+			break;
+		}
+		break;
+	default: break;
+	}
+
+	
 	SDL_Flip(scene->getScreen());
 }
 
