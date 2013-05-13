@@ -152,3 +152,15 @@ void Animation::LastFrame(void)
 	CurrentFrame--; // step back one frame
 	if(CurrentFrame < 0) CurrentFrame = NumberOfFrames; // if we underrun the list set to top
 }
+//newly added functions by Marbin
+void Animation::setCurrentFrame(int frameNum){
+	CurrentFrame = 0;
+}
+void Animation::drawFrameUpdate(int timeLapsed){
+	for(int i = 0; i < timeLapsed; i++)
+		NextFrame();
+}
+void Animation::setImage(	string path, int r, int g, int b){
+	image = SDL_LoadBMP(path.c_str());
+	SDL_SetColorKey(image, SDL_SRCCOLORKEY, SDL_MapRGB(image->format, r,g,b));
+}

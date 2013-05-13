@@ -5,7 +5,7 @@
 #include <SDL_ttf.h>
 #include <vector>
 #include "Magic.h"
-
+//#include "BattleAnimations.h" I BREAKSSSS IF I ADD THIS T_T
 class Entity{
 protected:
 	struct status{

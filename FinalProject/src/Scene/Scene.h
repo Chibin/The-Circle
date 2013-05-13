@@ -38,12 +38,17 @@ class Animation  {
 	int NumberOfFrames;
 	int CurrentFrame;
 	SDL_Rect* rectangles;
+	SDL_Surface* image;
 public:
 	void Init( int number_of_frames );
 	SDL_Rect* GetFrame(void);
 	void SetFrame( int frame_number, int x, int y, int w, int h);
 	void NextFrame(void);
 	void LastFrame(void);
+	//added by Marbin
+	void setCurrentFrame(int frameNum);
+	void setImage(	string path, int r, int g, int b);
+	void drawFrameUpdate(int timeLapsed);
 	friend class Scene;
 };
 
