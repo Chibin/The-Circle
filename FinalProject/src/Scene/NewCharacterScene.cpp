@@ -291,6 +291,8 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 						std::cout << "\t AGI: " << editStats[3] << std::endl;
 						std::cout << "\t INT: " << editStats[4] << std::endl;
 						std::cout << "\t LUK: " << editStats[5] << std::endl;
+						Player::getInstance().setPlayer(false);
+						level->loadMap("testLevel2");
 						scene->setGameScene(SceneManager::NORMAL);
 					}
 					break;
@@ -307,12 +309,13 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 							player->setType(Player::NATILIA);
 						}
 						std::cout << "Starting Stats:\n\t STR: " << editStats[0] << std::endl;
-				std::cout << "\t CON: " << editStats[1] << std::endl;
+						std::cout << "\t CON: " << editStats[1] << std::endl;
 						std::cout << "\t DEX: " << editStats[2] << std::endl;
 						std::cout << "\t AGI: " << editStats[3] << std::endl;
 						std::cout << "\t INT: " << editStats[4] << std::endl;
 						std::cout << "\t LUK: " << editStats[5] << std::endl;
 						Player::getInstance().setPlayer(false);
+						level->loadMap("testLevel2");
 						scene->setGameScene(SceneManager::NORMAL);
 					}
 
@@ -389,7 +392,7 @@ void NewCharScreen::display(){
 		}
 		if(currentStage == STATS){
 			SDL_BlitSurface(femalebgp2,NULL,scene->getScreen(),&femalebgp2Rect);
-		//	SDL_BlitSurface(femalebg,NULL,scene->getScreen(),&femaleBgRect);
+			//	SDL_BlitSurface(femalebg,NULL,scene->getScreen(),&femaleBgRect);
 		}
 
 	}
@@ -473,7 +476,7 @@ void NewCharScreen::disposeResources(){
 	SDL_FreeSurface( bg );
 	SDL_FreeSurface( bg1 );
 	SDL_FreeSurface( malebg );
-//	SDL_FreeSurface( femalebg );
+	//	SDL_FreeSurface( femalebg );
 	SDL_FreeSurface( malebgp2 );
 	SDL_FreeSurface( femalebgp2 );
 	SDL_FreeSurface( arrows );

@@ -164,3 +164,9 @@ void Animation::setImage(	string path, int r, int g, int b){
 	image = SDL_LoadBMP(path.c_str());
 	SDL_SetColorKey(image, SDL_SRCCOLORKEY, SDL_MapRGB(image->format, r,g,b));
 }
+SDL_Surface* Animation::getImage(){
+	return image;
+}
+SDL_Rect* Animation::getFrame(int frame){
+	return &rectangles[frame];
+}

@@ -53,3 +53,15 @@ void Entity::storeItem(Item newItem){
 		bag.push_back(newItem);
 }
 Entity::status Entity::getStats(){return stats;}
+
+	void Entity::setAnimation(BattleAnimations::animationState state, std::string path, int maxNumOfFrames, int r, int g, int b){
+		if(state == BattleAnimations::IDLE){
+			bAnim.setIdleImage(path,maxNumOfFrames,r,g,b);
+		}
+	}
+	SDL_Surface* Entity::getImage(BattleAnimations::animationState state){
+		if(state == BattleAnimations::IDLE)
+			return bAnim.getIdleImage();
+		return NULL;
+	}
+	BattleAnimations& Entity::getBattleAnimations(){ return bAnim;}

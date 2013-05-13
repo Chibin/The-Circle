@@ -48,6 +48,8 @@ public:
 	//added by Marbin
 	void setCurrentFrame(int frameNum);
 	void setImage(	string path, int r, int g, int b);
+	SDL_Surface* getImage();
+	SDL_Rect* getFrame(int frame);
 	void drawFrameUpdate(int timeLapsed);
 	friend class Scene;
 };

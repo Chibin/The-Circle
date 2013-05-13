@@ -320,6 +320,8 @@
     </ClCompile>
     <ClCompile Include="NPCchat.cpp">
       <Filter>Source Files\Scene</Filter>
+    <ClCompile Include="..\src\Entity\BattleAnimations.cpp">
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
