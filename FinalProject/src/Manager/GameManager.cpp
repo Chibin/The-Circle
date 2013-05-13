@@ -71,7 +71,10 @@ void GameManager::loadGame()
 	std::cout << "Loading game..." << std::endl;
 	Player::getInstance().setPlayer(didLoad = true);
 	sManager->setGameScene(SceneManager::BATTLE);
-
+	std::cout << "\tLoading Level..." ;
+	LevelManager::getInstance().loadMap("testLevel2");
+	std::cout << "Done!" << std::endl;
+	Player::getInstance().setPosition((int)SceneManager::getInstance().getWindowWidth()/2 - 12, (int)SceneManager::getInstance().getWindowHeight()/2 - 16);
 	std::cout << "Loading Done!" << std::endl;
 }
 void GameManager::saveGame()
