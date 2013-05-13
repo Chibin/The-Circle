@@ -96,27 +96,45 @@ bool LevelManager::checkEvent(const int& _x,const int& _y){
 	int playerX = (player->getPositionX()+_x-4)/currentMap->GetTileWidth();
 	int playerY = (player->getPositionY()+ _y)/currentMap->GetTileHeight();
 	if(layer->GetTileId(playerX+1,playerY+1)!=0){
-		printf("EVENT!!\n");
+		//printf("EVENT!!\n");
 		printf("EventID: %d\n", layer->GetTileId(playerX+1,playerY+1));
 		int buff2 = layer->GetTileId(playerX+1,playerY+1);
 		int buff = layer->GetTileTilesetIndex(playerX,playerY);
-		if(layer->GetTileId(playerX+1,playerY+1) == 26){
-			scene->setGameScene(SceneManager::EVENT);
-			return true;
-		}
-		if (layer->GetTileId(playerX+1,playerY+1) == 27){
-			printf("Switch scene here\n");
-			loadMap("testLevel2a");
-			scene->setGameScene(SceneManager::NORMAL);
-			player->setPosition(20,player->getPositionY());
-			return true;
+
+		if(levelName == "testLevel2"){
+			if(layer->GetTileId(playerX+1,playerY+1) == 26){
+				scene->setGameScene(SceneManager::EVENT);
+				return true;
+			}
+			if (layer->GetTileId(playerX+1,playerY+1) == 27){
+				//printf("Switch scene here\n");
+				loadMap("testLevel2a");
+				scene->setGameScene(SceneManager::NORMAL);
+				player->setPosition(20,player->getPositionY());
+				return true;
+			}
 		}
 		if(levelName == "testLevel2a"){
+			if(layer->GetTileId(playerX+1,playerY+1) == 27){
+				loadMap("testLevel2-cave");
+				scene->setGameScene(SceneManager::NORMAL);
+				player->setPosition(player->getPositionX(),580);
+				return true;
+			}
 			if(layer->GetTileId(playerX+1,playerY+1) == 28){
-				printf("Switch scene here\n");
+				//printf("Switch scene here\n");
 				loadMap("testLevel2");
 				scene->setGameScene(SceneManager::NORMAL);
-				player->setPosition(779,player->getPositionY());
+				player->setPosition(790,player->getPositionY()-20);
+				return true;
+			}
+
+		}
+		if(levelName == "testLevel2-cave"){
+			if(layer->GetTileId(playerX+1,playerY+1) == 26){
+				loadMap("testLevel2a");
+				scene->setGameScene(SceneManager::NORMAL);
+				player->setPosition(player->getPositionX(),20);
 			}
 		}
 	}
