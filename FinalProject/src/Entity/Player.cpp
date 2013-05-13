@@ -52,6 +52,9 @@ void Player::setPlayer(bool isLoaded){
 	std::cout << "\tLoading Character..." ;
 	if(isLoaded){
 		//STR,DEX,INT
+		level = 5;
+		currentXP = 134;
+		maxXP = 500;
 		setStats(10,7,5,3,2,2);
 		Name = "Player";
 		SDL_Color fgColor = {255,255,255};
@@ -159,4 +162,10 @@ return mapOffsetX;
 }
 int Player::getMapOffsetY(){
 return mapOffsetY;
+}
+int Player::getXP(){
+	return currentXP;
+}
+int Player::getMaxXp(){
+	return maxXP;
 }

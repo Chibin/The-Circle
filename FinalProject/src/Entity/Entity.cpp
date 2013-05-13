@@ -29,6 +29,7 @@ int Entity::getSPD(){return stats.SPD;}
 int Entity::getINT(){return stats.INT;}
 int Entity::getMaxHP(){return stats.MAXHP;}
 int Entity::getMaxMP(){return stats.MAXMP;}
+int Entity::getLevel(){return level;}
 void Entity::learnMagicAbility(Magic mSkill){mAbilities.push_back(mSkill);}
 bool Entity::isUsedItemRemoved(int itemToUse){
 	if(bag[itemToUse].getItemAmount() > 1){
