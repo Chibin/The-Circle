@@ -123,7 +123,7 @@ bool LevelManager::checkEvent(const int& _x,const int& _y){
 			}
 			if(layer->GetTileId(playerX+1,playerY+1) == 28){
 				//printf("Switch scene here\n");
-				loadMap("testLevel2a");
+				loadMap("testLevel2");
 				scene->setGameScene(SceneManager::NORMAL);
 				player->setPosition(770,player->getPositionY()-20);
 				return true;

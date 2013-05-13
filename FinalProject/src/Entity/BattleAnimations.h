@@ -1,6 +1,7 @@
 #ifndef BATTLEANIMATION_H_
 #define BATTLEANIMATION_H_
-#include "../Scene/Scene.h"
+
+class Animation;
 class BattleAnimations{
 public:
 	enum animationState{IDLE,ATTACK};
