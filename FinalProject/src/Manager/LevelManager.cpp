@@ -247,9 +247,7 @@ void LevelManager::loadNPC(void)
 // Function to clear the NPC vector which should be called when going to a new scene
 void LevelManager::clearNPC(void)
 {
-	for(int i=0; i<(int)NPCvector.size(); i++)
-		delete NPCvector[i];
-	NPCvector.clear();
+	NPCvector.clear(); // enough to prevent memory leak?
 }
 
 void LevelManager::renderNPC(void)

@@ -13,6 +13,7 @@ NPC::NPC(){
 
 NPC::~NPC()
 {
+	// prevent memory memory leak when changing between many scenes with NPCs
 	speach.clear();
 	delete npcImage;
 	delete npcUp;
