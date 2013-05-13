@@ -43,6 +43,7 @@ public:
 	vector<NPC*> NPCvector; // vector of NPC pointer to keep track of all NPCs
 	void loadNPC(void); // load NPCs to the NPCvector
 	void renderNPC(void);// display NPC vector
+	void clearNPC(void); // clear the NPC vector 
 };
 
 

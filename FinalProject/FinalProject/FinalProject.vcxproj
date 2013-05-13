@@ -159,6 +159,7 @@
     <ClCompile Include="..\src\Utility\zlib\trees.c" />
     <ClCompile Include="..\src\Utility\zlib\uncompr.c" />
     <ClCompile Include="..\src\Utility\zlib\zutil.c" />
+    <ClCompile Include="NPCchat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Battle\BattleHandler.h" />
@@ -197,6 +198,7 @@
     <ClInclude Include="..\src\Utility\zlib\zconf.h" />
     <ClInclude Include="..\src\Utility\zlib\zlib.h" />
     <ClInclude Include="..\src\Utility\zlib\zutil.h" />
+    <ClInclude Include="NPCchat.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

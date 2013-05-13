@@ -108,6 +108,7 @@ bool LevelManager::checkEvent(const int& _x,const int& _y){
 			}
 			if (layer->GetTileId(playerX+1,playerY+1) == 27){
 				//printf("Switch scene here\n");
+				clearNPC(); // clear the NPC vector. so old NPC's wont appear on new map.
 				loadMap("testLevel2a");
 				scene->setGameScene(SceneManager::NORMAL);
 				player->setPosition(20,player->getPositionY());
@@ -241,6 +242,14 @@ void LevelManager::loadNPC(void)
 		}
 	}
 
+}
+
+// Function to clear the NPC vector which should be called when going to a new scene
+void LevelManager::clearNPC(void)
+{
+	for(int i=0; i<(int)NPCvector.size(); i++)
+		delete NPCvector[i];
+	NPCvector.clear();
 }
 
 void LevelManager::renderNPC(void)

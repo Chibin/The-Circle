@@ -88,7 +88,21 @@ void NormalScene::eventHandler(SDL_Event& event){
 					std::cout << "Starting a battle for no reason at all!" << std::endl;
 					scene->setGameScene(SceneManager::BATTLE);
 				case SDLK_RETURN:
-
+					//std::cout << "Pressed Enter!!" << std::endl;
+					for(int i=0; i<(int)level->NPCvector.size(); i++) // check if trying to talk to an NPC
+					{
+						int xdiff = abs(player->getPositionX() - level->NPCvector[i]->getRect()->x);
+						int ydiff = abs(player->getPositionY() - level->NPCvector[i]->getRect()->y);
+						if(xdiff < 5 && ydiff < 5) // some random range
+						{
+							//currentState = DIALOGUE; // set state to dialogue
+							SDL_Surface* textBox = IMG_Load("../Images/npc/bgtext.png");
+							textBox = SDL_DisplayFormatAlpha(textBox);
+							SDL_Rect textBoxRect;
+							textBoxRect.x = 0;
+							textBoxRect.y = 400;
+						}
+					}
 					break;
 				case SDLK_ESCAPE:
 					scene->setGameScene(SceneManager::CHARINFO);
@@ -139,7 +153,7 @@ void NormalScene::display(){
 	//level->renderMapLayer(2);
 	//level->renderMapLayer(3);
 	//level->renderMapLayer(4);
-	
+	level->renderNPC(); // render NPCs layer
 	currentTick = SDL_GetTicks();
 	if(currentTick - lastTick > 150)
 	{
@@ -156,7 +170,7 @@ void NormalScene::display(){
 	}
 
 	level->renderMapLayer(2);
-	level->renderNPC(); // render NPCs layer
+	
 	//draws where collision should be at
 	//level->renderMapLayer(3);
 	//draws where events should happen
