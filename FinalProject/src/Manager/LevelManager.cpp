@@ -118,14 +118,14 @@ bool LevelManager::checkEvent(const int& _x,const int& _y){
 			if(layer->GetTileId(playerX+1,playerY+1) == 27){
 				loadMap("testLevel2-cave");
 				scene->setGameScene(SceneManager::NORMAL);
-				player->setPosition(player->getPositionX(),580);
+				player->setPosition(player->getPositionX() - 20,550);
 				return true;
 			}
 			if(layer->GetTileId(playerX+1,playerY+1) == 28){
 				//printf("Switch scene here\n");
-				loadMap("testLevel2");
+				loadMap("testLevel2a");
 				scene->setGameScene(SceneManager::NORMAL);
-				player->setPosition(790,player->getPositionY()-20);
+				player->setPosition(770,player->getPositionY()-20);
 				return true;
 			}
 
@@ -134,7 +134,7 @@ bool LevelManager::checkEvent(const int& _x,const int& _y){
 			if(layer->GetTileId(playerX+1,playerY+1) == 26){
 				loadMap("testLevel2a");
 				scene->setGameScene(SceneManager::NORMAL);
-				player->setPosition(player->getPositionX(),20);
+				player->setPosition(player->getPositionX() + 20,305);
 			}
 		}
 	}
