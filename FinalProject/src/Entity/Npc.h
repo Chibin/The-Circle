@@ -5,6 +5,7 @@
 #include "SDL_image.h"
 #include <string> // for name
 #include <vector>
+#include <SDL_ttf.h>
 
 class Animation;
 
@@ -16,15 +17,22 @@ protected:
 	SDL_Surface* npcImage;
 	SDL_Rect npcRect;
 	Animation *npcUp, *npcDown, *npcLeft, *npcRight, *currentAnimation;
+	vector<SDL_Surface*> surfaceText;
+	//vector<SDL_Rect> surfaceTextRect;
+	SDL_Rect surfaceTextRect;
+	TTF_Font* font;
+	SDL_Color fgColor;
 public:
 	NPC();
 	string getName(void);
 	string speak(void);
+	int sentence;
 	virtual SDL_Rect* getRect(void);
 	virtual SDL_Surface* getSurface(void);
 	virtual Animation* getAnimation(void);
 	virtual void setFrames(void);
 	SDL_Surface* load_imageBlue(std::string file); // function to load images with blue/transparent background
+	void displayText(SDL_Surface*);
 	~NPC();
 };
 

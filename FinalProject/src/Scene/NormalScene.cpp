@@ -92,6 +92,8 @@ void NormalScene::eventHandler(SDL_Event& event){
 						{
 							std::cout << level->NPCvector[i]->getName() << ":\n";
 							level->speakingNPC = i;
+							//->NPCvector[level->speakingNPC]->sentence = 0;
+							npcText = level->NPCvector[level->speakingNPC]->speak();
 							currentState = DIALOGUE;
 						}
 					}
@@ -119,6 +121,8 @@ void NormalScene::eventHandler(SDL_Event& event){
 				default:
 					break;
 				}
+			case SDLK_RETURN:
+				npcText = level->NPCvector[level->speakingNPC]->speak();
 			default:
 				break;
 			}
@@ -158,13 +162,15 @@ void NormalScene::display(){
 		//continue drawing last frame
 		player->renderLastPlayerFrame();
 	}
+	level->renderMapLayer(2);
 	if(currentState == DIALOGUE){
 		//std::cout << "Hey " << level->NPCvector[level->speakingNPC]->getName() << " is speaking to you." << std::endl;
-		string temp = level->NPCvector[level->speakingNPC]->speak();
-		if (temp != "-1")
+		if (npcText != "-1")
 		{
-			std::cout << temp << std::endl;
+			//std::cout << npcText << std::endl;
 			//temp = level->NPCvector[level->speakingNPC]->speak();
+			SDL_BlitSurface(textBox,NULL,scene->getScreen(), &textBoxRect);
+			level->NPCvector[level->speakingNPC]->displayText(scene->getScreen());
 		}
 		else
 		{
@@ -172,9 +178,6 @@ void NormalScene::display(){
 			currentState = ROAM;
 		}
 	}
-
-	level->renderMapLayer(2);
-
 	//draws where collision should be at
 	//level->renderMapLayer(3);
 	//draws where events should happen

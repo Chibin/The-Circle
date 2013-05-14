@@ -24,5 +24,6 @@ class NormalScene : public Scene{
 		void eventHandler(SDL_Event& event);
 		void display();
 		void disposeResources();
+		string npcText;
 };
 #endif
