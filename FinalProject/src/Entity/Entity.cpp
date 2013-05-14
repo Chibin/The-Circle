@@ -7,6 +7,7 @@ void Entity::setDEF(int _DEF){ stats.PDEF = _DEF;}
 void Entity::setSPD(int _SPD){ stats.SPD = _SPD;}
 void Entity::setINT(int _INT){ stats.INT = _INT;}
 void Entity::setMaxMP(int _MaxMP){ stats.MAXMP = _MaxMP; stats.MP += _MaxMP;}
+void Entity::setLevel(int lvl){level = lvl;}
 void Entity::setStats(int _STR,int _CON, int _DEX,int _AGI, int _INT, int _LCK){
 	stats.STR = _STR;
 	stats.DEX = _DEX;

@@ -162,5 +162,5 @@ int Player::getXP(){
 	return currentXP;
 }
 int Player::getMaxXp(){
-	return maxXP;
+	return maxExperience;
 }

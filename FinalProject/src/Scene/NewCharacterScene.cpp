@@ -315,6 +315,8 @@ void NewCharScreen::eventHandler(SDL_Event& event){
 						std::cout << "\t INT: " << editStats[4] << std::endl;
 						std::cout << "\t LUK: " << editStats[5] << std::endl;
 						Player::getInstance().setPlayer(false);
+						Player::getInstance().setXP(0,100);
+						Player::getInstance().setLevel(1);
 						level->loadMap("testLevel2");
 						scene->setGameScene(SceneManager::NORMAL);
 					}

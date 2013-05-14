@@ -142,6 +142,7 @@ void GameManager::loadGame()
 	Player::getInstance().setPosition(POSX,POSY);
 	Player::getInstance().setStats(STR,CON,DEX,AGI,INT,LCK);
 	Player::getInstance().setXP	(XP, MAXXP);
+	Player::getInstance().setLevel(LEVEL);
 	Player::getInstance().setPlayer(didLoad = true);
 	sManager->setGameScene(SceneManager::NORMAL);
 	load.close();
