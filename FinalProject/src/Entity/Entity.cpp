@@ -7,10 +7,13 @@ void Entity::setDEF(int _DEF){ stats.PDEF = _DEF;}
 void Entity::setSPD(int _SPD){ stats.SPD = _SPD;}
 void Entity::setINT(int _INT){ stats.INT = _INT;}
 void Entity::setMaxMP(int _MaxMP){ stats.MAXMP = _MaxMP; stats.MP += _MaxMP;}
+void Entity::setLevel(int lvl){level = lvl;}
 void Entity::setStats(int _STR,int _CON, int _DEX,int _AGI, int _INT, int _LCK){
 	stats.STR = _STR;
 	stats.DEX = _DEX;
+	stats.CON = _CON;
 	stats.INT = _INT;
+	stats.AGI = _AGI;
 	stats.MAXHP = (int)(_CON*1.5);
 	stats.HP = stats.MAXHP;
 	stats.MAXMP = _INT*15;
@@ -18,6 +21,11 @@ void Entity::setStats(int _STR,int _CON, int _DEX,int _AGI, int _INT, int _LCK){
 	stats.PDEF = (int)(_STR*1.1);
 	stats.SPD = (int)(_DEX*1.5);
 	stats.LCK = _LCK;
+}
+void Entity::setXP(int xp, int max){
+	experience = xp;
+	maxExperience = max;
+
 }
 void Entity::setName(std::string _Name){Name = _Name;}
 std::string Entity::getName(){return Name;}
