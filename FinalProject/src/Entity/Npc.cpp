@@ -67,8 +67,9 @@ void NPC::displayText(SDL_Surface* screen)
 		std::cout << "Error no sentence\n";
 	else
 	{
+
 		//std::cout << speach[sentence-1] << std::endl;
-		std::cout << "x: " << surfaceTextRect.x << "\ty: " << surfaceTextRect.y << std::endl;
+		//std::cout << "x: " << surfaceTextRect.x << "\ty: " << surfaceTextRect.y << std::endl;
 		SDL_BlitSurface(surfaceText[sentence-1], NULL, screen, &surfaceTextRect);
 	}
 }
@@ -112,9 +113,9 @@ NPC_girl1::NPC_girl1()
 	npcName = "NPC Girl"; // non original name
 	speach.push_back("Hello, Hero...");
 	speach.push_back("Please protect me from that scary fire head guy!");
-	SDL_Surface* temp = TTF_RenderText_Blended(font,npcName.c_str(),fgColor);
-	surfaceText.push_back(temp);
-	temp = TTF_RenderText_Blended(font,speach[0].c_str(), fgColor);
+	//SDL_Surface* temp = TTF_RenderText_Blended(font,npcName.c_str(),fgColor);
+	//surfaceText.push_back(temp);
+	SDL_Surface* temp = TTF_RenderText_Blended(font,speach[0].c_str(), fgColor);
 	surfaceText.push_back(temp);
 	temp = TTF_RenderText_Blended(font,speach[1].c_str(), fgColor);
 	surfaceText.push_back(temp);
@@ -133,9 +134,9 @@ NPC_guy1::NPC_guy1()
 	speach.push_back("Hey Mr. have you ever seen a guy with his head on fire?");
 	speach.push_back("Well for only 3 gold coins I'll show you someone just like that,");
 	speach.push_back("Fine your lose.");
-	SDL_Surface* temp = TTF_RenderText_Blended(font,npcName.c_str(),fgColor);
-	surfaceText.push_back(temp);
-	temp = TTF_RenderText_Blended(font,speach[0].c_str(),fgColor);
+	//SDL_Surface* temp = TTF_RenderText_Blended(font,npcName.c_str(),fgColor);
+	//surfaceText.push_back(temp);
+	SDL_Surface* temp = TTF_RenderText_Blended(font,speach[0].c_str(),fgColor);
 	surfaceText.push_back(temp);
 	temp = TTF_RenderText_Blended(font,speach[1].c_str(),fgColor);
 	surfaceText.push_back(temp);
@@ -152,9 +153,9 @@ NPC_guyRed::NPC_guyRed()
 	npcName = "Red Guy";
 	speach.push_back("No actually my head is not on Fire! ... why do people keep asking that?");
 	speach.push_back("Careful don't fall into that mysteriously placed hole and latter.");
-	SDL_Surface* temp = TTF_RenderText_Blended(font,npcName.c_str(), fgColor);
-	surfaceText.push_back(temp);
-	temp = TTF_RenderText_Blended(font,speach[0].c_str(), fgColor);
+	//SDL_Surface* temp = TTF_RenderText_Blended(font,npcName.c_str(), fgColor);
+	//surfaceText.push_back(temp);
+	SDL_Surface* temp = TTF_RenderText_Blended(font,speach[0].c_str(), fgColor);
 	surfaceText.push_back(temp);
 	temp = TTF_RenderText_Blended(font,speach[1].c_str(), fgColor);
 	surfaceText.push_back(temp);
