@@ -17,10 +17,11 @@ class CharInfoScene : public Scene{
 	SDL_Rect status1Rect, statusTitleRect, bgCharRect, portraitSrcRect, portraitDestRect;
 
 	//option
-
+	SDL_Surface *status4, *saveTxt, *loadTxt, *quitToMenu, *quitGame, *optionBg;
+	SDL_Rect  saveTxtRect, loadTxtRect, quitToMenuRect, quitGameRect, optionBgRect;
 
 	Choice currentChoice;
-	int mainMenuChoice;
+	int mainMenuChoice, optionChoice;
 	TTF_Font *font;
 public:
 	CharInfoScene();
