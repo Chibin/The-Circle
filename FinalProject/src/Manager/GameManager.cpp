@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "SceneManager.h"
 #include "../Entity/Player.h"
+#include <fstream>
 using namespace std;
 
 GameManager& GameManager::getInstance(){
@@ -81,8 +82,11 @@ void GameManager::loadGame()
 void GameManager::saveGame()
 {
 	std::cout << "Saving game..." << std::endl;
-	std::ofstream save( "game_save" );
+	std::ofstream save;
+	save.open(( "game_save") );
 	save << LevelManager::getInstance().getLevelName() << "\n";
+	save << Player::getInstance().getPositionX() << "\n";
+	save << Player::getInstance().getPositionY() << "\n";
 	save << Player::getInstance().getType() << "\n";
 	save << Player::getInstance().getLevel() << "\n";
 	save << Player::getInstance().getXP() << "\n";
@@ -90,11 +94,12 @@ void GameManager::saveGame()
 	save << Player::getInstance().getHP() << "\n";
 	save << Player::getInstance().getMP() << "\n";
 	save << Player::getInstance().getSTR() << "\n";
-//	save << Player::getInstance().() << "\n";
-	save << Player::getInstance().getHP() << "\n";
-	save << Player::getInstance().getMP() << "\n";
-	save << Player::getInstance().getHP() << "\n";
-	save << Player::getInstance().getMP() << "\n";
+	save << Player::getInstance().getCON() << "\n";
+	save << Player::getInstance().getDEX() << "\n";
+	save << Player::getInstance().getAGI() << "\n";
+	save << Player::getInstance().getINT() << "\n";
+	save << Player::getInstance().getLCK() << "\n";
+	save.close();
 	//save current level
 	//save character position
 	//save character info
