@@ -18,7 +18,7 @@ public:
 	void drawFrameUpdate(int timeLapsed);
 	void BattleAnimations::setIdleImage(std::string path,int maxNumFrames, int r, int g, int b);
 	void setFrame(BattleAnimations::animationState state,  int frame_number, int x, int y, int w, int h);
-	void drawAnimation(BattleAnimations::animationState state,SDL_Surface* screen, int timeStep);
+	void drawAnim(BattleAnimations::animationState state,SDL_Surface* screen, int timeStep, int speed);
 	void setAnimationPosition(int x, int y);
 };
 #endif

@@ -35,10 +35,15 @@ BattleScene::BattleScene(){
 	charInfoLoc.x = 0+594; charInfoLoc.y = 0;
 	player = &Player::getInstance(); //just added this to test the battle sequence
 	//setting up IDLE animations
-	if(player->getType() == Player::LLYOD || player->getType() == Player::NATILIA){
+	if(player->getType() == Player::LLYOD){
 	player->setAnimation(BattleAnimations::IDLE,"../Images/battle/LloydIdle.bmp",6,10,98,106);
 	for(int i = 5; i > -1; i--)
 		player->getBattleAnimations().setFrame(BattleAnimations::IDLE,5-i,66*i,0,66,player->getBattleAnimations().getIdleImage()->h);
+	}
+	else{
+		player->setAnimation(BattleAnimations::IDLE,"../Images/battle/ColetteIdle.bmp",5,0,128,255);
+		for(int i = 4; i > -1; i--)
+			player->getBattleAnimations().setFrame(BattleAnimations::IDLE,4-i,46*i,0,46,player->getBattleAnimations().getIdleImage()->h);
 	}
 	bManager = new BattleHandler();
 	loadMobs();
@@ -47,13 +52,16 @@ BattleScene::BattleScene(){
 void BattleScene::loadMobs(){
 	std::vector<Mob*>* mobs;
 	mobs = new std::vector<Mob*>();
+	int x = 50, y = 350;
 	Mob* temp = new Arachnia();
-	temp->getBattleAnimations().setAnimationPosition(50,300);
+	temp->getBattleAnimations().setAnimationPosition(x,y- temp->getBattleAnimations().getIdleImage()->h);
 	temp->setSPD(5);
-	Mob* temp2 = new Arachnia();
-	temp2->getBattleAnimations().setAnimationPosition(90,300);
+	Mob* temp2 = new Bat();
+	x  += 10+ temp->getBattleAnimations().getIdleImage()->w/temp->getMaxFrame();
+	temp2->getBattleAnimations().setAnimationPosition(x,y- temp2->getBattleAnimations().getIdleImage()->h);
 	Mob* temp3 = new Arachnia();
-	temp3->getBattleAnimations().setAnimationPosition(130,300);
+	x += 10 + temp2->getBattleAnimations().getIdleImage()->w/temp2->getMaxFrame();
+	temp3->getBattleAnimations().setAnimationPosition(x,y -temp3->getBattleAnimations().getIdleImage()->h);
 	temp2->setSPD(7);
 	mobs->push_back(temp);
 	mobs->push_back(temp2);
@@ -232,7 +240,7 @@ void BattleScene::display(){
 		SDL_BlitSurface(textBox,NULL,scene->getScreen(),&textBoxLoc);
 	bManager->battleDisplayUpdate(battleMenu);
 	//display Animations
-	player->getBattleAnimations().drawAnimation(BattleAnimations::IDLE,scene->getScreen(),SDL_GetTicks());
+	player->drawAnimation(BattleAnimations::IDLE,scene->getScreen(),SDL_GetTicks());
 	//SDL_BlitSurface(player->getImage(BattleAnimations::IDLE),NULL,scene->getScreen(),&textBoxLoc);
 	SDL_Flip(scene->getScreen());
 }

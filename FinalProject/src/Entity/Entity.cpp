@@ -78,3 +78,6 @@ Entity::status Entity::getStats(){return stats;}
 		return NULL;
 	}
 	BattleAnimations& Entity::getBattleAnimations(){ return bAnim;}
+	void Entity::drawAnimation(BattleAnimations::animationState state, SDL_Surface* screen, int _timeStep){
+		bAnim.drawAnim(state,screen,_timeStep,1);
+	}

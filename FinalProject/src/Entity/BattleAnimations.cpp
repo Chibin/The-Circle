@@ -18,11 +18,10 @@ void BattleAnimations::setFrame(BattleAnimations::animationState state,  int fra
 void BattleAnimations::setAnimationPosition(int x, int y){
 	position.x = x; position.y = y;
 }
-void BattleAnimations::drawAnimation(BattleAnimations::animationState state, SDL_Surface* screen, int _timeStep){
-	for(int i = timeStep; i+1000/idle->getNumFrames() < _timeStep; i+= 1000/idle->getNumFrames()){
+void BattleAnimations::drawAnim(BattleAnimations::animationState state, SDL_Surface* screen, int _timeStep, int speed){
+	for(int i = timeStep; i+1000/idle->getNumFrames()/speed < _timeStep; i+= 1000/idle->getNumFrames()/speed){
 		idle->NextFrame();
 		timeStep = _timeStep;
 	}
 		SDL_BlitSurface(idle->getImage(),idle->GetFrame(),screen,&position);
-	
 }

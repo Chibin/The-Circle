@@ -400,10 +400,18 @@ void BattleHandler::battleDisplayUpdate(int& battleMenu){
 	}
 	else if(battleMenu == battleEnd){
 		battleMenu = FIGHT;
-		scene->setGameScene(SceneManager::NORMAL); //temporary
+		if(playerDead){
+			cout << "Revived with 1 HP" << endl;
+			player->setHP(1);
+			playerDead = false;
+			scene->setGameScene(SceneManager::OPENINGMENU);
+		}
+		else
+			scene->setGameScene(SceneManager::NORMAL); //temporary
 	}
+	//draws the animation
 	for(unsigned int i = 0; i < mobs->size(); i++)
-		(*mobs)[i]->getBattleAnimations().drawAnimation(BattleAnimations::IDLE,scene->getScreen(),SDL_GetTicks());
+		(*mobs)[i]->drawAnimation(BattleAnimations::IDLE,scene->getScreen(),SDL_GetTicks());
 }
 void BattleHandler::monsterSelectDisplay(int& battleMenu){
 	int x = 50, y = 0;
@@ -547,10 +555,6 @@ void BattleHandler::battlePhaseDisplay(int& battleMenu){
 		else
 			battleMenu = FIGHT;
 		if(playerDead){
-			battleMenu = battleEnd;
-			cout << "Revived with 10 HP" << endl;
-			player->setHP(10);
-			playerDead = false;
 			battleMenu = endPhase;
 		}
 		bpLoopCheck = 0;

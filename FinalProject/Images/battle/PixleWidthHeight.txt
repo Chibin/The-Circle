@@ -2,4 +2,7 @@ arachniaIdle
 w:59 H:63
 LloydIdle
 W:66
-
+BatIdle
+W:36
+ColleteIdle
+W:46

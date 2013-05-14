@@ -64,5 +64,6 @@ public:
 	void setAnimation(BattleAnimations::animationState state, std::string path, int maxNumOfFrames, int r, int g, int b);
 	BattleAnimations& getBattleAnimations();
 	SDL_Surface* getImage(BattleAnimations::animationState state);
+	virtual void drawAnimation(BattleAnimations::animationState state, SDL_Surface* screen, int _timeStep) ;
 };
 #endif
