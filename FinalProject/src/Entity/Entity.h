@@ -39,6 +39,9 @@ public:
 	int getHP();
 	int getMP();
 	int getSTR();
+	int getCON();
+	int getDEX();
+	int getAGI();
 	int getDEF();
 	int getSPD();
 	int getINT();

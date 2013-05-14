@@ -1,6 +1,7 @@
 #include "NPC.h"
 
 NPC::NPC(){
+	TTF_Init();
 	setStats(1,1,1,1,1,1); // need to be set because it is still a Entity instance, but these will never be used.
 	npcName = "Default NPC";
 	//speach.push_back("I don't know what kinda of NPC I am. :(");

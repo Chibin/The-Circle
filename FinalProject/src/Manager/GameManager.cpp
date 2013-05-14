@@ -14,7 +14,7 @@ GameManager::GameManager(){
 	updateFrequency = 30;
 	//we want to intialize all the manager here
 	sManager = &SceneManager::getInstance();
-	
+
 }
 
 
@@ -72,6 +72,7 @@ void GameManager::loadGame()
 	Player::getInstance().setPlayer(didLoad = true);
 	sManager->setGameScene(SceneManager::BATTLE);
 	std::cout << "\tLoading Level..." ;
+	std::ifstream load( "game_save" );
 	LevelManager::getInstance().loadMap("testLevel2");
 	std::cout << "Done!" << std::endl;
 	Player::getInstance().setPosition((int)SceneManager::getInstance().getWindowWidth()/2 - 12, (int)SceneManager::getInstance().getWindowHeight()/2 - 16);
@@ -80,6 +81,20 @@ void GameManager::loadGame()
 void GameManager::saveGame()
 {
 	std::cout << "Saving game..." << std::endl;
+	std::ofstream save( "game_save" );
+	save << LevelManager::getInstance().getLevelName() << "\n";
+	save << Player::getInstance().getType() << "\n";
+	save << Player::getInstance().getLevel() << "\n";
+	save << Player::getInstance().getXP() << "\n";
+	save << Player::getInstance().getMaxXp() << "\n";
+	save << Player::getInstance().getHP() << "\n";
+	save << Player::getInstance().getMP() << "\n";
+	save << Player::getInstance().getSTR() << "\n";
+//	save << Player::getInstance().() << "\n";
+	save << Player::getInstance().getHP() << "\n";
+	save << Player::getInstance().getMP() << "\n";
+	save << Player::getInstance().getHP() << "\n";
+	save << Player::getInstance().getMP() << "\n";
 	//save current level
 	//save character position
 	//save character info

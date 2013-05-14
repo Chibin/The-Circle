@@ -25,7 +25,9 @@ CharInfoScene::CharInfoScene(){
 	SDL_FreeSurface(loadedImage);
 	menuTopRect.x = 100;
 	menuTopRect.y = 25;
-
+	loadedImage = IMG_Load("../Images/menu/secondaryBg.png");
+	secondBG = SDL_DisplayFormatAlpha(loadedImage);
+	SDL_FreeSurface(loadedImage);
 	loadedImage = IMG_Load("../Images/menu/hand.png");
 	hand = SDL_DisplayFormatAlpha(loadedImage);
 	SDL_FreeSurface(loadedImage);
@@ -258,10 +260,24 @@ void CharInfoScene::display(){
 		mpRect.x = 220;
 		mpRect.y = 260;
 		SDL_BlitSurface( mp, NULL, scene->getScreen(), &mpRect);
+		oss.str("");
+		font =  TTF_OpenFont("../Fonts/coolvetica.ttf",20);	
+		TTF_SetFontStyle(font, TTF_STYLE_BOLD);
+		oss << "Level: " << player->getLevel();
+		level = TTF_RenderText_Blended(font,oss.str().c_str(),fgColor);
+		levelRect.x = 600;
+		levelRect.y = 220;
+		SDL_BlitSurface( level, NULL, scene->getScreen(), &levelRect);
+
 		if(currentChoice == STATUS){
 			handRect.x = 40;
 			handRect.y = 240;
 		}
+	}
+	if(currentChoice == SKILLS){}
+	if(currentChoice == EQUIPS){}
+	if(currentChoice == OPTIONS){
+	
 	}
 	SDL_BlitSurface( hand, NULL, scene->getScreen(), &handRect);
 	SDL_Flip(scene->getScreen());
@@ -278,5 +294,15 @@ void CharInfoScene::disposeResources(){
 	SDL_FreeSurface(statusTitle);
 	SDL_FreeSurface(bgChar);
 	SDL_FreeSurface(portrait);
+	SDL_FreeSurface(currXpTxt);
+	SDL_FreeSurface(nextXPTxt);
+	SDL_FreeSurface(hpTxt);
+	SDL_FreeSurface(mpTxt);
+	SDL_FreeSurface(nameTxt);
+	SDL_FreeSurface(currXp);
+	SDL_FreeSurface(nextXP);
+	SDL_FreeSurface(hp);
+	SDL_FreeSurface(mp);
+	SDL_FreeSurface(level);
 	std::cout << "Cleaning Finished!" << std::endl << std::endl;
 }
