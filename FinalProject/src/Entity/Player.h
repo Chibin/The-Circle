@@ -28,6 +28,8 @@ public:
 	int getMapOffsetX();
 	int getMapOffsetY();
 	int getVelocity();
+	int getXP();
+	int getMaxXp();
 	//setter
 	void setType(PlayerType);
 	void move(int x, int y);

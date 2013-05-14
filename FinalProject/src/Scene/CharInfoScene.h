@@ -8,11 +8,15 @@ class CharInfoScene : public Scene{
 		MAIN, STATUS, SKILLS, EQUIPS, OPTIONS
 	};
 	//top menu 
-	SDL_Surface *bg, *portrait, *menuTop, *menuTop1, *menuTop2, *menuTop3;
-	SDL_Rect bgRect, menuTopRect;
+	SDL_Surface *bg, *menuTop, *menuTop1, *menuTop2, *menuTop3, *hand;
+	SDL_Rect bgRect, menuTopRect, handRect;
 	//status
-	SDL_Surface *status1, *statusTitle, *bgChar;
-	SDL_Rect status1Rect, statusTitleRect, bgCharRect;
+	SDL_Surface *status1, *statusTitle, *bgChar, *portrait;
+	/*text*/  SDL_Surface *currXpTxt, *nextXPTxt, *hpTxt, *mpTxt, *nameTxt; SDL_Rect currXpTxtRect, nextXPTxtRect, hpTxtRect, mpTxtRect, nameTxtRect;
+	/*Stats*/ SDL_Surface *currXp, *nextXP, *hp, *mp; SDL_Rect currXpRect, nextXpRect, hpRect, mpRect;
+	SDL_Rect status1Rect, statusTitleRect, bgCharRect, portraitSrcRect, portraitDestRect;
+
+	//text
 
 
 	Choice currentChoice;
