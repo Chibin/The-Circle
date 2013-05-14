@@ -69,14 +69,85 @@ Save and Load game
 **************************/
 void GameManager::loadGame()
 {
+	int LEVEL = 0, TYPE = 0, STR = 0, CON = 0, DEX = 0, AGI = 0, INT = 0, LCK = 0, count = 0, XP = 0, MAXXP = 0, POSX = 0, POSY = 0, HP = 0, MP = 0;
 	std::cout << "Loading game..." << std::endl;
-	Player::getInstance().setPlayer(didLoad = true);
-	sManager->setGameScene(SceneManager::BATTLE);
-	std::cout << "\tLoading Level..." ;
+	//std::cout << "\tLoading Level..." ;
 	std::ifstream load( "game_save" );
-	LevelManager::getInstance().loadMap("testLevel2");
-	std::cout << "Done!" << std::endl;
-	Player::getInstance().setPosition((int)SceneManager::getInstance().getWindowWidth()/2 - 12, (int)SceneManager::getInstance().getWindowHeight()/2 - 16);
+	std::string line;
+	char* buff;
+	if (load)
+	{
+		while (std::getline(load, line))
+		{
+			std::cout << line << std::endl;
+			switch (count){
+			case 0:
+				buff = new char[line.size()+1];
+				std::strcpy(buff, line.c_str());
+				LevelManager::getInstance().loadMap(buff);
+				break;
+			case 1:
+				POSX = atoi(line.c_str());
+				break;
+			case 2:
+				POSY = atoi(line.c_str());
+				break;
+			case 3:
+				TYPE = atoi(line.c_str());
+				break;
+			case 4:
+				LEVEL = atoi(line.c_str());
+				break;
+			case 5:
+				XP = atoi(line.c_str());
+				break;
+			case 6:
+				MAXXP = atoi(line.c_str());
+				break;
+			case 7:
+				HP = atoi(line.c_str());
+				break;
+			case 8:
+				MP = atoi(line.c_str());
+			case 9:
+				STR = atoi(line.c_str());
+				break;
+			case 10:
+				CON = atoi(line.c_str());
+			case 11:
+				DEX = atoi(line.c_str());
+				break;
+			case 12:
+				AGI = atoi(line.c_str());
+			case 13:
+				INT = atoi(line.c_str());
+				break;
+			case 14:
+				LCK = atoi(line.c_str());
+			default:
+				break;
+			}
+			count ++;
+			//printf("%s\n", line);
+		}
+	}
+	else{
+		printf("save file not found");
+		return;
+	}
+	if(TYPE == 0)
+		Player::getInstance().setType(Player::LLYOD);
+	else
+		Player::getInstance().setType(Player::NATILIA);
+	Player::getInstance().setPosition(POSX,POSY);
+	Player::getInstance().setStats(STR,CON,DEX,AGI,INT,LCK);
+	Player::getInstance().setXP	(XP, MAXXP);
+	Player::getInstance().setPlayer(didLoad = true);
+	sManager->setGameScene(SceneManager::NORMAL);
+	load.close();
+	//LevelManager::getInstance().loadMap("testLevel2");
+	//std::cout << "Done!" << std::endl;
+	//Player::getInstance().setPosition((int)SceneManager::getInstance().getWindowWidth()/2 - 12, (int)SceneManager::getInstance().getWindowHeight()/2 - 16);
 	std::cout << "Loading Done!" << std::endl;
 }
 void GameManager::saveGame()

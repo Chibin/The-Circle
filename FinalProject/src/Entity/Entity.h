@@ -34,6 +34,7 @@ public:
 	void setLCK(int _LCK);
 	void setMaxMP(int _MaxMP);
 	void setStats(int _STR,int _CON, int _DEX,int _AGI, int _INT, int _LCK);
+	void setXP(int, int);
 	virtual void setName(std::string _Name);
 	std::string getName();
 	int getHP();
