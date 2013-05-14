@@ -258,3 +258,7 @@ void LevelManager::renderNPC(void)
 		SDL_BlitSurface(NPCvector[i]->getSurface(), NPCvector[i]->getAnimation()->GetFrame(), scene->getScreen(), NPCvector[i]->getRect());
 	}
 }
+std::string LevelManager::getLevelName(){
+
+	return levelName;
+}

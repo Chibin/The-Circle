@@ -45,6 +45,7 @@ public:
 	void loadNPC(void); // load NPCs to the NPCvector
 	void renderNPC(void);// display NPC vector
 	void clearNPC(void); // clear the NPC vector 
+	std::string getLevelName();
 };
 
 
