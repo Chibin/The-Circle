@@ -9,20 +9,15 @@ NormalScene::NormalScene(){
 	/*******************************************************************************/
 
 	
-
 	/*******************************************************************************/
 	/* ***************************CHARACTER*****************************************/
 	/*******************************************************************************/
-	// NPCs
-	/*npcVector.push_back(new NPC_girl1);
-	npcVector.push_back(new NPC_guy1);
-	SDL_Rect* tempRect = npcVector[0]->getRect();
-	tempRect->x = (Sint16)scene->getWindowWidth()/4;
-	tempRect->y = (Sint16)scene->getWindowHeight()/4;
-	tempRect = npcVector[1]->getRect();
-	tempRect->x = (Sint16)scene->getWindowWidth()*3/4;
-	tempRect->y = (Sint16)scene->getWindowHeight()*3/4;
-	*/
+	textBox = IMG_Load("../Images/npc/bgtext.png");
+	textBox = SDL_DisplayFormatAlpha(textBox);
+	textBoxRect.x = 0;
+	textBoxRect.y = 400;
+	textBoxRect.h = 100;
+	textBoxRect.w = 200;
 	/*******************************************************************************/
 	/*****************************SET SETTINGS**************************************/
 	/*******************************************************************************/
@@ -88,7 +83,20 @@ void NormalScene::eventHandler(SDL_Event& event){
 					std::cout << "Starting a battle for no reason at all!" << std::endl;
 					scene->setGameScene(SceneManager::BATTLE);
 				case SDLK_RETURN:
-
+					//std::cout << "Pressed Enter!!" << std::endl;
+					for(int i=0; i<(int)level->NPCvector.size(); i++) // check if trying to talk to an NPC
+					{
+						int xdiff = abs(player->getPositionX() - level->NPCvector[i]->getRect()->x);
+						int ydiff = abs(player->getPositionY() - level->NPCvector[i]->getRect()->y);
+						if(xdiff < 20 && ydiff < 20) // some random range
+						{
+							std::cout << level->NPCvector[i]->getName() << ":\n";
+							level->speakingNPC = i;
+							//->NPCvector[level->speakingNPC]->sentence = 0;
+							npcText = level->NPCvector[level->speakingNPC]->speak();
+							currentState = DIALOGUE;
+						}
+					}
 					break;
 				case SDLK_ESCAPE:
 					scene->setGameScene(SceneManager::CHARINFO);
@@ -113,6 +121,8 @@ void NormalScene::eventHandler(SDL_Event& event){
 				default:
 					break;
 				}
+			case SDLK_RETURN:
+				npcText = level->NPCvector[level->speakingNPC]->speak();
 			default:
 				break;
 			}
@@ -139,7 +149,8 @@ void NormalScene::display(){
 	//level->renderMapLayer(2);
 	//level->renderMapLayer(3);
 	//level->renderMapLayer(4);
-	level->renderMapLayer(2);
+
+	level->renderNPC(); // render NPCs layer
 	currentTick = SDL_GetTicks();
 	if(currentTick - lastTick > 150)
 	{
@@ -151,12 +162,22 @@ void NormalScene::display(){
 		//continue drawing last frame
 		player->renderLastPlayerFrame();
 	}
+	level->renderMapLayer(2);
 	if(currentState == DIALOGUE){
-		std::cout << "Hey..someones talking to you" << std::endl;
+		//std::cout << "Hey " << level->NPCvector[level->speakingNPC]->getName() << " is speaking to you." << std::endl;
+		if (npcText != "-1")
+		{
+			//std::cout << npcText << std::endl;
+			//temp = level->NPCvector[level->speakingNPC]->speak();
+			SDL_BlitSurface(textBox,NULL,scene->getScreen(), &textBoxRect);
+			level->NPCvector[level->speakingNPC]->displayText(scene->getScreen());
+		}
+		else
+		{
+			std::cout << "---------------------------------------------------------------------\n";//std::endl;
+			currentState = ROAM;
+		}
 	}
-
-	
-	level->renderNPC(); // render NPCs layer
 	//draws where collision should be at
 	//level->renderMapLayer(3);
 	//draws where events should happen

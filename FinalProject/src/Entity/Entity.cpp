@@ -22,13 +22,18 @@ void Entity::setStats(int _STR,int _CON, int _DEX,int _AGI, int _INT, int _LCK){
 void Entity::setName(std::string _Name){Name = _Name;}
 std::string Entity::getName(){return Name;}
 int Entity::getHP(){return stats.HP;}
+int Entity::getCON(){return stats.CON;}
+int Entity::getDEX(){return stats.DEX;}
+int Entity::getAGI(){return stats.AGI;}
 int Entity::getMP(){return stats.MP;}
 int Entity::getSTR(){return stats.STR;}
 int Entity::getDEF(){return stats.PDEF;}
 int Entity::getSPD(){return stats.SPD;}
 int Entity::getINT(){return stats.INT;}
+int Entity::getLCK(){return stats.LCK;}
 int Entity::getMaxHP(){return stats.MAXHP;}
 int Entity::getMaxMP(){return stats.MAXMP;}
+int Entity::getLevel(){return level;}
 void Entity::learnMagicAbility(Magic mSkill){mAbilities.push_back(mSkill);}
 bool Entity::isUsedItemRemoved(int itemToUse){
 	if(bag[itemToUse].getItemAmount() > 1){

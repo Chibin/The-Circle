@@ -108,6 +108,7 @@ bool LevelManager::checkEvent(const int& _x,const int& _y){
 			}
 			if (layer->GetTileId(playerX+1,playerY+1) == 27){
 				//printf("Switch scene here\n");
+				clearNPC(); // clear the NPC vector. so old NPC's wont appear on new map.
 				loadMap("testLevel2a");
 				scene->setGameScene(SceneManager::NORMAL);
 				player->setPosition(20,player->getPositionY());
@@ -212,6 +213,7 @@ void LevelManager::loadNPC(void)
 	{
 		const Tmx::Object* npcObject = npcGroup->GetObject(i); // get single npc object
 		int npcIndex = -1; // temp var for easier access
+		speakingNPC = -1; // initialize the index of the speaking NPC
 		//std::cout << "NPC: " << npcObject->GetName().c_str() << std::endl;
 		if( npcObject->GetName() == "guy1")
 		{
@@ -243,10 +245,20 @@ void LevelManager::loadNPC(void)
 
 }
 
+// Function to clear the NPC vector which should be called when going to a new scene
+void LevelManager::clearNPC(void)
+{
+	NPCvector.clear(); // enough to prevent memory leak?
+}
+
 void LevelManager::renderNPC(void)
 {
 	for(int i=0; i<(int)NPCvector.size(); i++) // go through and redner very NPC
 	{
 		SDL_BlitSurface(NPCvector[i]->getSurface(), NPCvector[i]->getAnimation()->GetFrame(), scene->getScreen(), NPCvector[i]->getRect());
 	}
+}
+std::string LevelManager::getLevelName(){
+
+	return levelName;
 }

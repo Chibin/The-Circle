@@ -39,12 +39,16 @@ public:
 	int getHP();
 	int getMP();
 	int getSTR();
+	int getCON();
+	int getDEX();
+	int getAGI();
 	int getDEF();
 	int getSPD();
 	int getINT();
 	int getLCK();
 	int getMaxHP();
 	int getMaxMP();
+	int getLevel();
 	void forgetAllMagicAbilities(){mAbilities.clear();}
 	void dropAllItems(){bag.clear();}
 	void learnMagicAbility(Magic mSkill);
