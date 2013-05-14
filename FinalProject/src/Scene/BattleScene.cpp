@@ -47,15 +47,15 @@ BattleScene::BattleScene(){
 void BattleScene::loadMobs(){
 	std::vector<Mob*>* mobs;
 	mobs = new std::vector<Mob*>();
-	Mob* temp = new Mob();
-	temp->setName("Mob1");
+	Mob* temp = new Arachnia();
+	temp->getBattleAnimations().setAnimationPosition(50,300);
 	temp->setSPD(5);
-	Mob* temp2 = new Mob();
-	temp2->setName("Mob2");
-	Mob* temp3 = new Mob();
+	Mob* temp2 = new Arachnia();
+	temp2->getBattleAnimations().setAnimationPosition(90,300);
+	Mob* temp3 = new Arachnia();
+	temp3->getBattleAnimations().setAnimationPosition(130,300);
 	temp2->setSPD(7);
 	mobs->push_back(temp);
-	temp3->setName("Mob3");
 	mobs->push_back(temp2);
 	mobs->push_back(temp3);
 	bManager->loadMobs(mobs);

@@ -402,6 +402,8 @@ void BattleHandler::battleDisplayUpdate(int& battleMenu){
 		battleMenu = FIGHT;
 		scene->setGameScene(SceneManager::NORMAL); //temporary
 	}
+	for(unsigned int i = 0; i < mobs->size(); i++)
+		(*mobs)[i]->getBattleAnimations().drawAnimation(BattleAnimations::IDLE,scene->getScreen(),SDL_GetTicks());
 }
 void BattleHandler::monsterSelectDisplay(int& battleMenu){
 	int x = 50, y = 0;

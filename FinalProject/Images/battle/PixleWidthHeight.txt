@@ -1,0 +1,5 @@
+arachniaIdle
+w:59 H:63
+LloydIdle
+W:66
+

@@ -156,6 +156,7 @@ void Animation::LastFrame(void)
 void Animation::setCurrentFrame(int frameNum){
 	CurrentFrame = 0;
 }
+int Animation::getNumFrames(){ return NumberOfFrames;}
 void Animation::drawFrameUpdate(int timeLapsed){
 	for(int i = 0; i < timeLapsed; i++)
 		NextFrame();

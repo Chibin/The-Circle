@@ -51,6 +51,7 @@ public:
 	SDL_Surface* getImage();
 	SDL_Rect* getFrame(int frame);
 	void drawFrameUpdate(int timeLapsed);
+	int getNumFrames();
 	friend class Scene;
 };
 

@@ -13,5 +13,13 @@ public:
 	~Mob();
 };
 
-
+class Arachnia : public Mob{
+public:
+	Arachnia(){
+		setName("Arachnia");
+		setAnimation(BattleAnimations::IDLE,"../Images/battle/ArachniaIdle.bmp",4,255,255,255);
+		for(int i = 3; i > -1; i--)
+			getBattleAnimations().setFrame(BattleAnimations::IDLE,3-i,59*i,0,59,getBattleAnimations().getIdleImage()->h);
+	}
+};
 #endif
