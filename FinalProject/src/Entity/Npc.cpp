@@ -70,6 +70,7 @@ void NPC::displayText(SDL_Surface* screen)
 
 		//std::cout << speach[sentence-1] << std::endl;
 		//std::cout << "x: " << surfaceTextRect.x << "\ty: " << surfaceTextRect.y << std::endl;
+		std::cout << "surfaceText.size() : " << surfaceText.size() << std::endl;
 		SDL_BlitSurface(surfaceText[sentence-1], NULL, screen, &surfaceTextRect);
 	}
 }
