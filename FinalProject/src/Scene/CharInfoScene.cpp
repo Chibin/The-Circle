@@ -1,7 +1,7 @@
 #include "CharInfoScene.h"
 
 CharInfoScene::CharInfoScene(){
-	if(!TTF_WasInit)
+	//if(TTF_WasInit())
 		TTF_Init();
 	type = SceneManager::CHARINFO;
 	std::cout << "Entering CharInfo Screen..." << std::endl;
