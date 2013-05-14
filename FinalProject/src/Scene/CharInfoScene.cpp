@@ -75,7 +75,8 @@ CharInfoScene::CharInfoScene(){
 	SDL_FreeSurface(loadedImage);
 	optionBgRect.x = 300;
 	optionBgRect.y = 210;
-
+	secondBGRect.x = 100;
+	secondBGRect.y = 210;
 	//loads all message here
 	SDL_Color black = {0,0,0}, yellow = {255,255,0};
 	font =  TTF_OpenFont("../Fonts/Viner.ttf",40);	
@@ -86,6 +87,10 @@ CharInfoScene::CharInfoScene(){
 	statusTitleRect.y = 150;
 	txt = "Options";
 	status4 = TTF_RenderText_Blended( font, txt.c_str(), black );
+	txt = "Skills";
+	status2 = TTF_RenderText_Blended( font, txt.c_str(), black );
+	txt = "Items";
+	status3 = TTF_RenderText_Blended( font, txt.c_str(), black );
 	font =  TTF_OpenFont("../Fonts/coolvetica.ttf",18);	
 	txt = "Current XP:";
 	currXpTxt = TTF_RenderText_Blended( font, txt.c_str(), black );
@@ -150,6 +155,9 @@ void CharInfoScene::eventHandler(SDL_Event& event){
 				case STATUS:
 					currentChoice = MAIN;
 					break;
+				case SKILLS:
+					currentChoice = MAIN;
+					break;
 				case EQUIPS:
 					currentChoice = MAIN;
 					break;
@@ -189,7 +197,7 @@ void CharInfoScene::eventHandler(SDL_Event& event){
 					case 3:
 						game->setGameOver(true);
 					}
-		
+
 					break;
 
 				}
@@ -222,6 +230,9 @@ void CharInfoScene::eventHandler(SDL_Event& event){
 					scene->setGameScene(SceneManager::NORMAL);
 					break;
 				case STATUS:
+					currentChoice = MAIN;
+					break;
+				case SKILLS:
 					currentChoice = MAIN;
 					break;
 				case EQUIPS:
@@ -383,8 +394,14 @@ void CharInfoScene::display(){
 			handRect.y = 240;
 		}
 	}
-	if(currentChoice == SKILLS){}
-	if(currentChoice == EQUIPS){}
+	if(currentChoice == SKILLS || mainMenuChoice == 1){
+		SDL_BlitSurface( secondBG, NULL, scene->getScreen(), &secondBGRect);
+		SDL_BlitSurface( status3, NULL, scene->getScreen(), &statusTitleRect);
+	}
+	if(currentChoice == EQUIPS || mainMenuChoice == 2){
+		SDL_BlitSurface( secondBG, NULL, scene->getScreen(), &secondBGRect);
+		SDL_BlitSurface( status3, NULL, scene->getScreen(), &statusTitleRect);
+	}
 	if(currentChoice == OPTIONS || mainMenuChoice == 3){
 		SDL_BlitSurface( status4, NULL, scene->getScreen(), &statusTitleRect);
 		SDL_BlitSurface( optionBg, NULL, scene->getScreen(), &optionBgRect);	

@@ -15,7 +15,12 @@ class CharInfoScene : public Scene{
 	/*text*/  SDL_Surface *currXpTxt, *nextXPTxt, *hpTxt, *mpTxt, *nameTxt; SDL_Rect currXpTxtRect, nextXPTxtRect, hpTxtRect, mpTxtRect, nameTxtRect;
 	/*Stats*/ SDL_Surface *currXp, *nextXP, *hp, *mp, *level; SDL_Rect currXpRect, nextXpRect, hpRect, mpRect, levelRect;
 	SDL_Rect status1Rect, statusTitleRect, bgCharRect, portraitSrcRect, portraitDestRect;
-
+	//skills
+	SDL_Surface *status2;
+	SDL_Rect status2Rect;
+	//equips
+	SDL_Surface *status3;
+	SDL_Rect status3Rect;
 	//option
 	SDL_Surface *status4, *saveTxt, *loadTxt, *quitToMenu, *quitGame, *optionBg;
 	SDL_Rect  saveTxtRect, loadTxtRect, quitToMenuRect, quitGameRect, optionBgRect;
