@@ -33,7 +33,13 @@ BattleScene::BattleScene(){
 	itemLoc.x = 165; itemLoc.y = 485;
 	runLoc.x = 165; runLoc.y = 535;
 	charInfoLoc.x = 0+594; charInfoLoc.y = 0;
-	//player = &Player::getInstance(); //just added this to test the battle sequence
+	player = &Player::getInstance(); //just added this to test the battle sequence
+	//setting up IDLE animations
+	if(player->getType() == Player::LLYOD || player->getType() == Player::NATILIA){
+	player->setAnimation(BattleAnimations::IDLE,"../Images/battle/LloydIdle.bmp",6,10,98,106);
+	for(int i = 5; i > -1; i--)
+		player->getBattleAnimations().setFrame(BattleAnimations::IDLE,5-i,66*i,0,66,player->getBattleAnimations().getIdleImage()->h);
+	}
 	bManager = new BattleHandler();
 	loadMobs();
 }

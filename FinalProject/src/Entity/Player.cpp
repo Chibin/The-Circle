@@ -38,11 +38,6 @@ Player::Player(){
 	velocity = 4;
 	current = playerAnimDown;
 	tempAnim = playerAnimDown->GetFrame();
-
-	//setting up IDLE animations
-	setAnimation(BattleAnimations::IDLE,"../Images/battle/LloydIdle.bmp",6,10,98,106);
-	for(int i = 5; i > -1; i--)
-		getBattleAnimations().setFrame(BattleAnimations::IDLE,5-i,66*i,0,66,getBattleAnimations().getIdleImage()->h);
 }
 SDL_Surface** Player::getPlayerText(){
 	return playerText;
